@@ -3,6 +3,20 @@
 <!DOCTYPE mapper
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	
+
 <mapper namespace = "user">
+
+	<resultMap type="houseVO" id="houseMap">
+		<result column="user_no" property="userNo"/>
+		<result column="house_name" property="houseName"/>
+		<result column="room_cnt" property="roomCnt"/>
+		<result column="hot_start" property="hotStart"/>
+		<result column="hot_end" property="hotEnd"/>
+		<result column="blind_state" property="blindState"/>
+		<result column="reg_date" property="regDate"/>
+	</resultMap>
+	
+	<select id="getHouseDetail" parameterType="int" resultMap="houseMap">
+		select * from house where no=#{no}
+	</select>
 </mapper>
