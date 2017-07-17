@@ -7,17 +7,17 @@ public class HouseVO {
 	private String addr;
 	private String tel;
 	private int roomCnt;
-	private char bbq;
-	private char pool;
-	private char parking;
-	private char singing;
-	private char football;
-	private char pickup;
+	private String bbq;
+	private String pool;
+	private String parking;
+	private String singing;
+	private String football;
+	private String pickup;
 	private String homepage;
 	private String hotStart;
 	private String hotEnd;
 	private String photo;
-	private char blindState;
+	private String blindState;
 	private String checkin;
 	private String checkout;
 	private String content;	
@@ -71,51 +71,51 @@ public class HouseVO {
 		this.roomCnt = roomCnt;
 	}
 
-	public char getBbq() {
+	public String getBbq() {
 		return bbq;
 	}
 
-	public void setBbq(char bbq) {
+	public void setBbq(String bbq) {
 		this.bbq = bbq;
 	}
 
-	public char getPool() {
+	public String getPool() {
 		return pool;
 	}
 
-	public void setPool(char pool) {
+	public void setPool(String pool) {
 		this.pool = pool;
 	}
 
-	public char getParking() {
+	public String getParking() {
 		return parking;
 	}
 
-	public void setParking(char parking) {
+	public void setParking(String parking) {
 		this.parking = parking;
 	}
 
-	public char getSinging() {
+	public String getSinging() {
 		return singing;
 	}
 
-	public void setSinging(char singing) {
+	public void setSinging(String singing) {
 		this.singing = singing;
 	}
 
-	public char getFootball() {
+	public String getFootball() {
 		return football;
 	}
 
-	public void setFootball(char football) {
+	public void setFootball(String football) {
 		this.football = football;
 	}
 
-	public char getPickup() {
+	public String getPickup() {
 		return pickup;
 	}
 
-	public void setPickup(char pickup) {
+	public void setPickup(String pickup) {
 		this.pickup = pickup;
 	}
 
@@ -151,11 +151,11 @@ public class HouseVO {
 		this.photo = photo;
 	}
 
-	public char getBlindState() {
+	public String getBlindState() {
 		return blindState;
 	}
 
-	public void setBlindState(char blindState) {
+	public void setBlindState(String blindState) {
 		this.blindState = blindState;
 	}
 
@@ -190,7 +190,7 @@ public class HouseVO {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "HouseVO [no=" + no + ", userNo=" + userNo + ", houseName=" + houseName + ", addr=" + addr + ", tel="
@@ -200,4 +200,5 @@ public class HouseVO {
 				+ ", checkin=" + checkin + ", checkout=" + checkout + ", content=" + content + ", regDate=" + regDate
 				+ "]";
 	}
+	
 }

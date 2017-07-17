@@ -13,7 +13,7 @@ public class UserDAOImpl implements UserDAO{
 	private SqlSessionTemplate template;
 
 	@Override
-	public HouseVO getHouseDetail(int no) {
-		return template.selectOne("user.getHouseDetail", no);
+	public HouseVO houseDetail(int no) {
+		return template.selectOne("user.houseDetail", no);
 	}
 }

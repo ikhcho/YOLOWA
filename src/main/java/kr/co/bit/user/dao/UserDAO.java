@@ -4,6 +4,6 @@ import kr.co.bit.user.vo.HouseVO;
 
 public interface UserDAO {
 
-	HouseVO getHouseDetail(int no);
+	HouseVO houseDetail(int no);
 
 }

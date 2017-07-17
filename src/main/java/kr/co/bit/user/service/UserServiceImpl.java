@@ -13,7 +13,7 @@ public class UserServiceImpl implements UserService{
 	private UserDAO udao;
 
 	@Override
-	public HouseVO getHouseDetail(int no) {
-		return udao.getHouseDetail(no);
+	public HouseVO houseDetail(int no) {
+		return udao.houseDetail(no);
 	}
 }

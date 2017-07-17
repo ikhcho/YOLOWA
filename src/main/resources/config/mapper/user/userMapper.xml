@@ -16,7 +16,7 @@
 		<result column="reg_date" property="regDate"/>
 	</resultMap>
 	
-	<select id="getHouseDetail" parameterType="int" resultMap="houseMap">
+	<select id="houseDetail" parameterType="int" resultMap="houseMap">
 		select * from house where no=#{no}
 	</select>
 </mapper>

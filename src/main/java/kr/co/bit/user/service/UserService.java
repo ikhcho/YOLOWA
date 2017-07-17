@@ -4,6 +4,6 @@ import kr.co.bit.user.vo.HouseVO;
 
 public interface UserService {
 
-	HouseVO getHouseDetail(int no);
+	HouseVO houseDetail(int no);
 
 }
