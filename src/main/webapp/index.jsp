@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<a href="${ pageContext.request.contextPath }/board/list.do">후기게시판</a>
+	<a href="${ pageContext.request.contextPath }/board/write.do">후기등록</a>
 </body>
 </html>
