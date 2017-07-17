@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="adminVO" type="kr.co.bit.admin.vo.AdminVO" />
+		<typeAlias alias="boardVO" type="kr.co.bit.board.vo.BoardVO" />
+		<typeAlias alias="busiVO" type="kr.co.bit.busi.vo.BusiVO" />
+		<typeAlias alias="dataVO" type="kr.co.bit.data.vo.DataVO" />
+		<typeAlias alias="menuVO" type="kr.co.bit.menu.vo.MenuVO" />
+		<typeAlias alias="userVO" type="kr.co.bit.user.vo.UserVO" />
+		<typeAlias alias="houseVO" type="kr.co.bit.busi.vo.HouseVO" />
+		<typeAlias alias="roomVO" type="kr.co.bit.busi.vo.RoomVO" />
+	</typeAliases>
+</configuration>
