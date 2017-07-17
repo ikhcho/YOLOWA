@@ -10,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.bit.busi.vo.HouseVO;
 import kr.co.bit.user.service.UserService;
 import kr.co.bit.user.vo.UserVO;
 
@@ -82,5 +84,20 @@ public class UserController {
 		return map;
 	}
 	
+	@RequestMapping("/houseDetail.do")
+	public ModelAndView houseDetail(int no) {
+		System.out.println("Controller : " + no);
+		HouseVO house = uService.houseDetail(no);
+		
+		ModelAndView mav = new ModelAndView("detail/houseDetail");
+		mav.addObject(house);
+		
+		return mav;
+	}
 	
+	@RequestMapping("/houseReserve.do")
+	public ModelAndView getPensionInfo() {
+		System.out.println("reserve");
+		return null;		
+	}
 }

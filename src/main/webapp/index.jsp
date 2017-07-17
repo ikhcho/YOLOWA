@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<a href="${ pageContext.request.contextPath }/user/houseDetail.do?no=1">테스튼</a>
 </body>
 </html>
