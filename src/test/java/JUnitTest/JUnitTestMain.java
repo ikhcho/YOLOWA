@@ -1,5 +1,4 @@
 package JUnitTest;
-import javax.servlet.http.HttpServletRequest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,7 +8,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.co.bit.busi.vo.HouseVO;
-import kr.co.bit.user.controller.UserController;
 import kr.co.bit.user.dao.UserDAO;
 import kr.co.bit.user.service.UserService;
 
