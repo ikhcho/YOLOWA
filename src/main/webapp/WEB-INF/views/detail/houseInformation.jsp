@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<div>
+		${ houseVO.content }
+	</div>	
 </body>
 </html>
