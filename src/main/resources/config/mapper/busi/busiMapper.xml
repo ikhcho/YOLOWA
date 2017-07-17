@@ -5,4 +5,30 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace = "busi">
+
+	<sql id="selectHouse">
+		select no, USER_NO as userNo, house_name as houseName, addr, tel, room_cnt as roomCnt,
+			bbq, pool, parking, singing, football, pickup, homepage, hot_start as hotStart, hot_end  as hotEnd,
+			photo, blind_state as blindState,  checkin, checkout, content, to_char(reg_date,'yyyy-MM-dd') as regDate
+		from house
+	</sql>
+	
+	<sql id="selectRoom">
+		select no, HOUSE_NO as houseNo, room_name as roomName, style, room_size as roomSize, person_min as personMin, person_max as personMax,
+				h_week_price as hWeekPrice, h_weekend_price as hWeekendPrice, n_week_price as nWeekPrice,
+				n_weekend_price as nWeekendPrice, over_price as overPrice, content, to_char(reg_date,'yyyy-MM-dd') as regDate
+		from room
+	</sql>
+	
+	<select id="selectHouseList" parameterType="int" resultType="houseVO">
+		<include refid="selectHouse"/>
+		where user_no = #{no}
+		order by no desc
+	</select>
+	
+	<select id="selectRoomList" parameterType="int" resultType="roomVO">
+		<include refid="selectRoom"/>
+		where HOUSE_NO = #{no}
+		order by n_week_price asc
+	</select>
 </mapper>

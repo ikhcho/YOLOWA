@@ -1,5 +1,10 @@
 package kr.co.bit.user.service;
 
+import kr.co.bit.user.vo.UserVO;
+
 public interface UserService {
 
+	public UserVO login(UserVO uvo);
+	public Boolean idCheck(String id);
+	public void register(UserVO uvo);
 }
