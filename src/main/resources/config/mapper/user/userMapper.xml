@@ -5,4 +5,22 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace = "user">
+	<sql id="selectUser">
+		select  no, id, password, name, tel, email, birthday, type, to_char(REG_DATE,'yyyy-MM-dd') as regDate
+		from users
+	</sql>
+	<select id="login" parameterType="userVO" resultType="userVO">
+		<include refid="selectUser"/>
+		where id=#{id} and password=#{password}
+	</select>
+	
+	<select id="idCheck" parameterType="String" resultType="userVO">
+		<include refid="selectUser"/>
+		where id=#{id}
+	</select>
+	
+	<insert id="register" parameterType="userVO">
+		insert into users
+		values(USERS_SEQ.nextVal, #{id}, #{password}, #{name}, #{tel}, #{email}, #{birthday}, 'U', sysdate)
+	</insert>
 </mapper>

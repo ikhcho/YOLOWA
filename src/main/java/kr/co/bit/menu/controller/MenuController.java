@@ -12,4 +12,10 @@ public class MenuController {
 
 	@Autowired
 	private MenuService mService;
+	
+	@RequestMapping("/header.do")
+	public String header(){
+		return "menu/header";
+	}
+	
 }
