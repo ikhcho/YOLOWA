@@ -107,7 +107,7 @@ insert into HOUSE values(HOUSE_SEQ.nextVal, 1, '가평 용추사랑 펜션', '�
 자체 픽업 불가능, 마트 픽업을 이용해주세요.<br/>',sysdate)
 
 select * from HOUSE
-
+delete house where no=22
 insert into room values(ROOM_SEQ.nextval, 1, '무사이 ', '원룸(침대룸+주방+화장실)', '33평', 6, 8, 250000, 260000, 180000, 200000, 10000,
 '구비시설<br/>
 Tv, 침대, 식탁, 에어컨, 냉장고, 취사, 드라이기, 벽난로<br/>

@@ -76,7 +76,7 @@ public class BusiController {
 	
 	@RequestMapping(value="/pension/regHouse.do", method=RequestMethod.POST)
 	public String regHouse(MultipartHttpServletRequest mRequest) throws IllegalStateException, IOException{
-		String uploadDir = servletContext.getRealPath("/WEB-INF/upload/");
+		String uploadDir = servletContext.getRealPath("/upload/");
 		System.out.println(uploadDir);
 		HouseVO houseVO = new HouseVO();
 		houseVO.setUserNo(Integer.parseInt(mRequest.getParameter("userNo")));
@@ -99,6 +99,7 @@ public class BusiController {
 		if(mRequest.getParameter("hotEnd")!=null){
 			houseVO.setHotEnd(mRequest.getParameter("hotEnd"));
 		}
+		houseVO.setBlindState("N");
 		houseVO.setCheckin(mRequest.getParameter("checkin"));
 		houseVO.setCheckout(mRequest.getParameter("checkout"));
 		houseVO.setContent(mRequest.getParameter("content"));
@@ -132,7 +133,7 @@ public class BusiController {
 			} 
 		} 
 		System.out.println(houseVO);
-		bService.inserHouse(houseVO);
+		bService.insertHouse(houseVO);
 		
 		return "busi/regHouse";
 	}

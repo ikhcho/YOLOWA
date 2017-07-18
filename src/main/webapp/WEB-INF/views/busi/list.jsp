@@ -89,7 +89,7 @@
                             </div>
                             <div class="block-content collapse in">
                                 <div class="span3">
-                                	<img src="${pageContext.request.contextPath}/resources/images/github-logo.png">
+                                	<img src="${pageContext.request.contextPath}/upload/${house.photo}">
                                 </div>
                                 <div class="span9">
                                 	<table>

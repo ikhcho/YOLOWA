@@ -26,7 +26,7 @@ public class BusiDAOImpl implements BusiDAO{
 	}
 
 	@Override
-	public void inserHouse(HouseVO houseVO) {
+	public void insertHouse(HouseVO houseVO) {
 		// TODO Auto-generated method stub
 		template.insert("busi.insertHouse", houseVO);
 	}

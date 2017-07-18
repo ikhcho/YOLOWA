@@ -32,9 +32,9 @@
 		order by n_week_price asc
 	</select>
 	
-	<insert id="inserHouse" parameterType="houseVO">
+	<insert id="insertHouse" parameterType="houseVO">
 		insert into house
-		values(HOUSE_SEQ.nextVal,#{no}, #{userNo), #{houseName}, #{addr}, #{tel}, #{roomCnt}, #{bbq}, #{pool}, #{parking}, #{singing},
-				#{football}, #{pickup}, #{homepage}, #{hotStart}, #{hotEnd}, #{photo}, #{blindState}, #{checkin}, #{checkout}, #{content})
+		values(HOUSE_SEQ.nextVal, #{userNo}, #{houseName}, #{addr}, #{tel}, #{roomCnt}, #{bbq}, #{pool}, #{parking}, #{singing},
+				#{football}, #{pickup}, #{homepage}, #{hotStart}, #{hotEnd}, #{photo}, #{blindState}, #{checkin}, #{checkout}, #{content}, sysdate)
 	</insert>
 </mapper>

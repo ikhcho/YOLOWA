@@ -28,9 +28,9 @@ public class BusiServiceImpl implements BusiService{
 	}
 
 	@Override
-	public void inserHouse(HouseVO houseVO) {
+	public void insertHouse(HouseVO houseVO) {
 		// TODO Auto-generated method stub
-		bdao.inserHouse(houseVO);
+		bdao.insertHouse(houseVO);
 	}
 	
 	
