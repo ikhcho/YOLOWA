@@ -14,7 +14,11 @@ public interface BusiService {
 	public void insertHouse(HouseVO houseVO);
 	public void deleteHouse(int no);
 	public void insertRoom(RoomVO roomVO);
+	public RoomVO selectRoomByNo(int no);
+	public void updateRoom(RoomVO roomVO);
+	public void deleteRoom(int no);
 	public int findRoomNo(Map<String, String> map);
 	public void insertRoomPhoto(RoomPhotoVO roomPhotoVO);
+	public List<RoomPhotoVO> selectRoomPhotoList(int no);
 	
 }

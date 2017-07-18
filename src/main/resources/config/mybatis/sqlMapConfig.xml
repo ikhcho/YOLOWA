@@ -9,8 +9,9 @@
 		<typeAlias alias="busiVO" type="kr.co.bit.busi.vo.BusiVO" />
 		<typeAlias alias="dataVO" type="kr.co.bit.data.vo.DataVO" />
 		<typeAlias alias="menuVO" type="kr.co.bit.menu.vo.MenuVO" />
-		<typeAlias alias="userVO" type="kr.co.bit.user.vo.UserVO" />
 		<typeAlias alias="houseVO" type="kr.co.bit.busi.vo.HouseVO" />
+		<typeAlias alias="homeListVO" type="kr.co.bit.user.vo.HomeListVO" />
+		<typeAlias alias="userVO" type="kr.co.bit.user.vo.UserVO" />
 		<typeAlias alias="roomVO" type="kr.co.bit.busi.vo.RoomVO" />
 		<typeAlias alias="roomPhotoVO" type="kr.co.bit.busi.vo.RoomPhotoVO" />
 	

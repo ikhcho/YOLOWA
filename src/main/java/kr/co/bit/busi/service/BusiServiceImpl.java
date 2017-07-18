@@ -49,6 +49,24 @@ public class BusiServiceImpl implements BusiService{
 
 	
 	@Override
+	public RoomVO selectRoomByNo(int no) {
+		// TODO Auto-generated method stub
+		return bdao.selectRoomByNo(no);
+	}
+
+	@Override
+	public void updateRoom(RoomVO roomVO) {
+		// TODO Auto-generated method stub
+		bdao.updateRoom(roomVO);
+	}
+
+	@Override
+	public void deleteRoom(int no) {
+		// TODO Auto-generated method stub
+		bdao.deleteRoom(no);
+	}
+
+	@Override
 	public int findRoomNo(Map<String, String> map) {
 		return bdao.findRoomNo(map);
 	}
@@ -57,6 +75,12 @@ public class BusiServiceImpl implements BusiService{
 	public void insertRoomPhoto(RoomPhotoVO roomPhotoVO) {
 		// TODO Auto-generated method stub
 		bdao.insertRoomPhoto(roomPhotoVO);
+	}
+
+	@Override
+	public List<RoomPhotoVO> selectRoomPhotoList(int no) {
+		// TODO Auto-generated method stub
+		return bdao.selectRoomPhotoList(no);
 	}
 	
 	

@@ -7,8 +7,9 @@ select * from USER_CATEGORY
 insert into users values(USERS_SEQ.nextVal, 'yolowa', 'yolowa', '욜로와', '01012345678', 'yolowa@gmail.com', '2017-07-14', 'B', sysdate)
 insert into users values(USERS_SEQ.nextVal, 'businessman', '1234', '사업자1', '01012345678', 'yolowa@gmail.com', '2017-07-17', 'B', sysdate)
 
-
 select * from users 
+
+update users set type='B' where no =61
 
 insert into HOUSE values(HOUSE_SEQ.nextVal, 1, '양평 풍경속선물 펜션', '경기 양평군 양평읍 덕바위길 93', '02-307-5173', 6, 'Y', 'Y', 'Y', 'N', 'N', 'Y', '','2017-07-04','2017-08-16', '', 'N', '14시 이후', '12시 이전',
 '안녕하세요 양평 최고의 절경을 자랑하는 풍경속선물 펜션을 여러분에게 소개합니다.<br/><br/>풍경속선물 펜션은 뒤로는 유명산과 용문산이 감싸고 있으며 전면으로는 양평의 최고 절경이라고 할 수 있는 오빈리 남산 정상부에 위치하여 남한강과 양평시내를 한 눈에 볼 수 있는 펜션이라고 말씀 드릴 수 있습니다. 

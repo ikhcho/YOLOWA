@@ -186,7 +186,7 @@ public class BusiController {
 		bService.insertRoom(roomVO);
 		
 		//RoomPhoto를 등록하기위해 저장한 room 번호 조회 
-		Map<String,String> map = new HashMap<>();
+		Map<String,String> map = new HashMap<String,String>();
 		map.put("houseNo", mRequest.getParameter("houseNo"));
 		map.put("roomName", roomVO.getRoomName());
 		int roomNo = bService.findRoomNo(map);
@@ -224,6 +224,94 @@ public class BusiController {
 				bService.insertRoomPhoto(roomPhotoVO);
 			} 
 		} 
+		
+		return "redirect:/busi/pension/list.do";
+	}
+	
+	@RequestMapping(value="/pension/updateRoom.do", method=RequestMethod.GET)
+	public String updateRoom(int no, Model model){
+		RoomVO roomVO = bService.selectRoomByNo(no);
+		List<RoomPhotoVO> photoList = bService.selectRoomPhotoList(no);  
+		model.addAttribute("roomVO", roomVO);
+		model.addAttribute("roomPhotoList", photoList);
+		return "busi/updateRoom";
+	}
+	
+	@RequestMapping(value="/pension/updateRoom.do", method=RequestMethod.POST)
+	public String updateRoom(MultipartHttpServletRequest mRequest) throws IllegalStateException, IOException{
+		String uploadDir = servletContext.getRealPath("/upload/");
+		RoomVO roomVO = new RoomVO();
+		roomVO.setNo(Integer.parseInt(mRequest.getParameter("no")));
+		roomVO.setRoomName(mRequest.getParameter("roomName"));
+		roomVO.setStyle(mRequest.getParameter("style"));
+		roomVO.setRoomSize(mRequest.getParameter("roomSize"));
+		roomVO.setPersonMin(Integer.parseInt(mRequest.getParameter("personMin")));
+		roomVO.setPersonMax(Integer.parseInt(mRequest.getParameter("personMax")));
+		if(!mRequest.getParameter("hWeekPrice").equals("")){
+			roomVO.sethWeekPrice(Integer.parseInt(mRequest.getParameter("hWeekPrice")));
+		}
+		if(!mRequest.getParameter("hWeekendPrice").equals("")){
+			roomVO.sethWeekendPrice(Integer.parseInt(mRequest.getParameter("hWeekendPrice")));
+		}
+		if(!mRequest.getParameter("nWeekPrice").equals("")){
+			roomVO.setnWeekPrice(Integer.parseInt(mRequest.getParameter("nWeekPrice")));
+		}
+		if(!mRequest.getParameter("nWeekendPrice").equals("")){
+			roomVO.setnWeekendPrice(Integer.parseInt(mRequest.getParameter("nWeekendPrice")));
+		}
+		if(!mRequest.getParameter("overPrice").equals("")){
+			roomVO.setOverPrice(Integer.parseInt(mRequest.getParameter("overPrice")));
+		}
+		roomVO.setContent(mRequest.getParameter("content"));
+		System.out.println(roomVO);
+		bService.updateRoom(roomVO);
+		
+		//RoomPhoto를 등록하기위해 저장한 room 번호 조회 
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("houseNo", mRequest.getParameter("houseNo"));
+		map.put("roomName", roomVO.getRoomName());
+		int roomNo = bService.findRoomNo(map);
+		
+		Iterator<String> iter = mRequest.getFileNames();
+		String formFileName = iter.next();
+		// 폼에서 파일을 선택하지 않아도 객체 생성됨
+		List<MultipartFile> mFile = mRequest.getFiles(formFileName);
+		for(MultipartFile file : mFile) {
+			// 원본 파일명
+			String oriFileName = file.getOriginalFilename();
+			System.out.println(oriFileName);
+			
+			if(oriFileName != null && !oriFileName.equals("")) {
+				// 확장자 처리
+				String ext = "";
+				// 뒤쪽에 있는 . 의 위치 
+				int index = oriFileName.lastIndexOf(".");
+				if (index != -1) {
+					// 파일명에서 확장자명(.포함)을 추출
+					ext = oriFileName.substring(index);
+				}
+				
+				// 파일 사이즈
+				long fileSize = file.getSize();
+				
+				// 고유한 파일명 만들기	
+				String saveFileName = "mlec-" + UUID.randomUUID().toString() + ext;
+				// 임시저장된 파일을 원하는 경로에 저장
+				file.transferTo(new File(uploadDir + saveFileName));
+				
+				RoomPhotoVO roomPhotoVO = new RoomPhotoVO();
+				roomPhotoVO.setRoomNo(roomNo);
+				roomPhotoVO.setPhoto(saveFileName);
+				bService.insertRoomPhoto(roomPhotoVO);
+			} 
+		} 
+		
+		return "redirect:/busi/pension/list.do";
+	}
+	
+	@RequestMapping(value="/pension/deleteRoom.do", method=RequestMethod.GET)
+	public String deleteRoom(int no){
+		bService.deleteRoom(no);
 		
 		return "redirect:/busi/pension/list.do";
 	}

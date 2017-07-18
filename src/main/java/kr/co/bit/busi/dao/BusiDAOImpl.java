@@ -46,6 +46,24 @@ public class BusiDAOImpl implements BusiDAO{
 	}
 
 	@Override
+	public RoomVO selectRoomByNo(int no) {
+		// TODO Auto-generated method stub
+		return template.selectOne("busi.selectRoomByNo", no);
+	}
+
+	@Override
+	public void updateRoom(RoomVO roomVO) {
+		// TODO Auto-generated method stub
+		template.update("busi.updateRoom", roomVO);
+	}
+
+	@Override
+	public void deleteRoom(int no) {
+		// TODO Auto-generated method stub
+		template.delete("busi.deleteRoom", no);
+	}
+
+	@Override
 	public int findRoomNo(Map<String, String> map) {
 		// TODO Auto-generated method stub
 		return template.selectOne("busi.findRoomNo", map);
@@ -55,6 +73,12 @@ public class BusiDAOImpl implements BusiDAO{
 	public void insertRoomPhoto(RoomPhotoVO roomPhotoVO) {
 		// TODO Auto-generated method stub
 		template.insert("busi.insertRoomPhoto", roomPhotoVO);
+	}
+
+	@Override
+	public List<RoomPhotoVO> selectRoomPhotoList(int no) {
+		// TODO Auto-generated method stub
+		return template.selectList("busi.selectRoomPhotoList", no);
 	}
 	
 	

@@ -37,4 +37,12 @@
 	<select id="houseDetail" parameterType="int" resultMap="houseMap">
 		select * from house where no=#{no}
 	</select>
+	
+	<select id="houseList" resultType="homeListVO">
+		select house.no, house_name as houseName, addr, bbq, pool, parking, singing, football, pickup, photo, blind_state as blindState, price
+		from house , (select house_no, min(room.n_week_price) as price
+						from room
+						group by house_no) room
+		where house.no = room.house_no
+	</select>
 </mapper>
