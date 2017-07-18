@@ -6,12 +6,14 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import kr.co.bit.busi.vo.HouseVO;
 import kr.co.bit.user.dao.UserDAO;
 import kr.co.bit.user.service.UserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
 @ContextConfiguration("classpath:config/**/*.xml")
 public class JUnitTestMain {
 
