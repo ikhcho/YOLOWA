@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html PUBLIC>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -41,17 +41,33 @@
 								<div class="navbar-inner">
 									<div class="container">
 										<ul class="nav nav-pills">
-											<c:forEach items="${ list }" var="roomName">
-												<li><a href="#tab${ roomName.no }" data-toggle="tab">${ roomName.roomName }</a></li>
+											<c:forEach items="${ list }" var="roomName"
+												varStatus="status">
+												<c:choose>
+													<c:when test="${status.first }">
+														<li class="active"><a href="#tab${ roomName.no }"
+															data-toggle="tab">${ roomName.roomName }</a></li>
+													</c:when>
+													<c:otherwise>
+														<li><a href="#tab${ roomName.no }" data-toggle="tab">${ roomName.roomName }</a></li>
+													</c:otherwise>
+												</c:choose>
 											</c:forEach>
 										</ul>
 									</div>
 								</div>
 							</div>
 							<div class="tab-content">
-								<c:forEach items="${ list }" var="roomInfo">
+								<c:forEach items="${ list }" var="roomInfo" varStatus="status">
 									<!--  이미지 영역 -->
-									<div class="tab-pane" id="tab${ roomInfo.no }">
+									<c:choose>
+										<c:when test="${status.first }">
+											<div class="tab-pane active" id="tab${ roomInfo.no }">
+										</c:when>
+										<c:otherwise>
+											<div class="tab-pane" id="tab${ roomInfo.no }">
+										</c:otherwise>
+									</c:choose>
 										<div class="block-content collapse in">
 											<table class="table table-bordered">
 												<tr>
@@ -78,7 +94,8 @@
 													<td>${ roomInfo.nWeekPrice }</td>
 													<td>${ roomInfo.nWeekendPrice }</td>
 													<td rowspan="2">${ roomInfo.overPrice }</td>
-													<td rowspan="2">예약하기</td>
+													<td rowspan="2"><a
+														href="${ pageContext.request.contextPath }/user/houseReserve.do"><button>예약하기</button></a></td>
 												</tr>
 												<tr>
 													<td>성수기</td>
