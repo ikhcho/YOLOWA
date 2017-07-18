@@ -49,11 +49,13 @@
 								page="${ pageContext.request.contentType }/detail/${houseVO.no}/roomInfo.do" />
 						</div>
 						<div class="tab-pane" id="tabb">
-							<jsp:include page="houseInformation.jsp" />
+							<jsp:include page="houseInfo.jsp" />
 						</div>
 						<div class="tab-pane" id="tabc"></div>
 						<div class="tab-pane" id="tabd"></div>
-						<div class="tab-pane" id="tabe"></div>
+						<div class="tab-pane" id="tabe">
+							<jsp:include page="useInfo.jsp" />
+						</div>
 					</div>
 				</div>
 			</div>

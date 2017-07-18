@@ -23,11 +23,9 @@ public class DetailServiceImpl implements DetailService {
 		return detailDAO.roomNameList(no);
 	}
 
-	@Override
+	/*@Override
 	public HouseVO houseDetail(int no) {
-		// TODO Auto-generated method stub
 		return detailDAO.houseDetail(no);
-	}
-	
+	}	*/
 	
 }
