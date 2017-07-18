@@ -35,6 +35,12 @@
 				}
 			});
 		}
+		function houseDel(no){
+			var text = prompt('\"지금삭제\"를 입력하시면 삭제됩니다.\n 삭제된 데이터는 복구할 수 없습니다.');
+			if(text=='지금삭제'){
+				location.href="${pageContext.request.contextPath}/busi/pension/deleteHouse.do?no="+no;
+			}
+		}
 	</script>
 </head>
 <body>
@@ -75,7 +81,7 @@
 				<div class="row-fluid">
 					<div class="btn-group pull-right">
 						<a href="${pageContext.request.contextPath}/busi/pension/regHouse.do">
-							<button class="btn btn-success"> Add New <i class="icon-plus icon-white"></i></button>
+							<button class="btn btn-success"> 펜션추가 <i class="icon-plus icon-white"></i></button>
 						</a>
 					</div>
 				</div>
@@ -86,26 +92,40 @@
                         <div class="block">
                             <div class="navbar navbar-inner block-header">
                                 <div class="muted pull-left">${house.houseName }</div>
+                                <div class="btn-group pull-right">
+                                	<a>
+										<button class="btn btn-danger" onclick="houseDel(${house.no})"> 삭제 <i class="icon-remove icon-white"></i></button>
+									</a>
+								</div>
                             </div>
                             <div class="block-content collapse in">
                                 <div class="span3">
                                 	<img src="${pageContext.request.contextPath}/upload/${house.photo}">
                                 </div>
                                 <div class="span9">
-                                	<table>
-                                		<tr>
-                                			<th>상세주소</th>
-                                			<td>${house.addr }</td>
-                                		</tr>
-                                		<tr>
-                                			<th>전화번호</th>
-                                			<td>${house.tel }</td>
-                                		</tr>
-                                		<tr>
-                                			<th>홈페이지주소</th>
-                                			<td>${house.homepage }</td>
-                                		</tr>
-                                	</table>
+									<div class="row-fluid">
+	                                	<table>
+	                                		<tr>
+	                                			<th>상세주소</th>
+	                                			<td>${house.addr }</td>
+	                                		</tr>
+	                                		<tr>
+	                                			<th>전화번호</th>
+	                                			<td>${house.tel }</td>
+	                                		</tr>
+	                                		<tr>
+	                                			<th>홈페이지주소</th>
+	                                			<td>${house.homepage }</td>
+	                                		</tr>
+	                                	</table>
+	                                </div>
+	                                <div class="row-fluid">
+	                                	<div class="pull-right">
+		                                	<a href="${pageContext.request.contextPath}/busi/pension/regRoom.do?no=${house.no}">
+												<button class="btn btn-success"> 객실추가 <i class="icon-plus icon-white"></i></button>
+											</a>
+										</div>
+									</div>
                                 </div>
                                 <div class="row-fluid">
                                 <div class="span12">

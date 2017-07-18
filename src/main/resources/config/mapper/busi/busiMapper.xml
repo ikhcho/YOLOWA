@@ -37,4 +37,26 @@
 		values(HOUSE_SEQ.nextVal, #{userNo}, #{houseName}, #{addr}, #{tel}, #{roomCnt}, #{bbq}, #{pool}, #{parking}, #{singing},
 				#{football}, #{pickup}, #{homepage}, #{hotStart}, #{hotEnd}, #{photo}, #{blindState}, #{checkin}, #{checkout}, #{content}, sysdate)
 	</insert>
+	
+	<delete id="deleteHouse" parameterType="int">
+		delete from house
+		where no =#{no}
+	</delete>
+	
+	<insert id="insertRoom" parameterType="roomVO">
+		insert into room
+		values(ROOM_SEQ.nextVal, #{houseNo}, #{roomName}, #{style}, #{roomName}, #{personMin}, #{personMax}, #{hWeekPrice}, #{hWeekendPrice},
+				#{nWeekPrice}, #{nWeekendPrice}, #{overPrice}, #{content}, sysdate)
+	</insert>
+	
+	<select id="findRoomNo" parameterType="java.util.Map" resultType="int">
+		select no
+		from room
+		where house_no = ${houseNo} and room_name = #{roomName}
+	</select>
+	
+	<insert id="insertRoomPhoto" parameterType="roomPhotoVO">
+		insert into room_photo
+		values(ROOM_PHOTO_SEQ.nextVal, #{roomNo}, #{photo})
+	</insert>
 </mapper>

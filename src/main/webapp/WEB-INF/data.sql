@@ -230,3 +230,4 @@ insert into room values(ROOM_SEQ.nextval, 2, '사랑채(복층)', '복층(침대
 테라스는 있으나 테라스에서 바베큐가 불가능합니다.<br/>', sysdate)
 
 select * from room
+select * from ROOM_PHOTO

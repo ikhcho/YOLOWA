@@ -1,12 +1,14 @@
 package kr.co.bit.busi.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.bit.busi.vo.HouseVO;
+import kr.co.bit.busi.vo.RoomPhotoVO;
 import kr.co.bit.busi.vo.RoomVO;
 
 @Repository
@@ -29,6 +31,30 @@ public class BusiDAOImpl implements BusiDAO{
 	public void insertHouse(HouseVO houseVO) {
 		// TODO Auto-generated method stub
 		template.insert("busi.insertHouse", houseVO);
+	}
+
+	@Override
+	public void deleteHouse(int no) {
+		// TODO Auto-generated method stub
+		template.delete("busi.deleteHouse", no);
+	}
+
+	@Override
+	public void insertRoom(RoomVO roomVO) {
+		// TODO Auto-generated method stub
+		template.insert("busi.insertRoom", roomVO);
+	}
+
+	@Override
+	public int findRoomNo(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		return template.selectOne("busi.findRoomNo", map);
+	}
+
+	@Override
+	public void insertRoomPhoto(RoomPhotoVO roomPhotoVO) {
+		// TODO Auto-generated method stub
+		template.insert("busi.insertRoomPhoto", roomPhotoVO);
 	}
 	
 	
