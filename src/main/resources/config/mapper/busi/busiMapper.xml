@@ -31,4 +31,14 @@
 		where HOUSE_NO = #{no}
 		order by n_week_price asc
 	</select>
+	
+	<select id="selectOneRoom" parameterType="int" resultType="roomVO">
+		<include refid="selectRoom"/>
+		where no = #{no}
+	</select>
+	
+	<select id="selectOneHouse" parameterType="int" resultType="roomVO">
+		<include refid="selectRoom"/>
+		where house_no = #{no}
+	</select>
 </mapper>
