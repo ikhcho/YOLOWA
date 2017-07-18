@@ -24,6 +24,12 @@ public class BusiDAOImpl implements BusiDAO{
 	public List<RoomVO> selectRoomList(int no) {
 		return template.selectList("busi.selectRoomList", no);
 	}
+
+	@Override
+	public void inserHouse(HouseVO houseVO) {
+		// TODO Auto-generated method stub
+		template.insert("busi.insertHouse", houseVO);
+	}
 	
 	
 }

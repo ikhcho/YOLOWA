@@ -132,6 +132,8 @@ public class BusiController {
 			} 
 		} 
 		System.out.println(houseVO);
+		bService.inserHouse(houseVO);
+		
 		return "busi/regHouse";
 	}
 	

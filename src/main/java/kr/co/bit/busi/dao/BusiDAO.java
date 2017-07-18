@@ -9,4 +9,5 @@ public interface BusiDAO {
 
 	public List<HouseVO> selectHouseList(int no);
 	public List<RoomVO> selectRoomList(int no);
+	public void inserHouse(HouseVO houseVO);
 }

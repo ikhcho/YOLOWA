@@ -26,6 +26,14 @@ public class BusiServiceImpl implements BusiService{
 		// TODO Auto-generated method stub
 		return bdao.selectRoomList(no);
 	}
+
+	@Override
+	public void inserHouse(HouseVO houseVO) {
+		// TODO Auto-generated method stub
+		bdao.inserHouse(houseVO);
+	}
+	
+	
 	
 	
 }
