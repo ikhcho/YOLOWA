@@ -35,7 +35,7 @@
 					<ul class="nav">
 						<li class="active"><a href="${pageContext.request.contextPath}/busi/home.do">대시보드</a></li>
 						<li><a href="${pageContext.request.contextPath}/busi/pension/list.do">펜션정보 </a></li>
-						<li><a href="${pageContext.request.contextPath}/busi/home.do">예약사이트 </a></li>
+						<li><a href="${pageContext.request.contextPath}/user/home.do">예약사이트 </a></li>
 					</ul>
 				</div>
 				<!--/.nav-collapse -->

@@ -3,18 +3,20 @@
     background-color: #2874f0;
     color: #FFFFFF;
     width : 100%;
+    padding-bottom:20px;
+    z-index:2;
 }
 
 div.page-wrapper{
 	position:relative;
-	top:155px;
+	top:175px;
 	width : 100%;
 }
 
 div#filter{
 	position:relative;
 	width : 100%;
-	top:145px;
+	top:165px;
 	background-color: #4AF0E4;
 }
 
@@ -86,6 +88,7 @@ li.upper-links {
 	right: 50px;
 	margin: 20px 0;
 	z-index:10;
+	width:260px;
 	background-color: #287FF0;
 }
 

@@ -315,4 +315,11 @@ public class BusiController {
 		
 		return "redirect:/busi/pension/list.do";
 	}
+	
+	@RequestMapping(value="/pension/roomPhotoList.do", method=RequestMethod.POST)
+	@ResponseBody
+	public List<RoomPhotoVO> roomPhotoList(int no){
+		return bService.selectRoomPhotoList(no);
+	}
+	
 }

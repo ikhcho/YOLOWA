@@ -23,7 +23,27 @@
 		<div id="rootwizard">
 			<div class="tab-content">
 				<c:forEach items="${ list }" var="roomInfo" varStatus="status">
-					<!--  이미지 영역 -->
+					<script>
+						$(function(){
+							var roomNo = '${ roomInfo.no }';
+							$.ajax({
+								url : '/Yolowa/busi/pension/roomPhotoList.do',
+								type : 'post',
+								data : {
+									'no' : roomNo
+								},
+								contentType : 'application/x-www-form-urlencoded; charset=utf-8',
+								success : function(data){
+									var obj = JSON.parse(data);
+									var selector = "#tab"+roomNo;
+									for(var i=0; i<obj.length; i++){
+										var text = '<img src="/upload/'+obj[i].photo+'">';
+										$(selector).prepend(text);
+									}
+								}
+							});
+						});
+					</script>
 					<c:choose>
 						<c:when test="${status.first }">
 							<div class="tab-pane active" id="tab${ roomInfo.no }">

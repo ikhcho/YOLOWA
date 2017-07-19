@@ -88,16 +88,13 @@
 													<img src="${pageContext.request.contextPath }/upload/${houseVO.photo}" alt="project" />
 												</c:if>
 												<c:if test="${houseVO.photo == null}">
-													<img src="${pageContext.request.contextPath }/resources/images/no-image.png" alt="project" />
+													<img src="${pageContext.request.contextPath }/resources/images/noImage.png" alt="project" />
 												</c:if>
-												<span class="pull-left blue-text"><h4>${houseVO.houseName}</h4></span>
-												<br/>
-												<span class="pull-left red-text"><h4>최저가 ${houseVO.price}</h4></span>
 												<div class="project-info">
 													<div class="project-details">
-														<h5 class="white-text red-border-bottom">${houseVO.houseName}</h5>
+														<h5 class="white-text red-border-bottom"><strong>${houseVO.houseName}</strong></h5>
 														<div class="details white-text">
-															${houseVO.addr }
+															최저가 ${houseVO.price}
 														</div>
 													</div>
 												</div>
