@@ -32,6 +32,58 @@
 		order by n_week_price asc
 	</select>
 	
+	<insert id="insertHouse" parameterType="houseVO">
+		insert into house
+		values(HOUSE_SEQ.nextVal, #{userNo}, #{houseName}, #{addr}, #{tel}, #{roomCnt}, #{bbq}, #{pool}, #{parking}, #{singing},
+				#{football}, #{pickup}, #{homepage}, #{hotStart}, #{hotEnd}, #{photo}, #{blindState}, #{checkin}, #{checkout}, #{content}, sysdate)
+	</insert>
+	
+	<delete id="deleteHouse" parameterType="int">
+		delete from house
+		where no =#{no}
+	</delete>
+	
+	<insert id="insertRoom" parameterType="roomVO">
+		insert into room
+		values(ROOM_SEQ.nextVal, #{houseNo}, #{roomName}, #{style}, #{roomName}, #{personMin}, #{personMax}, #{hWeekPrice}, #{hWeekendPrice},
+				#{nWeekPrice}, #{nWeekendPrice}, #{overPrice}, #{content}, sysdate)
+	</insert>
+	
+	<select id="selectRoomByNo" parameterType="int" resultType="roomVO">
+		<include refid="selectRoom"/>
+		where no = #{no}
+	</select>
+	
+	<update id="updateRoom" parameterType="roomVO">
+		update roomVO
+		set HOUSE_NO = #{houseNo}, room_name = #{roomName}, style = #{style}, room_size = #{roomSize}, person_min = #{personMin},
+			person_max = #{personMax}, h_week_price = #{hWeekPrice}, h_weekend_price = #{hWeekendPrice}, n_week_price = #{nWeekPrice},
+			n_weekend_price = #{nWeekendPrice}, over_price = #{overPrice}, content = #{content}
+		where no=#{no}	
+	</update>
+	
+	<delete id="deleteRoom" parameterType="int">
+		delete from room
+		where no =#{no}
+	</delete>
+	
+	<select id="findRoomNo" parameterType="java.util.Map" resultType="int">
+		select no
+		from room
+		where house_no = ${houseNo} and room_name = #{roomName}
+	</select>
+	
+	<insert id="insertRoomPhoto" parameterType="roomPhotoVO">
+		insert into room_photo
+		values(ROOM_PHOTO_SEQ.nextVal, #{roomNo}, #{photo})
+	</insert>
+	
+	<select id="selectRoomPhotoList" parameterType="int" resultType="roomPhotoVO">
+		select no, room_no as roomNo, photo
+		from room_photo
+		where room_no = #{no}
+	</select>
+	
 	<select id="selectOneRoom" parameterType="int" resultType="roomVO">
 		<include refid="selectRoom"/>
 		where no = #{no}

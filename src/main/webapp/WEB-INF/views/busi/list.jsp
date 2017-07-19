@@ -26,14 +26,31 @@
 					var text = ''
 					for(var i=0; i<obj.length; i++){
 						var id = '#house_'+houseNo;
-						var text = '<tr><td>' + obj[i].roomName + '</td><td>' + obj[i].style + '</td><td>' + obj[i].roomSize + '</td><td>'
-									+ obj[i].personMin + '/' + obj[i].personMax + '</td><td>' + obj[i].nWeekPrice + '</td><td>'
-									+ obj[i].nWeekendPrice + '</td><td>' + obj[i].hWeekPrice + '</td><td>' + obj[i].hWeekendPrice + '</td></tr>';
+						var text = '<tr><td rowspan="2">' + obj[i].roomName + '</td><td rowspan="2">' + obj[i].style + '</td><td rowspan="2">' + obj[i].roomSize 
+									+ '</td><td rowspan="2">' + obj[i].personMin + '/' + obj[i].personMax + '</td><td>' + '비수기' 
+									+ '</td><td>' + obj[i].nWeekPrice + '</td><td>' + obj[i].nWeekendPrice + '</td><td rowspan="2">'
+									+ '<a href="${pageContext.request.contextPath}/busi/pension/updateRoom.do?no='+ obj[i].no +'">'
+									+ '<button class="btn btn-info"><i class="icon-pencil icon-white"></i></button></a>' + '</td><td rowspan="2">'
+									+ '<a><button class="btn btn-danger" onclick="roomDel(' + obj[i].no + ')">'
+									+ '<i class="icon-remove icon-white"></i></button>' + '</td></tr>'
+									+ '<tr><td>' + '성수기' + '</td><td>' + obj[i].hWeekPrice + '</td><td>' + obj[i].hWeekendPrice + '</td></tr>';
 						$(id).append(text);
 					}
 					console.log(obj);
 				}
 			});
+		}
+		function houseDel(no){
+			var text = prompt('\"지금삭제\"를 입력하시면 삭제됩니다.\n 삭제된 데이터는 복구할 수 없습니다.');
+			if(text=='지금삭제'){
+				location.href="${pageContext.request.contextPath}/busi/pension/deleteHouse.do?no="+no;
+			}
+		}
+		function roomDel(no){
+			var text = prompt('\"지금삭제\"를 입력하시면 삭제됩니다.\n 삭제된 데이터는 복구할 수 없습니다.');
+			if(text=='지금삭제'){
+				location.href="${pageContext.request.contextPath}/busi/pension/deleteRoom.do?no="+no;
+			}
 		}
 	</script>
 </head>
@@ -75,7 +92,7 @@
 				<div class="row-fluid">
 					<div class="btn-group pull-right">
 						<a href="${pageContext.request.contextPath}/busi/pension/regHouse.do">
-							<button class="btn btn-success"> Add New <i class="icon-plus icon-white"></i></button>
+							<button class="btn btn-success"> 펜션추가 <i class="icon-plus icon-white"></i></button>
 						</a>
 					</div>
 				</div>
@@ -86,26 +103,33 @@
                         <div class="block">
                             <div class="navbar navbar-inner block-header">
                                 <div class="muted pull-left">${house.houseName }</div>
+                                <div class="btn-group pull-right">
+                                	<a>
+										<button class="btn btn-danger" onclick="houseDel(${house.no})"> 삭제 <i class="icon-remove icon-white"></i></button>
+									</a>
+								</div>
                             </div>
                             <div class="block-content collapse in">
                                 <div class="span3">
-                                	<img src="${pageContext.request.contextPath}/resources/images/github-logo.png">
+                                	<img src="${pageContext.request.contextPath}/upload/${house.photo}">
                                 </div>
                                 <div class="span9">
-                                	<table>
-                                		<tr>
-                                			<th>상세주소</th>
-                                			<td>${house.addr }</td>
-                                		</tr>
-                                		<tr>
-                                			<th>전화번호</th>
-                                			<td>${house.tel }</td>
-                                		</tr>
-                                		<tr>
-                                			<th>홈페이지주소</th>
-                                			<td>${house.homepage }</td>
-                                		</tr>
-                                	</table>
+									<div class="row-fluid">
+	                                	<table>
+	                                		<tr>
+	                                			<th>상세주소</th>
+	                                			<td>${house.addr }</td>
+	                                		</tr>
+	                                		<tr>
+	                                			<th>전화번호</th>
+	                                			<td>${house.tel }</td>
+	                                		</tr>
+	                                		<tr>
+	                                			<th>홈페이지주소</th>
+	                                			<td>${house.homepage }</td>
+	                                		</tr>
+	                                	</table>
+	                                </div>
                                 </div>
                                 <div class="row-fluid">
                                 <div class="span12">
@@ -114,14 +138,18 @@
 											<table class="table table-striped" >
 												<thead>
 													<tr>
-														<th>객실명</th>
-														<th>객실 형태(스타일)</th>
-														<th>크기</th>
-														<th>인원(기준/최대)</th>
-														<th>비수기 주중요금</th>
-														<th>비수기 주말요금</th>
-														<th>성수기 주중요금</th>
-														<th>성수기 주말요금</th>
+														<th><p>객실명</p></th>
+														<th><p>객실 형태(스타일)</p></th>
+														<th><p>크기</p></th>
+														<th><p>인원(기준/최대)</p></th>
+														<th><p>기간</p></th>
+														<th><p>주중요금</p></th>
+														<th><p>주말요금</p></th>
+														<th colspan="2">
+															<a href="${pageContext.request.contextPath}/busi/pension/regRoom.do?no=${house.no}">
+																<button class="btn btn-success"> 객실추가 <i class="icon-plus icon-white"></i></button>
+															</a>
+														</th>
 													</tr>
 												</thead>
 												<tbody id="house_${house.no}">

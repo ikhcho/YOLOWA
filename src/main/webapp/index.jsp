@@ -9,3 +9,4 @@
 <body>
 	<a href="${ pageContext.request.contextPath }/user/houseDetail.do?no=1">테스튼</a>
 </body>
+</html>
