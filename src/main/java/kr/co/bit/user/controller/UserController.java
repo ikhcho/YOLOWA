@@ -19,12 +19,30 @@ import kr.co.bit.user.service.UserService;
 import kr.co.bit.user.vo.HomeListVO;
 import kr.co.bit.user.vo.UserVO;
 
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
 	@Autowired
 	private UserService uService;
+	
+	@RequestMapping("/houseDetail.do")
+	public ModelAndView houseDetail(int no) {
+		System.out.println("Controller : " + no);
+		HouseVO house = uService.houseDetail(no);
+		
+		ModelAndView mav = new ModelAndView("detail/houseDetail");
+		mav.addObject(house);
+		
+		return mav;
+	}
+	
+	@RequestMapping("/houseReserve.do")
+	public ModelAndView getPensionInfo() {
+		System.out.println("reserve");
+		return null;		
+	}
 	
 	@RequestMapping(value="/home.do", method = RequestMethod.GET)
 	public String home(Model model){
@@ -95,20 +113,4 @@ public class UserController {
 		return map;
 	}
 	
-	@RequestMapping("/houseDetail.do")
-	public ModelAndView houseDetail(int no) {
-		System.out.println("Controller : " + no);
-		HouseVO house = uService.houseDetail(no);
-		
-		ModelAndView mav = new ModelAndView("detail/houseDetail");
-		mav.addObject(house);
-		
-		return mav;
-	}
-	
-	@RequestMapping("/houseReserve.do")
-	public ModelAndView getPensionInfo() {
-		System.out.println("reserve");
-		return null;		
-	}
 }

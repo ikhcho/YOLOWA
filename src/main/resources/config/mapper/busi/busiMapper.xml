@@ -59,4 +59,14 @@
 		insert into room_photo
 		values(ROOM_PHOTO_SEQ.nextVal, #{roomNo}, #{photo})
 	</insert>
+	
+	<select id="selectOneRoom" parameterType="int" resultType="roomVO">
+		<include refid="selectRoom"/>
+		where no = #{no}
+	</select>
+	
+	<select id="selectOneHouse" parameterType="int" resultType="roomVO">
+		<include refid="selectRoom"/>
+		where house_no = #{no}
+	</select>
 </mapper>
