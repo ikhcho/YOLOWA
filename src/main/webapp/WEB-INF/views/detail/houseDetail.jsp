@@ -51,7 +51,8 @@
 						<div class="tab-pane" id="tabb">
 							<jsp:include page="houseInfo.jsp" />
 						</div>
-						<div class="tab-pane" id="tabc"></div>
+						<div class="tab-pane" id="tabc">
+						</div>
 						<div class="tab-pane" id="tabd"></div>
 						<div class="tab-pane" id="tabe">
 							<jsp:include page="useInfo.jsp" />
