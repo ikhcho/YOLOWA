@@ -6,6 +6,7 @@
 	<typeAliases>
 		<typeAlias alias="adminVO" type="kr.co.bit.admin.vo.AdminVO" />
 		<typeAlias alias="boardVO" type="kr.co.bit.board.vo.BoardVO" />
+		<typeAlias type="kr.co.bit.board.vo.QBoardVO" alias="QboardVO"/>
 		<typeAlias alias="busiVO" type="kr.co.bit.busi.vo.BusiVO" />
 		<typeAlias alias="dataVO" type="kr.co.bit.data.vo.DataVO" />
 		<typeAlias alias="menuVO" type="kr.co.bit.menu.vo.MenuVO" />

@@ -34,9 +34,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 
-import kr.co.bit.board.service.BoardService;
+import kr.co.bit.board.service.QBoardService;
 
-import kr.co.bit.board.vo.BoardVO;
+
+import kr.co.bit.board.vo.QBoardVO;
 
 
 
@@ -44,25 +45,25 @@ import kr.co.bit.board.vo.BoardVO;
 
 @RequestMapping("/board")
 
-public class BoardController {
+public class QBoardController {
 
 
 
 	@Autowired
 
-	private BoardService service;
+	private QBoardService Qservice;
 
 	
 
-	@RequestMapping("/list.do")
+	@RequestMapping("/qlist.do")
 
 	public ModelAndView list() {
 
 		
 
-		List<BoardVO> list = service.selectAllBoard();
+		List<QBoardVO> list = Qservice.selectAllBoard();
 
-		ModelAndView mav = new ModelAndView("board/list");
+		ModelAndView mav = new ModelAndView("board/Qlist");
 
 		mav.addObject("list", list);
 
@@ -76,17 +77,17 @@ public class BoardController {
 
 	// /board/detail.do?no=12
 
-	@RequestMapping("/detail.do")
+	@RequestMapping("/qdetail.do")
 
 	public String detail(@RequestParam("no") int no, Model model) {
 
-		BoardVO board = service.selectByNoBoard(no);
+		QBoardVO board = Qservice.selectByNoBoard(no);
 
 		model.addAttribute("board", board);
 
 		
 
-		return "board/detail";
+		return "board/Qdetail";
 
 	}
 
@@ -94,19 +95,19 @@ public class BoardController {
 
 	//	/board/12/deatil.do
 
-	@RequestMapping("/{no}/detail.do")
+	@RequestMapping("/{no}/qdetail.do")
 
 	public ModelAndView detailNo(@PathVariable int no) {
 
 		
 
-		BoardVO board = service.selectByNoBoard(no);
+		QBoardVO board = Qservice.selectByNoBoard(no);
 
 		
 
 		ModelAndView mav = new ModelAndView();
 
-		mav.setViewName("board/detail");
+		mav.setViewName("board/Qdetail");
 
 		mav.addObject("board", board);
 
@@ -118,7 +119,7 @@ public class BoardController {
 
 	
 
-	@RequestMapping(value="/write.do", method=RequestMethod.GET)
+	@RequestMapping(value="/qwrite.do", method=RequestMethod.GET)
 
 	public String writeForm(Model model) {
 
@@ -126,35 +127,35 @@ public class BoardController {
 
 		System.out.println("get...");
 
-		model.addAttribute("boardVO", new BoardVO());
+		model.addAttribute("QboardVO", new QBoardVO());
 
 		
 
-		return "board/writeForm";
+		return "board/QwriteForm";
 
 	}
 
 	
 
-	@RequestMapping(value="/write.do", method=RequestMethod.POST)
+	@RequestMapping(value="/qwrite.do", method=RequestMethod.POST)
 
-	public String write(BoardVO board) {
-
-		
+	public String write(QBoardVO board) {
 
 		
 
 		
 
-		System.out.println("posst : " + board);
+		
+
+		System.out.println("post : " + board);
 
 		
 
-		service.insertBoard(board);
+		Qservice.insertBoard(board);
 
 		
 
-		return "redirect:/board/list.do";
+		return "redirect:/board/qlist.do";
 
 	}
 
@@ -162,53 +163,52 @@ public class BoardController {
 
 	// board/delete.do?no=3
 
-		@RequestMapping("/delete.do")
+		@RequestMapping("/qdelete.do")
 
 		public String delete(@RequestParam("no") int no) {
 
-			BoardVO board = new BoardVO();
+			QBoardVO board = new QBoardVO();
 
 			board.setNo(no);
 
 			
-
-			service.deleteBoard(board);
+			Qservice.deleteBoard(board);
 			
-			return "redirect:/board/list.do";
+			return "redirect:/board/qlist.do";
 
 		}
 
 		
 
-		@RequestMapping(value="/update.do", method=RequestMethod.GET)
+		@RequestMapping(value="/qupdate.do", method=RequestMethod.GET)
 
 		public String updateForm(@RequestParam("no") int no, Model model) {
 
 			
 
-			BoardVO board = service.selectByNoBoard(no);
+			QBoardVO board = Qservice.selectByNoBoard(no);
 
 			model.addAttribute("board", board);
 
 			
 
-			return "board/updateForm";
+			return "board/QupdateForm";
 
 		}
 
 		
 
-		@RequestMapping(value="/update.do", method=RequestMethod.POST)
+		@RequestMapping(value="/qupdate.do", method=RequestMethod.POST)
 
-		public String update(BoardVO board, Model model) {
+		public String update(QBoardVO board, Model model) {
 
 			
 
-			service.updateBoard(board);
+			Qservice.updateBoard(board);
 
 			model.addAttribute("no", board.getNo());
 
-			return "redirect:/board/detail.do";
+			return "redirect:/board/qdetail.do";
 
 		}
 
