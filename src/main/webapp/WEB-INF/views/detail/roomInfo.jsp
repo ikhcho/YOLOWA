@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!-- block -->
-<div class="block">
-	<div class="navbar navbar-inner block-header">
+<div class="panel panel-info">
+	<div class="navbar navbar-inner panel-heading">
 		<ul class="nav nav-pills">
 			<c:forEach items="${ list }" var="roomName" varStatus="status">
 				<c:choose>
@@ -19,7 +19,7 @@
 			</c:forEach>
 		</ul>
 	</div>
-	<div class="block-content collapse in">
+	<div class="panel-body collapse in">
 		<div id="rootwizard">
 			<div class="tab-content">
 				<c:forEach items="${ list }" var="roomInfo" varStatus="status">
@@ -33,21 +33,21 @@
 						</c:otherwise>
 					</c:choose>
 					<div class="block-content collapse in">
-						<table class="table table-bordered dongjoo">
+						<table class="table table-bordered text-center">
 							<tr>
-								<th rowspan="2">객실명</th>
-								<th rowspan="2">객실 형태(스타일)</th>
-								<th rowspan="2">크기</th>
-								<th rowspan="2">인원<br />(기준/최대)
+								<th rowspan="2" class="text-center"><br/>객실명</th>
+								<th rowspan="2" class="text-center"><br/>객실 형태(스타일)</th>
+								<th rowspan="2" class="text-center"><br/>크기</th>
+								<th rowspan="2" class="text-center">인원<br />(기준/최대)
 								</th>
-								<th colspan="3">요금안내</th>
-								<th rowspan="2">추가요금</th>
-								<th rowspan="2">예약하기</th>
+								<th colspan="3" class="text-center">요금안내</th>
+								<th rowspan="2" class="text-center"><br/>추가요금</th>
+								<th rowspan="2" class="text-center"><br/>예약하기</th>
 							</tr>
 							<tr>
-								<th>기간</th>
-								<th>주중</th>
-								<th>주말</th>
+								<th class="text-center">기간</th>
+								<th class="text-center">주중</th>
+								<th class="text-center">주말</th>
 							</tr>
 							<tr>
 								<td rowspan="2">${ roomInfo.roomName }</td>
@@ -68,7 +68,7 @@
 							</tr>
 						</table>
 					</div>
-					<div>
+					<div class="text-left">
 						<!-- 구비시설 및 객실설명 -->
 						${ roomInfo.content }
 					</div>
@@ -82,8 +82,3 @@
 <!-- /block -->
 </div>
 
-
-<script
-	src="${ pageContext.request.contextPath }/resources/bootstrap/vendors/jquery-1.9.1.js"></script>
-<script
-	src="${ pageContext.request.contextPath }/resources/bootstrap/bootstrap/js/bootstrap.min.js"></script>

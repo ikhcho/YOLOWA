@@ -6,23 +6,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>YOLOWA</title>
-<!-- CSS -->
-<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<!-- header -->
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath }/resources/css/menu/header.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath }/resources/css/home/style.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath }/resources/css/home/response.css" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-
-<!-- Javascript -->
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link href="${pageContext.request.contextPath }/resources/css/menu/header.css" rel="stylesheet">
+<script src="${pageContext.request.contextPath }/resources/js/menu/jquery-1.12.4.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/menu/jquery-ui.js"></script>
 <script src="${pageContext.request.contextPath }/resources/bootstrap/bootstrap/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/menu/header.js"></script>
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/login/loginForm.js"></script>
+
+
+<!-- home -->
+<link href="${pageContext.request.contextPath }/resources/css/home/style.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath }/resources/css/home/response.css" rel="stylesheet">
+
+<!-- filter -->
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 </head>
 <body>
@@ -82,7 +83,7 @@
 										<c:forEach items="${list}" var="houseVO">
 										<!-- Pension -->
 										<li class="wow fadeInLeft animated" data-wow-offset="30" data-wow-duration="1.5s" data-wow-delay="0.15s">
-											<a href="${pageContext.request.contextPath}/detail/${houseVO.no }/houseDetail.do" class="more">
+											<a href="${pageContext.request.contextPath}/detail/houseDetail.do?no=${houseVO.no }" class="more">
 												<c:if test="${houseVO.photo != null}">
 													<img src="${pageContext.request.contextPath }/upload/${houseVO.photo}" alt="project" />
 												</c:if>

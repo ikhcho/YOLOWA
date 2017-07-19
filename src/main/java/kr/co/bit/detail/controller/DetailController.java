@@ -41,8 +41,8 @@ public class DetailController {
 	 * @param no
 	 * @return
 	 */
-	@RequestMapping("/{no}/houseDetail.do")
-	public ModelAndView houseDetail(@PathVariable int no) {
+	@RequestMapping("/houseDetail.do")
+	public ModelAndView houseDetail(int no) {
 		System.out.println("Controller : " + no);
 		HouseVO house = detailService.houseDetail(no);
 		
