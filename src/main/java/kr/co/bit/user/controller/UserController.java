@@ -27,7 +27,7 @@ public class UserController {
 	@Autowired
 	private UserService uService;
 	
-	@RequestMapping("/houseDetail.do")
+	/*@RequestMapping("/houseDetail.do")
 	public ModelAndView houseDetail(int no) {
 		System.out.println("Controller : " + no);
 		HouseVO house = uService.houseDetail(no);
@@ -36,7 +36,7 @@ public class UserController {
 		mav.addObject(house);
 		
 		return mav;
-	}
+	}*/
 	
 	@RequestMapping("/houseReserve.do")
 	public ModelAndView getPensionInfo() {

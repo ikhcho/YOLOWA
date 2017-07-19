@@ -6,6 +6,6 @@ import kr.co.bit.busi.vo.HouseVO;
 import kr.co.bit.busi.vo.RoomVO;
 
 public interface DetailService {
-	//HouseVO houseDetail(int no);
+	HouseVO houseDetail(int no);
 	List<RoomVO> roomNameList(int no);
 }

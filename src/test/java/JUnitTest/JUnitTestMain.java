@@ -9,6 +9,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import kr.co.bit.busi.vo.HouseVO;
+import kr.co.bit.detail.dao.DetailDAO;
+import kr.co.bit.detail.service.DetailService;
 import kr.co.bit.user.dao.UserDAO;
 import kr.co.bit.user.service.UserService;
 
@@ -24,14 +26,22 @@ public class JUnitTestMain {
 	private UserDAO udao;
 	
 	@Autowired
+	private DetailDAO ddao;
+	
+	@Autowired
 	private UserService uservice;
+	
+	@Autowired
+	private DetailService dservice;
 	
 	@Test
 	public void 테스트() throws Exception {
 		
 		//HouseVO house = SqlSessionTemplate.selectOne("user.houseDetail", 1);
 		//HouseVO house = udao.houseDetail(1);
-		HouseVO house = uservice.houseDetail(1);
+		//HouseVO house = uservice.houseDetail(1);
+		
+		HouseVO house = dservice.houseDetail(1);
 		
 		//HouseVO house = (HouseVO)request.getAttribute("houseVO");
 		

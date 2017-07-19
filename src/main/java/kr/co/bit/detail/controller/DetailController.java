@@ -42,14 +42,14 @@ public class DetailController {
 	 * @param no
 	 * @return
 	 */
-	/*@RequestMapping("/{no}/houseDetail.do")
-	public ModelAndView houseDetail(@PathVariable int no) {
+	@RequestMapping("/houseDetail.do")
+	public ModelAndView houseDetail(int no) {
 		HouseVO house = detailService.houseDetail(no);
 		
 		ModelAndView mav = new ModelAndView("detail/houseDetail");
 		mav.addObject(house);
 		
 		return mav;
-	}*/
+	}
 	
 }

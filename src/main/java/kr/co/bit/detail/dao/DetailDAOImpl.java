@@ -24,10 +24,10 @@ public class DetailDAOImpl implements DetailDAO{
 		return list;
 	}
 
-	/*@Override
+	@Override
 	public HouseVO houseDetail(int no) {
 		return sqlSessionTemplate.selectOne("user.houseDetail", no);
-	}*/
+	}
 	
 	
 }

@@ -36,12 +36,14 @@
 			
 			    var result = response.result;
 			    
-			    map = new naver.maps.Map('map', {
-			    	center: new naver.maps.LatLng(result.items[0].point.x, result.items[0].point.y),
-		        	zoom: 10
-			    });// 검색된 좌표로 지도 생성
+			    //map = new naver.maps.Map('map');
 			    
-				// 검색 결과 갯수: result.total
+			    map = new naver.maps.Map('map', {
+			    	center: new naver.maps.LatLng(result.items[0].point.y, result.items[0].point.x),
+		        	zoom: 10
+			    });// 검색된 좌표로 지도 생성 
+			    
+			 	// 검색 결과 갯수: result.total
 			    // 첫번째 결과 결과 주소: result.items[0].address
 			    // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
 			    var myaddr = new naver.maps.Point(result.items[0].point.x, result.items[0].point.y);
@@ -52,7 +54,7 @@
 			    var marker = new naver.maps.Marker({
 					position: myaddr,
 					map: map
-				});
+				}); 
 			});
 		});
 	});
@@ -119,7 +121,9 @@
 									<jsp:include page="houseInfo.jsp" />
 								</div>
 								<div class="tab-pane" id="tabc">
-									<div id="map" class="col-sm-12" style="height:600px;"></div>
+									<div id="map" class="col-sm-12" style="height:600px;">
+										<%-- <jsp:include page="houseLoc.jsp" /> --%>
+									</div>
 								</div>
 								<div class="tab-pane" id="tabd"></div>
 								<div class="tab-pane" id="tabe">
