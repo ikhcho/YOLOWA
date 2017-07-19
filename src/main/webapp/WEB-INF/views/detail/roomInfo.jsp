@@ -40,6 +40,7 @@
 										var text = '<img src="/upload/'+obj[i].photo+'">';
 										$(selector).prepend(text);
 									}
+									console.log(obj);
 								}
 							});
 						});

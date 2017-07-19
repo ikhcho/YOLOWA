@@ -22,8 +22,7 @@
 <link href="${ pageContext.request.contextPath }/resources/bootstrap/assets/styles.css" rel="stylesheet" media="screen">
 <script src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=oAJ6Q1ZOST_VK52BarQt&submodules=geocoder"></script>
 
-<script src="${ pageContext.request.contextPath }/resources/bootstrap/vendors/jquery-1.9.1.js"></script>
-
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/css/useinfo/useInfo.css">
 <script type="text/javascript">	
 	$(function(){
 		var map = null;
@@ -133,7 +132,9 @@
 											<div id="map" class="col-sm-12" style="height:600px;"></div>
 										</div>
 										<div class="tab-pane" id="board"></div>
-										<div class="tab-pane" id="notify"></div>
+										<div class="tab-pane" id="notify">
+											<jsp:include page="useInfo.jsp"/>
+										</div>
 									</div>
 								</div>
 							</div>

@@ -190,7 +190,7 @@
 <!-- Modal -->
 <div class="modal fade" id="loginModal">
   <div class="modal-dialog">
-		<div class="modal-content">
+		<div class="modal-content" style="min-width:100%">
 			<div class="modal-header">
 				<!-- 닫기(x) 버튼 -->
 				<button type="button" class="close" data-dismiss="modal">x</button>
