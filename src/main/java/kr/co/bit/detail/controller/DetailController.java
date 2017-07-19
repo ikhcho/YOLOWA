@@ -29,7 +29,8 @@ public class DetailController {
 	 * @return
 	 */
 	@RequestMapping("/{no}/roomInfo.do")
-	public String roomInfo(HttpServletRequest request, @PathVariable int no){
+	public String roomInfo(HttpServletRequest request, @PathVariable int no)
+	{
 		List<RoomVO> list = detailService.roomNameList(no);
 		//request.setAttribute("roomVO", roomVO);
 		request.setAttribute("list", list);

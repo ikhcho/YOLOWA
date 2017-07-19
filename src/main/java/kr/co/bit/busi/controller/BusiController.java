@@ -2,8 +2,10 @@ package kr.co.bit.busi.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -21,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.bit.busi.service.BusiService;
 import kr.co.bit.busi.vo.HouseVO;
+import kr.co.bit.busi.vo.RoomPhotoVO;
 import kr.co.bit.busi.vo.RoomVO;
 import kr.co.bit.user.vo.UserVO;
 
@@ -76,7 +79,7 @@ public class BusiController {
 	
 	@RequestMapping(value="/pension/regHouse.do", method=RequestMethod.POST)
 	public String regHouse(MultipartHttpServletRequest mRequest) throws IllegalStateException, IOException{
-		String uploadDir = servletContext.getRealPath("/WEB-INF/upload/");
+		String uploadDir = servletContext.getRealPath("/upload/");
 		System.out.println(uploadDir);
 		HouseVO houseVO = new HouseVO();
 		houseVO.setUserNo(Integer.parseInt(mRequest.getParameter("userNo")));
@@ -99,6 +102,8 @@ public class BusiController {
 		if(mRequest.getParameter("hotEnd")!=null){
 			houseVO.setHotEnd(mRequest.getParameter("hotEnd"));
 		}
+		houseVO.setPhoto("");
+		houseVO.setBlindState("N");
 		houseVO.setCheckin(mRequest.getParameter("checkin"));
 		houseVO.setCheckout(mRequest.getParameter("checkout"));
 		houseVO.setContent(mRequest.getParameter("content"));
@@ -132,17 +137,182 @@ public class BusiController {
 			} 
 		} 
 		System.out.println(houseVO);
-		return "busi/regHouse";
+		bService.insertHouse(houseVO);
+		
+		return "redirect:/busi/pension/list.do";
+	}
+	
+	@RequestMapping(value="/pension/deleteHouse.do", method=RequestMethod.GET)
+	public String deleteHouse(int no){
+		bService.deleteHouse(no);
+		
+		return "redirect:/busi/pension/list.do";
 	}
 	
 	@RequestMapping(value="/pension/regRoom.do", method=RequestMethod.GET)
-	public String regRoom(){
-		
-		return "busi/register";
+	public String regRoom(int no, Model model){
+		System.out.println(no);
+		model.addAttribute("houseNo", no);
+		return "busi/regRoom";
 	}
 	
 	@RequestMapping(value="/pension/regRoom.do", method=RequestMethod.POST)
-	public String regRoom(UserVO userVO){
-		return "busi/register";
+	public String regRoom(MultipartHttpServletRequest mRequest) throws IllegalStateException, IOException{
+		String uploadDir = servletContext.getRealPath("/upload/");
+		RoomVO roomVO = new RoomVO();
+		roomVO.setHouseNo(Integer.parseInt(mRequest.getParameter("houseNo")));
+		roomVO.setRoomName(mRequest.getParameter("roomName"));
+		roomVO.setStyle(mRequest.getParameter("style"));
+		roomVO.setRoomSize(mRequest.getParameter("roomSize"));
+		roomVO.setPersonMin(Integer.parseInt(mRequest.getParameter("personMin")));
+		roomVO.setPersonMax(Integer.parseInt(mRequest.getParameter("personMax")));
+		if(!mRequest.getParameter("hWeekPrice").equals("")){
+			roomVO.sethWeekPrice(Integer.parseInt(mRequest.getParameter("hWeekPrice")));
+		}
+		if(!mRequest.getParameter("hWeekendPrice").equals("")){
+			roomVO.sethWeekendPrice(Integer.parseInt(mRequest.getParameter("hWeekendPrice")));
+		}
+		if(!mRequest.getParameter("nWeekPrice").equals("")){
+			roomVO.setnWeekPrice(Integer.parseInt(mRequest.getParameter("nWeekPrice")));
+		}
+		if(!mRequest.getParameter("nWeekendPrice").equals("")){
+			roomVO.setnWeekendPrice(Integer.parseInt(mRequest.getParameter("nWeekendPrice")));
+		}
+		if(!mRequest.getParameter("overPrice").equals("")){
+			roomVO.setOverPrice(Integer.parseInt(mRequest.getParameter("overPrice")));
+		}
+		roomVO.setContent(mRequest.getParameter("content"));
+		System.out.println(roomVO);
+		bService.insertRoom(roomVO);
+		
+		//RoomPhoto를 등록하기위해 저장한 room 번호 조회 
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("houseNo", mRequest.getParameter("houseNo"));
+		map.put("roomName", roomVO.getRoomName());
+		int roomNo = bService.findRoomNo(map);
+		
+		Iterator<String> iter = mRequest.getFileNames();
+		String formFileName = iter.next();
+		// 폼에서 파일을 선택하지 않아도 객체 생성됨
+		List<MultipartFile> mFile = mRequest.getFiles(formFileName);
+		for(MultipartFile file : mFile) {
+			// 원본 파일명
+			String oriFileName = file.getOriginalFilename();
+			System.out.println(oriFileName);
+			
+			if(oriFileName != null && !oriFileName.equals("")) {
+				// 확장자 처리
+				String ext = "";
+				// 뒤쪽에 있는 . 의 위치 
+				int index = oriFileName.lastIndexOf(".");
+				if (index != -1) {
+					// 파일명에서 확장자명(.포함)을 추출
+					ext = oriFileName.substring(index);
+				}
+				
+				// 파일 사이즈
+				long fileSize = file.getSize();
+				
+				// 고유한 파일명 만들기	
+				String saveFileName = "mlec-" + UUID.randomUUID().toString() + ext;
+				// 임시저장된 파일을 원하는 경로에 저장
+				file.transferTo(new File(uploadDir + saveFileName));
+				
+				RoomPhotoVO roomPhotoVO = new RoomPhotoVO();
+				roomPhotoVO.setRoomNo(roomNo);
+				roomPhotoVO.setPhoto(saveFileName);
+				bService.insertRoomPhoto(roomPhotoVO);
+			} 
+		} 
+		
+		return "redirect:/busi/pension/list.do";
+	}
+	
+	@RequestMapping(value="/pension/updateRoom.do", method=RequestMethod.GET)
+	public String updateRoom(int no, Model model){
+		RoomVO roomVO = bService.selectRoomByNo(no);
+		List<RoomPhotoVO> photoList = bService.selectRoomPhotoList(no);  
+		model.addAttribute("roomVO", roomVO);
+		model.addAttribute("roomPhotoList", photoList);
+		return "busi/updateRoom";
+	}
+	
+	@RequestMapping(value="/pension/updateRoom.do", method=RequestMethod.POST)
+	public String updateRoom(MultipartHttpServletRequest mRequest) throws IllegalStateException, IOException{
+		String uploadDir = servletContext.getRealPath("/upload/");
+		RoomVO roomVO = new RoomVO();
+		roomVO.setNo(Integer.parseInt(mRequest.getParameter("no")));
+		roomVO.setRoomName(mRequest.getParameter("roomName"));
+		roomVO.setStyle(mRequest.getParameter("style"));
+		roomVO.setRoomSize(mRequest.getParameter("roomSize"));
+		roomVO.setPersonMin(Integer.parseInt(mRequest.getParameter("personMin")));
+		roomVO.setPersonMax(Integer.parseInt(mRequest.getParameter("personMax")));
+		if(!mRequest.getParameter("hWeekPrice").equals("")){
+			roomVO.sethWeekPrice(Integer.parseInt(mRequest.getParameter("hWeekPrice")));
+		}
+		if(!mRequest.getParameter("hWeekendPrice").equals("")){
+			roomVO.sethWeekendPrice(Integer.parseInt(mRequest.getParameter("hWeekendPrice")));
+		}
+		if(!mRequest.getParameter("nWeekPrice").equals("")){
+			roomVO.setnWeekPrice(Integer.parseInt(mRequest.getParameter("nWeekPrice")));
+		}
+		if(!mRequest.getParameter("nWeekendPrice").equals("")){
+			roomVO.setnWeekendPrice(Integer.parseInt(mRequest.getParameter("nWeekendPrice")));
+		}
+		if(!mRequest.getParameter("overPrice").equals("")){
+			roomVO.setOverPrice(Integer.parseInt(mRequest.getParameter("overPrice")));
+		}
+		roomVO.setContent(mRequest.getParameter("content"));
+		System.out.println(roomVO);
+		bService.updateRoom(roomVO);
+		
+		//RoomPhoto를 등록하기위해 저장한 room 번호 조회 
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("houseNo", mRequest.getParameter("houseNo"));
+		map.put("roomName", roomVO.getRoomName());
+		int roomNo = bService.findRoomNo(map);
+		
+		Iterator<String> iter = mRequest.getFileNames();
+		String formFileName = iter.next();
+		// 폼에서 파일을 선택하지 않아도 객체 생성됨
+		List<MultipartFile> mFile = mRequest.getFiles(formFileName);
+		for(MultipartFile file : mFile) {
+			// 원본 파일명
+			String oriFileName = file.getOriginalFilename();
+			System.out.println(oriFileName);
+			
+			if(oriFileName != null && !oriFileName.equals("")) {
+				// 확장자 처리
+				String ext = "";
+				// 뒤쪽에 있는 . 의 위치 
+				int index = oriFileName.lastIndexOf(".");
+				if (index != -1) {
+					// 파일명에서 확장자명(.포함)을 추출
+					ext = oriFileName.substring(index);
+				}
+				
+				// 파일 사이즈
+				long fileSize = file.getSize();
+				
+				// 고유한 파일명 만들기	
+				String saveFileName = "mlec-" + UUID.randomUUID().toString() + ext;
+				// 임시저장된 파일을 원하는 경로에 저장
+				file.transferTo(new File(uploadDir + saveFileName));
+				
+				RoomPhotoVO roomPhotoVO = new RoomPhotoVO();
+				roomPhotoVO.setRoomNo(roomNo);
+				roomPhotoVO.setPhoto(saveFileName);
+				bService.insertRoomPhoto(roomPhotoVO);
+			} 
+		} 
+		
+		return "redirect:/busi/pension/list.do";
+	}
+	
+	@RequestMapping(value="/pension/deleteRoom.do", method=RequestMethod.GET)
+	public String deleteRoom(int no){
+		bService.deleteRoom(no);
+		
+		return "redirect:/busi/pension/list.do";
 	}
 }

@@ -7,9 +7,68 @@
 	<!-- Bootstrap -->
 	<link href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 	<link href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
-    <link href="${pageContext.request.contextPath}/resources/bootstrap/vendors/easypiechart/jquery.easy-pie-chart.css" rel="stylesheet" media="screen">
     <link href="${pageContext.request.contextPath}/resources/bootstrap/assets/styles.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="${pageContext.request.contextPath}/resources/bootstrap/vendors/uniform.default.css" rel="stylesheet" media="screen">
+    <link href="${pageContext.request.contextPath}/resources/bootstrap/vendors/wysiwyg/bootstrap-wysihtml5.css" rel="stylesheet" media="screen">
     <script src="${pageContext.request.contextPath}/resources/bootstrap/vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	
+	<script>
+	 $(function(){
+		 $(':reset').click(function(){
+				history.go(-1);
+			}); 
+	 });
+		function doWrite(){
+			
+			var w = document.writeForm;
+			
+			if(w.roomName.value==""){
+				alert("객실이름을 입력하세요");
+				w.houseName.focus();
+				return false;
+			}
+			
+			if(w.personMin.value == ""){
+				alert("기준인원을 입력하세요");
+				w.addr.focus();
+				return false;
+			}
+			
+			if(w.personMax.value == ""){
+				alert("최대인원을 입력하세요");
+				w.tel.focus();
+				return false;
+			}
+			
+			//파일 확장자 체크
+			if(checkExt(w.photo)) { //document.writeform.attatchfile1/2
+				return false;
+			}	
+			
+			return true;
+		}
+		
+		function checkExt(obj){
+			var forbidName = ['exe','java','jsp','js','class','css', 'txt', 'pdf'];
+			var fileName = obj.value;
+			var index = fileName.lastIndexOf('.');
+			var ext = fileName.substring(index+1);
+			console.log(ext);
+			
+			for(var i=0; i<forbidName.length; i++){
+				if(forbidName[i] == ext){
+					alert(ext + '확장자는 파일 업로드 정책에 위배됩니다');
+					document.writeForm.attachfile.focus();
+					return true;
+				}
+			}
+			return false;
+		}
+	
+	</script>
 </head>
 <body>
 	<div class="navbar navbar-fixed-top">
@@ -45,22 +104,120 @@
 	<div class="page-wrapper">
 		<div class="container">
 			<!--/span-->
-			<div class="col-sm-12" id="content">
-				
+			<div class="span12" id="content">
+				<div class="row-fluid">
+					<!-- block -->
+					<div class="block">
+						<div class="navbar navbar-inner block-header">
+							<div class="muted pull-left">객실등록</div>
+						</div>
+						<div class="block-content collapse in">
+							<div class="span12">
+								<form role="form"  class="form-horizontal" action="${pageContext.request.contextPath}/busi/pension/regRoom.do" method="post" enctype="multipart/form-data" onsubmit="return doWrite()" name="writeForm"> 
+									<fieldset>
+										<input type="hidden" name="houseNo" value="${houseNo }">
+										<div class="control-group">
+											<label class="control-label">*객실이름</label>
+											<div class="controls">
+												<input class="input-xlarge focused" type="text" name="roomName">
+											</div>
+										</div>
+										<div class="control-group">
+											<label class="control-label">객실형태</label>
+											<div class="controls">
+												<input class="input-xlarge focused" type="text" name="style">
+											</div>
+										</div>
+										<div class="control-group">
+											<label class="control-label">객실크기</label>
+											<div class="controls">
+												<input class="input-xlarge focused" type="text" placeholder="00평" name="roomSize">
+											</div>
+										</div>
+										<div class="control-group">
+											<label class="control-label">*기준인원</label>
+											<div class="controls">
+												<input class="input-xlarge focused" type="number" value="2" name="personMin">
+											</div>
+										</div>
+										<div class="control-group">
+											<label class="control-label">*최대인원</label>
+											<div class="controls">
+												<input class="input-xlarge focused" type="number" value="4" name="personMax">
+											</div>
+										</div>
+										<div class="control-group">
+											<label class="control-label">성수기 주중 가격</label>
+											<div class="controls">
+												<input class="input-xlarge focused" type="text" placeholder="숫자만 입력하세요" name="hWeekPrice">
+											</div>
+										</div>
+										<div class="control-group">
+											<label class="control-label">성수기 주말 가격</label>
+											<div class="controls">
+												<input class="input-xlarge focused" type="text" placeholder="숫자만 입력하세요" name="hWeekendPrice">
+											</div>
+										</div>
+										<div class="control-group">
+											<label class="control-label">비수기 주중 가격</label>
+											<div class="controls">
+												<input class="input-xlarge focused" type="text" placeholder="숫자만 입력하세요" name="nWeekPrice">
+											</div>
+										</div>
+										<div class="control-group">
+											<label class="control-label">비수기 주말 가격</label>
+											<div class="controls">
+												<input class="input-xlarge focused" type="text" placeholder="숫자만 입력하세요" name="nWeekendPrice">
+											</div>
+										</div>
+										<div class="control-group">
+											<label class="control-label">추가요금</label>
+											<div class="controls">
+												<input class="input-xlarge focused" type="text" placeholder="숫자만 입력하세요" name="overPrice">
+											</div>
+										</div>
+                                        <div class="control-group">
+											<label class="control-label">사진등록</label>
+											<div class="controls">
+		                                        <input multiple="multiple" class="input-file uniform_on" id="fileInput" type="file" name="photo[]">
+                                        	</div>
+                                        </div>
+										<div class="control-group">
+                                          <label class="control-label" for="textarea2">객실소개</label>
+                                          <div class="controls">
+                                            <textarea class="input-xlarge textarea" name="content" placeholder="Enter text ..." style="width: 810px; height: 200px"></textarea>
+                                          </div>
+                                        </div>
+										<div class="form-actions">
+											<button type="submit" class="btn btn-primary">등록</button>
+											<button type="reset" class="btn">취소</button>
+										</div>
+									</fieldset>
+								</form>
+							</div>
+						</div>
+					</div>
+					<!-- /block -->
+				</div>
 			</div>
 		</div>
 	</div>
 	<!--/.fluid-container-->
-	<script src="${pageContext.request.contextPath}/resources/bootstrap/vendors/jquery-1.9.1.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap/js/bootstrap.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/bootstrap/vendors/easypiechart/jquery.easy-pie-chart.js"></script>
+	
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/vendors/jquery.uniform.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/assets/form-validation.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/bootstrap/assets/scripts.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/vendors/wysiwyg/wysihtml5-0.3.0.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/vendors/wysiwyg/bootstrap-wysihtml5.js"></script>
 	<script>
-        $(function() {
-            // Easy pie charts
-            $('.chart').easyPieChart({animate: 1000});
-        });
-        </script>
+		$( ".datepicker" ).datepicker({
+			dateFormat: "yy-mm-dd"
+		});
+		$(".uniform_on").uniform();
+		$('.textarea').wysihtml5();
+	</script>
+
 </body>
 
 </html>
