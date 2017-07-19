@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>YOLOWA</title>
-
 <!-- header -->
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -20,13 +20,14 @@
 <link href="${pageContext.request.contextPath }/resources/css/home/response.css" rel="stylesheet">
 <link href="${ pageContext.request.contextPath }/resources/bootstrap/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" media="screen">
 <link href="${ pageContext.request.contextPath }/resources/bootstrap/assets/styles.css" rel="stylesheet" media="screen">
-<link href="${pageContext.request.contextPath }/resources/css/home/style.css" rel="stylesheet">
 <script src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=oAJ6Q1ZOST_VK52BarQt&submodules=geocoder"></script>
-<script>
+
+<script src="${ pageContext.request.contextPath }/resources/bootstrap/vendors/jquery-1.9.1.js"></script>
+
+<script type="text/javascript">	
 	$(function(){
 		var map = null;
 		$(document).on('click','#mapBtn',function(){
-			map = new naver.maps.Map('map');
 			var myaddress = '${houseVO.addr}';// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
 				naver.maps.Service.geocode({address: myaddress}, function(status, response) {
 			    if (status !== naver.maps.Service.Status.OK) {
@@ -34,16 +35,26 @@
 			    }
 			
 			    var result = response.result;
-				// 검색 결과 갯수: result.total
+			    
+			    //map = new naver.maps.Map('map');
+			    
+			    map = new naver.maps.Map('map', {
+			    	center: new naver.maps.LatLng(result.items[0].point.y, result.items[0].point.x),
+		        	zoom: 10
+			    });// 검색된 좌표로 지도 생성 
+			    
+			 	// 검색 결과 갯수: result.total
 			    // 첫번째 결과 결과 주소: result.items[0].address
 			    // 첫번째 검색 결과 좌표: result.items[0].point.y, result.items[0].point.x
 			    var myaddr = new naver.maps.Point(result.items[0].point.x, result.items[0].point.y);
-			    map.setCenter(myaddr); // 검색된 좌표로 지도 이동
+			    			    
+			    //map.setCenter(myaddr); // 검색된 좌표로 지도 이동
+			    
 			    // 마커 표시
 			    var marker = new naver.maps.Marker({
 					position: myaddr,
 					map: map
-				});
+				}); 
 			});
 		});
 	});
@@ -116,7 +127,7 @@
 												page="${ pageContext.request.contentType }/detail/${houseVO.no}/roomInfo.do" />
 										</div>
 										<div class="tab-pane" id="house">
-											<jsp:include page="houseInformation.jsp" />
+											<jsp:include page="houseInfo.jsp" />
 										</div>
 										<div class="tab-pane" id="map">
 											<div id="map" class="col-sm-12" style="height:600px;"></div>

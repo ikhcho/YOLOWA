@@ -29,7 +29,8 @@ public class DetailController {
 	 * @return
 	 */
 	@RequestMapping("/{no}/roomInfo.do")
-	public String roomInfo(HttpServletRequest request, @PathVariable int no){
+	public String roomInfo(HttpServletRequest request, @PathVariable int no)
+	{
 		List<RoomVO> list = detailService.roomNameList(no);
 		//request.setAttribute("roomVO", roomVO);
 		request.setAttribute("list", list);
@@ -43,7 +44,6 @@ public class DetailController {
 	 */
 	@RequestMapping("/houseDetail.do")
 	public ModelAndView houseDetail(int no) {
-		System.out.println("Controller : " + no);
 		HouseVO house = detailService.houseDetail(no);
 		
 		ModelAndView mav = new ModelAndView("detail/houseDetail");
