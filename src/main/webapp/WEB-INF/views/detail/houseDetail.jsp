@@ -65,7 +65,7 @@
 			<div class="container">
 				<div class="row-fluid">
 					<div class="span6">
-						<img width="100%" height="400px" src="/upload/${houseVO.photo}" alt="${houseVO.houseName }">
+						<img width="100%" height="400px" src="/Yolowa/upload/${houseVO.photo}" alt="${houseVO.houseName }">
 					</div>
 					<div class="span6">
 						<hr />

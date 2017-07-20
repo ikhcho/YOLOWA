@@ -3,7 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <script>
-	$(document).ready(function() {
+	$(function() {
 		$('#login').click(function() {
 			$('#loginModal').modal();
 		});
@@ -36,6 +36,14 @@
 			minDate : d
 		});
 		
+		$(document).on('click','#searchHouseBtn',function(){
+			var form = document.searchHouseForm;
+			if(form.houseName.value == ""){
+				alert('펜션 이름을 입력후 검색해 주세요.');				
+			}else{
+				form.submit();
+			}
+		});
 	});
 </script>
 
@@ -43,111 +51,112 @@
 	<div class="container">
 		<div class="row row1">
 			<ul class="largenav pull-right">
-				<c:choose>
-				<c:when test="${userVO==null}">
+				<c:if test="${userVO==null}">
 					<li class="upper-links"><a role="button" class="links" id="login">로그인/회원가입</a></li>
-				</c:when>
-				<c:when test="${userVO!=null}">
+				</c:if>
+				<c:if test="${userVO!=null}">
 					<li class="upper-links"><a role="button" class="links" href="${pageContext.request.contextPath }/user/logout.do">로그아웃</a></li>				
 					
-				</c:when>
-				<c:when test="${userVO.type!='B'}">
+				</c:if>
+				<c:if test="${userVO.type=='B'}">
 					<li class="upper-links"><a role="button" class="links" href="${pageContext.request.contextPath }/busi/home.do">펜션관리</a></li>				
-				</c:when>
-				<c:when test="${userVO.type=='U'}">
+				</c:if>
+				<c:if test="${userVO.type=='U' || userVO == null}">
 					<li class="upper-links"><a role="button" class="links" id="contact">가맹신청</a></li>
-				</c:when>
-				</c:choose>
+				</c:if>
 				<li class="upper-links"><a class="links" href="#">고객센터</a></li>
 			</ul>
 		</div>
-
-		<div class="row">
-			<div class="col-sm-3">
-				<h1 style="margin: 0px;">
-					<a role="button" class="links" href="${pageContext.request.contextPath}/user/home.do"><span class="largenav text-center">YOLOWA</span></a>
-				</h1>
-			</div>
-			<div class="col-sm-9 col-xs-11">
-				<div class="row">
-					<div class="input-group input-group-lg">
-						<input type="text" class="form-control"  placeholder="펜션검색" name="" aria-describedby="sizing-addon1">
-						<span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-search"></i></span>
+		<form name="searchHouseForm" action="${pageContext.request.contextPath }/menu/searchHouse.do" method="post">
+			<div class="row">
+				<div class="col-sm-3">
+					<h1 style="margin: 0px;">
+						<a role="button" class="links" href="${pageContext.request.contextPath}/user/home.do"><span class="largenav text-center">YOLOWA</span></a>
+					</h1>
+				</div>
+				<div class="col-sm-9 col-xs-11">
+					<div class="row">
+						<div class="input-group input-group-lg">
+							<input type="text" class="form-control"  placeholder="펜션검색" id="houseName" name="houseName" aria-describedby="searchHouseBtn">
+							<span style="cursor:pointer" role="button" class="input-group-addon" id="searchHouseBtn">
+								<i class="glyphicon glyphicon-search"></i>
+							</span>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</form>
 		<div class="row row1">
-		<div class="col-sm-12">
-			<table>
-			<tr>
-				<td><div class="col-sm-1"></div></td>
-				<td><div class="col-sm-1"></div></td>
-				<td><div class="col-sm-1"></div></td>
-				<td><div class="col-sm-1"></div></td>
-				<td><div class="col-sm-1"></div></td>
-				<td>
-					<h4 style="margin: 0px; color:#FFCF40">
-						<span class="largenav text-center">투숙날짜</span>
-					</h4>
-				</td>
-				<td><div class="col-sm-1"></div></td>
-				<td>
-					<div class="input-group input-group-lg">
-						<input type="text" size="10"class="form-control datepicker">
-					</div>
-				</td>
-				<td><div class="col-sm-1"></div></td>
-				<td>
-					<h4 style="margin: 0px; color:#FFCF40">
-						<span class="largenav text-center">지역검색</span>
-					</h4>
-				</td>
-				<td><div class="col-sm-1"></div></td>
-				<td>
-					<div class="input-group input-group-lg">
-						<select class="form-control" name="" aria-describedby="sizing-addon1">
-							<option>강원도
-							<option>경기도
-							<option>경상남도
-							<option>경상북도
-							<option>서울시
-							<option>전라남도
-							<option>전라북도
-							<option>제주도
-							<option>충청남도
-							<option>충청북도
-						</select>
-					</div>
-				</td>
-				<td><div class="col-sm-1"></div></td>
-				<td>
-					<h4 style="margin: 0px; color:#FFCF40">
-						<span class="largenav text-center">상세지역</span>
-					</h4>
-				</td>
-				<td><div class="col-sm-1"></div></td>
-				<td>
-					<div class="input-group input-group-lg">
-						<select class="form-control" name="" aria-describedby="sizing-addon1">
-							<option>남양주시
-						</select>
-					</div>
-				</td>
-				<td>
-					<div class="col-sm-1"></div>
-				</td>
-				<td>
-					<button type="button" class="btn btn-warning btn-lg">
-						<span>
-							<h4 style="margin: 0px;">
-								객실검색<i class="glyphicon glyphicon-search"></i>
-							</h4>
-						</span>
-					</button>
-				</td>
-			</tr>
-			</table>
+			<div class="col-sm-12">
+				<form name="searchRoomForm" action="${pageContext.request.contextPath }/menu/searchRoom.do" method="post">
+					<table>
+						<tr>
+							<td><div class="col-sm-1"></div></td>
+							<td><div class="col-sm-1"></div></td>
+							<td><div class="col-sm-1"></div></td>
+							<td>
+								<h4 style="margin: 0px; color:#FFCF40">
+									<span class="largenav text-center">투숙날짜</span>
+								</h4>
+							</td>
+							<td><div class="col-sm-1"></div></td>
+							<td>
+								<div class="input-group input-group-lg">
+									<input type="text" size="10" class="form-control datepicker" name="resDate">
+								</div>
+							</td>
+							<td><div class="col-sm-1"></div></td>
+							<td>
+								<h4 style="margin: 0px; color:#FFCF40">
+									<span class="largenav text-center">지역검색</span>
+								</h4>
+							</td>
+							<td><div class="col-sm-1"></div></td>
+							<td>
+								<div class="input-group input-group-lg">
+									<select class="form-control" name="country" onchange="changeState()">
+										<option>전체</option>
+										<option>강원도</option>
+										<option>경기도</option>
+										<option>경상남도</option>
+										<option>경상북도</option>
+										<option>서울시</option>
+										<option>전라남도</option>
+										<option>전라북도</option>
+										<option>제주도</option>
+										<option>충청남도</option>
+										<option>충청북도</option>
+									</select>
+								</div>
+							</td>
+							<td><div class="col-sm-1"></div></td>
+							<td>
+								<h4 style="margin: 0px; color:#FFCF40">
+									<span class="largenav text-center">상세지역</span>
+								</h4>
+							</td>
+							<td><div class="col-sm-1"></div></td>
+							<td>
+								<div class="input-group input-group-lg">
+									<select class="form-control" name="state">
+										<option>전체</option>
+									</select>
+								</div>
+							</td>
+							<td><div class="col-sm-1"></div></td>
+							<td><div class="col-sm-1"></div></td>
+							<td>
+								<button type="submit" class="btn btn-warning btn-lg">
+									<span>
+										<h4 style="margin: 0px;">
+											빈객실검색<i class="glyphicon glyphicon-search"></i>
+										</h4>
+									</span>
+								</button>
+							</td>
+						</tr>
+					</table>
+				</form>
 			</div>
 		</div>
 	</div>

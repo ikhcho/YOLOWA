@@ -37,7 +37,7 @@
 									var obj = JSON.parse(data);
 									var selector = "#tab"+roomNo;
 									for(var i=0; i<obj.length; i++){
-										var text = '<img src="/upload/'+obj[i].photo+'">';
+										var text = '<img width="100px" height="100px" src="/Yolowa/upload/'+obj[i].photo+'">';
 										$(selector).prepend(text);
 									}
 									console.log(obj);

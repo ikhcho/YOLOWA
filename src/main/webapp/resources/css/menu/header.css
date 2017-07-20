@@ -9,14 +9,14 @@
 
 div.page-wrapper{
 	position:relative;
-	top:175px;
+	top:195px;
 	width : 100%;
 }
 
 div#filter{
 	position:relative;
 	width : 100%;
-	top:165px;
+	top:195px;
 	background-color: #4AF0E4;
 }
 

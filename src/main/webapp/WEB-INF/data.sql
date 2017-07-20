@@ -232,3 +232,31 @@ insert into room values(ROOM_SEQ.nextval, 2, '사랑채(복층)', '복층(침대
 
 select * from room
 select * from ROOM_PHOTO
+
+select * from house where addr like '경기%' and addr like '%청평%'
+select * from users
+insert into RESERVATION values(reservation_seq.nextval, 46, 61, 82, '2017-07-22', '2017-07-24', 4, 449000, '핫핫', sysdate)
+select * from RESERVATION
+
+select house.no, house_name as houseName, addr, bbq, pool, parking, singing, football, pickup, photo, blind_state as blindState, price
+from (
+				select * 
+				from house
+				where addr like '경기%' and addr like '%가평%'
+			) house , ( select room.house_no, min(room.n_week_price) as price from room,
+						(
+								select room_no from reservation where res_start <= '2017-07-23' and '2017-07-23' < res_end
+						) disable
+						where room.no != disable.room_no
+						group by house_no
+					) available
+		where house.no = available.house_no
+
+
+select room.house_no, min(room.n_week_price) as price
+from room left outer join
+( select room_no from reservation where res_start <= '2017-07-26' and '2017-07-26' < res_end ) disable
+on room.no != disable.room_no
+group by house_no
+
+select house_no, min(room.n_week_price) as price from room group by house_no

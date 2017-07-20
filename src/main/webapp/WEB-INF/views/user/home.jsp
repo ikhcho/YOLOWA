@@ -47,77 +47,104 @@
 				</div>
 				<script>
 					$('#bbq').change(function() {
+						if($(this).prop('checked')){
+							$('.bbq-N').hide(500);
+						}else{
+							$('.bbq-N').show(500);
+						}
 						console.log($(this).prop('checked'));
 					});
 					$('#pool').change(function() {
+						if($(this).prop('checked')){
+							$('.pool-N').hide(500);
+						}else{
+							$('.pool-N').show(500);
+						}
 						console.log($(this).prop('checked'));
 					});
 					$('#parking').change(function() {
+						if($(this).prop('checked')){
+							$('.parking-N').hide(500);
+						}else{
+							$('.parking-N').show(500);
+						}
 						console.log($(this).prop('checked'));
 					});
 					$('#singing').change(function() {
+						if($(this).prop('checked')){
+							$('.singing-N').hide(500);
+						}else{
+							$('.singing-N').show(500);
+						}
 						console.log($(this).prop('checked'));
 					});
 					$('#football').change(function() {
+						if($(this).prop('checked')){
+							$('.football-N').hide(500);
+						}else{
+							$('.football-N').show(500);
+						}
 						console.log($(this).prop('checked'));
 					});
 					$('#pickup').change(function() {
+						if($(this).prop('checked')){
+							$('.pickup-N').hide(500);
+						}else{
+							$('.pickup-N').show(500);
+						}
 						console.log($(this).prop('checked'));
 					});
 				</script>
 			</div>
 		</div>
-		<div class="page-wrapper">
-			<div class="row">
-				<div class="container">
-					<section class="works" id="works">
-						<div class="container">
-		
-							<div class="row projects">
-								<div id="loader">
-									<div class="loader-icon"></div>
-								</div>
-								<div class="col-md-12" id="portfolio-list">
-									<!-- PORTFOLIO ITEMS-->
-									<ul class="cbp-rfgrid">
-										<c:forEach items="${list}" var="houseVO">
-										<!-- Pension -->
-										<li class="wow fadeInLeft animated" data-wow-offset="30" data-wow-duration="1.5s" data-wow-delay="0.15s">
-											<a href="${pageContext.request.contextPath}/detail/houseDetail.do?no=${houseVO.no }" class="more">
-												<c:if test="${houseVO.photo != null}">
-													<img src="${pageContext.request.contextPath }/upload/${houseVO.photo}" alt="project" />
-												</c:if>
-												<c:if test="${houseVO.photo == null}">
-													<img src="${pageContext.request.contextPath }/resources/images/noImage.png" alt="project" />
-												</c:if>
-												<div class="project-info">
-													<div class="project-details">
-														<h5 class="white-text red-border-bottom"><strong>${houseVO.houseName}</strong></h5>
-														<div class="details white-text">
-															최저가 ${houseVO.price}
-														</div>
-													</div>
-												</div>
-											</a>
-										</li>
-										<!-- / Pension -->
-										</c:forEach>
-									</ul>
-								</div>
-								<!-- END OF PORTFOLIO ITEMS-->
-							</div>
-		
-							<!-- PROJECT DETAILS WILL BE LOADED HERE -->
-							<div id="loaded-content"></div>
-		
-							<a id="back-button" class="red-btn" href="#"><i
-								class="icon-fontawesome-webfont-27"></i> Go Back</a>
-						</div>
-						<!-- / END CONTAINER -->
-					</section>
-					<!-- / END WORKS SECTION -->
+	<div class="page-wrapper">
+		<section class="packages" id="packages">
+			<div class="container">
+
+				<div class="row projects">
+					<div id="loader">
+						<div class="loader-icon"></div>
+					</div>
+					<div class="col-md-12" id="portfolio-list">
+						<!-- PORTFOLIO ITEMS-->
+						<ul class="cbp-rfgrid">
+							<c:forEach items="${list}" var="houseVO">
+								<!-- Pension -->
+								<li class="wow fadeInLeft animated" data-wow-offset="30"
+									data-wow-duration="1.5s" data-wow-delay="0.15s"><a
+									href="${pageContext.request.contextPath}/detail/houseDetail.do?no=${houseVO.no }"
+									class="more"> 
+									<c:if test="${houseVO.photo != null}">
+											<img src="${pageContext.request.contextPath }/upload/${houseVO.photo}" 
+											class="bbq-${houseVO.bbq} pool-${houseVO.pool} parking-${houseVO.parking}
+											singing-${houseVO.singing} football-${houseVO.football} pickup-${houseVO.pickup}"/>
+										</c:if> 
+										<c:if test="${houseVO.photo == null}">
+											<img src="${pageContext.request.contextPath }/resources/images/noImage.png"
+											class="bbq-${houseVO.bbq} pool-${houseVO.pool} parking-${houseVO.parking}
+											singing-${houseVO.singing} football-${houseVO.football} pickup-${houseVO.pickup}"/>
+										</c:if>
+										<div class="project-info">
+											<div class="project-details">
+												<h5 class="white-text red-border-bottom">
+													<strong>${houseVO.houseName}</strong>
+												</h5>
+												<div class="details white-text">최저가 ${houseVO.price}</div>
+											</div>
+										</div>
+								</a></li>
+								<!-- / Pension -->
+							</c:forEach>
+						</ul>
+					</div>
+					<!-- END OF PORTFOLIO ITEMS-->
 				</div>
+
+				<!-- PROJECT DETAILS WILL BE LOADED HERE -->
 			</div>
-		</div>
+			<!-- / END CONTAINER -->
+		</section>
+		<!-- / END WORKS SECTION -->
+	</div>
 </body>
 </html>

@@ -628,9 +628,9 @@ input:focus {
 	position: relative;
 	float: left;
 	overflow: hidden;
-	width: 20%; /* Fallback */
-width: -webkit-calc(100% / 5);
-	width: calc(100% / 5);
+	width: 25%; /* Fallback */
+width: -webkit-calc(100% / 4);
+	width: calc(100% / 4);
 	-webkit-transition: 0.4s all linear;
 	        transition: 0.4s all linear;
 }
@@ -707,9 +707,9 @@ width: -webkit-calc(100% / 5);
 /* media queries:  change number of items per row */
 @media screen and (max-width: 1190px) {
 	.cbp-rfgrid li {
-	width: 20%; /* Fallback */
-width: -webkit-calc(100% / 5);
-	width: calc(100% / 5);
+	width: 25%; /* Fallback */
+width: -webkit-calc(100% / 4);
+	width: calc(100% / 4);
 }
 }
 @media screen and (max-width: 1024px) {

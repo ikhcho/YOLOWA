@@ -5,4 +5,42 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace = "menu">
+	<sql id="selectHomeListQuery">
+		select house.no, house_name as houseName, addr, bbq, pool, parking, singing, football, pickup, photo, blind_state as blindState, price
+	</sql>
+	
+	<select id="selectHouseByName" parameterType="String" resultType="homeListVO">
+		<include refid="selectHomeListQuery"/>
+		from (select * from house where house_name like '%'|| #{houseName} ||'%') house , 
+			(select house_no, min(room.n_week_price) as price from room group by house_no) room
+		where house.no = room.house_no
+	</select>
+	
+	<select id="selectEmptyRoomHouse" parameterType="searchVO" resultType="homeListVO">
+		 
+		<include refid="selectHomeListQuery"/>
+		from (
+				select * 
+				from house
+				<where>
+					<if test="country != null">
+						addr like '${country}%'
+					</if>
+					<if test="state != null">
+						and addr like '%${state}%'
+					</if>
+				</where>
+			) house , 
+			( select room.house_no, min(room.n_week_price) as price from room
+			LEFT OUTER JOIN
+				(
+					<![CDATA[
+						select room_no from reservation where res_start <= #{resDate} and #{resDate} < res_end
+					]]>
+				) disable
+				on room.no != disable.room_no
+				group by house_no
+			) available
+		where house.no = available.house_no
+	</select>
 </mapper>
