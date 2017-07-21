@@ -118,7 +118,7 @@
 							</ul>
 						</div>
 						<div class="panel-body collapse in">
-							<div class="span11">
+							<div class="span12">
 								<div id="rootwizard">
 									<div class="tab-content">
 										<div class="tab-pane active" id="room">
@@ -131,7 +131,11 @@
 										<div class="tab-pane" id="map">
 											<div id="map" class="col-sm-12" style="height:600px;"></div>
 										</div>
-										<div class="tab-pane" id="board"></div>
+										<div class="tab-pane" id="board">
+											<iframe width="100%" height="600px" frameborder="0"
+												src="${ pageContext.request.contextPath }/board/list.do?no=${houseVO.no}">
+											</iframe>
+										</div>
 										<div class="tab-pane" id="notify">
 											<jsp:include page="useInfo.jsp"/>
 										</div>

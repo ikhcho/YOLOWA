@@ -22,44 +22,17 @@ import kr.co.bit.board.vo.BoardVO;
 
 public class BoardDAOImpl implements BoardDAO {
 
-
-
 	@Autowired
-
 	private SqlSessionTemplate sqlSessionTemplate;
 
-	
-
-	
-
-	public List<BoardVO> selectAllBoard() {
-
-		
-
-		List<BoardVO> list 
-
-			= sqlSessionTemplate.selectList("board.selectAllBoard");
-
-		
-
+	public List<BoardVO> selectAllBoard(int no) {
+		List<BoardVO> list = sqlSessionTemplate.selectList("board.selectAllBoard",no);
 		return list;
-
 	}
 
-
-
 	public BoardVO selectByNoBoard(int no) {
-
-		
-
-		BoardVO board 
-
-			= sqlSessionTemplate.selectOne("board.selectOneByNo", no);
-
-		
-
+		BoardVO board = sqlSessionTemplate.selectOne("board.selectOneByNo", no);
 		return board;
-
 	}
 
 

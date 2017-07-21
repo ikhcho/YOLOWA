@@ -14,7 +14,7 @@ public interface BoardDAO {
 
 
 
-	List<BoardVO> selectAllBoard();
+	List<BoardVO> selectAllBoard(int no);
 
 	BoardVO selectByNoBoard(int no);
 

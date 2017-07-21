@@ -30,9 +30,9 @@ public class BoardServiceImpl implements BoardService {
 
 	
 
-	public List<BoardVO> selectAllBoard() {
+	public List<BoardVO> selectAllBoard(int no) {
 
-		List<BoardVO> list = dao.selectAllBoard();
+		List<BoardVO> list = dao.selectAllBoard(no);
 
 		return list;
 

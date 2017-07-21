@@ -1,72 +1,77 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>후기게시판 수정 페이지</title>
-<link rel="stylesheet" href="/Mission-Web/css/layout.css" />
-<link rel="stylesheet" href="/Mission-Web/css/board.css" />
+	<link href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+    <link href="${pageContext.request.contextPath}/resources/bootstrap/assets/styles.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="${pageContext.request.contextPath}/resources/bootstrap/vendors/uniform.default.css" rel="stylesheet" media="screen">
+    <link href="${pageContext.request.contextPath}/resources/bootstrap/vendors/wysiwyg/bootstrap-wysihtml5.css" rel="stylesheet" media="screen">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+	
 <script>
-	function doList(){
-		location.href = "${pageContext.request.contextPath}/board/list.do"
+	function doList() {
+		location.href = "${pageContext.request.contextPath}/board/list.do?no=${board.house_no}";
 	}
 </script>
-<link rel="stylesheet" 
-   	  href="${ pageContext.request.contextPath }/resources/css/layout.css" />
-<link rel="stylesheet" 
-	  href="${ pageContext.request.contextPath }/resources/css/board.css" />
 </head>
-<body>
-<%-- 	 <header>
-	 	<jsp:include page="/jsp/include/topMenu.jsp"></jsp:include>
-	 </header> --%>
-	 <section>
-	 <div align="center">
-	 	<hr/>
-	 	<h2>후기게시판 수정</h2>
-	 	<hr/>
-	 	<br/>
-	 	<form action="update.do" method="post">
-			<input type="hidden" name="no" value="${ param.no }" />	 	
-	 		<table width="100%">
-		 		<tr>
-		 			<th width="25%">no</th>
-		 			<td>${ board.no }</td>
-		 		</tr>
-		 		<tr>
-		 			<th>house_no</th>
-		 			<td>${ board.house_no }</td>
-		 		</tr>
-		 		<tr>
-		 			<th>user_no</th>
-		 			<td>${ board.user_no }</td>
-		 		</tr>
-		 		<tr>
-		 			<th width="25%">content</th>
-		 			<td>
-		 				<textarea rows="7" cols="50" name="content">${ board.content }</textarea>
-		 			</td>
-		 		</tr>
-		 		<tr>
-		 			<th>score</th>
-		 			<td>
-		 			<input type="text" name="score" size="50" value="${ board.score }" />
-		 			</td>
-		 		</tr>
-		 		
-		</table>
-		<br/><br/>
-		<input type="submit" value=" 수정  " />&nbsp;&nbsp; 
-		<input type="button" value=" 목록  " onclick="doList()"/> 
+<body style="padding-top:0px;">
+	<div class="block">
+
+		<div class="navbar navbar-inner block-header">
+			<div class="muted pull-left">수정</div>
+			<button class="btn pull-right" onclick="doList()">목록보기</button>
+		</div>
+		<form action="${pageContext.request.contextPath}/board/update.do"
+			method="post">
+			<fieldset>
+				<div class="block-content collapse in">
+					<input type="hidden" name="no" value="${ param.no }" />
+					<div class="control-group">
+						<label class="control-label">작성자
+							<button type="submit" class="btn btn-primary pull-right">등록</button>
+						</label>
+						<div class="controls">
+							<input class="input-xlarge" type="text" readonly="readonly"
+								value="${ board.userName }">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">점수</label>
+						<div class="controls">
+							<input class="input-xlarge" type="number" name="score" min="1" max="5"
+								value="${ board.score }">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="textarea2">내용</label>
+						<div class="controls">
+							<textarea class="input-xlarge textarea" name="content"
+								placeholder="${ board.content }"
+								style="width: 810px; height: 200px"></textarea>
+						</div>
+					</div>
+			</fieldset>
 		</form>
-	 </div>
-	 </section>
-<%-- 	 <footer>
-	 	<%@ include file="/jsp/include/bottom.jsp" %>
-	 </footer> --%>
+	</div>
+
+	</div>
+
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/vendors/jquery.uniform.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/assets/form-validation.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/assets/scripts.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/vendors/wysiwyg/wysihtml5-0.3.0.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/vendors/wysiwyg/bootstrap-wysihtml5.js"></script>
+	<script>
+		$(".uniform_on").uniform();
+		$('.textarea').wysihtml5();
+	</script>
 </body>
 </html>

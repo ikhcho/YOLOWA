@@ -5,86 +5,73 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<link href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="${pageContext.request.contextPath}/resources/bootstrap/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+    <link href="${pageContext.request.contextPath}/resources/bootstrap/vendors/easypiechart/jquery.easy-pie-chart.css" rel="stylesheet" media="screen">
+    <link href="${pageContext.request.contextPath}/resources/bootstrap/assets/styles.css" rel="stylesheet" media="screen">
+    <link href="${pageContext.request.contextPath}/resources/bootstrap/assets/DT_bootstrap.css" rel="stylesheet" media="screen">
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/vendors/jquery-1.9.1.min.js"></script>
+
 <script>
 	function goWriteForm() {
-	
-		location.href = "writeForm.do";
+		location.href = "${ pageContext.request.contextPath }/board/write.do?no=${param.no}";
 	}
 	
 	function doAction(boardNo) {
-		
 		location.href = "${ pageContext.request.contextPath }/board/" + boardNo + "/detail.do";
 		
-		/* <c:choose>
-			<c:when test="${ not empty userVO}">
-				location.href = "detail.do?type=list&no=" + boardNo;
-			</c:when>
-			<c:otherwise>
-				if(confirm('로그인 후 사용할 수 있습니다\n로그인페이지로 이동하시겠습니다'))
-					location.href = "/Mission-Web/jsp/login/login.jsp";
-			</c:otherwise>
-		</c:choose> */
 	}
 	
 </script>
-<link rel="stylesheet" 
-   	  href="${ pageContext.request.contextPath }/resources/css/layout.css" />
-<link rel="stylesheet" 
-	  href="${ pageContext.request.contextPath }/resources/css/board.css" />
 </head>
-<body>
- 	<%-- <header>
- 		<c:import url="/include/topMenu.do" />
- 		 <jsp:include page="/include/topMenu.do" /> 
-		 <jsp:include page="/WEB-INF/jsp/include/topMenu.jsp" /> 
-	</header> --%>
+<body style="padding-top:0px;">
 	<section>
-	<div align="center">
-	<br/>
-	<hr width="100%"/>
-		<h2>후기게시판 목록</h2>
-	<hr width="100%"/>
-	<br/>
-	
-	<table border="1" width="100%" class="list">
-		<tr>
-			<th width="7%">no</th>
-			<th>house_no</th>
-			<th>user_no</th>
-			<th>content</th>
-			<th>score</th>
-			<th>blind_state</th>
-			<th width="20%">reg_date</th>
-		</tr>
-		<c:forEach items="${ list }" var="board" varStatus="loop">
-			<tr <c:if test="${ loop.count mod 2 eq 0 }">class="even"</c:if> >
-				<td>${ board.no }</td>
-				<td>${ board.house_no }</td>
-				<td>${ board.user_no }</td>
-				<td>
-					<a href="javascript:doAction('${board.no}')">
- 						<c:out value="${ board.content }" /> 
-					</a>
-				</td>
-				<td>${ board.score }</td>
-				<td>${ board.blind_state }</td>
-				<td>${ board.reg_date }</td>
-			</tr>
-		</c:forEach>
-	</table>
-	<br/><br/>
-	<c:if test="${ not empty userVO }">
-		<input type="button" value="후기등록" onclick="goWriteForm()"/>
-	</c:if>
-	</div>
+		<!-- block -->
+		<div class="block">
+			<div class="navbar navbar-inner block-header">
+				<div class="muted">후기게시판</div>
+			</div>
+			<div class="block-content collapse in">
+				<c:if test="${userVO != null }">
+					<div class="table-toolbar">
+						<div class="btn-group pull-right">
+							<button class="btn btn-success" onclick="goWriteForm()">
+								등록 <i class="icon-plus icon-white"></i>
+							</button>
+
+						</div>
+					</div>
+				</c:if>
+				<br />
+				<table cellpadding="0" cellspacing="0" border="0"
+					class="table table-striped table-bordered" id="example2">
+					<thead>
+						<tr>
+							<th>게시글번호</th>
+							<th>작성자</th>
+							<th style="max-width: 700px">후기</th>
+							<th>점수</th>
+							<th>작성일</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${ list }" var="board" varStatus="loop">
+							<c:if test="${ board.blind_state == 'N'}">
+								<tr>
+									<td>${loop.index+1 }</td>
+									<td>${board.userName}</td>
+									<td><a href="javascript:doAction('${board.no}')"> ${ board.content }"
+									</a></td>
+									<td>${ board.score }</td>
+									<td>${ board.reg_date }</td>
+								</tr>
+							</c:if>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</section>
-<%--  	<footer>
- 		<jsp:include page="/include/footer.do"/>
- 		<c:import url="/include/footer.do"></c:import>
- 		<c:import url="/WEB-INF/jsp/include/bottom.jsp" />
- 		<jsp:include page="/WEB-INF/jsp/include/bottom.jsp" />
-		<%@ include file="/WEB-INF/jsp/include/bottom.jsp" %>
-	</footer> --%> 
 </body>
 </html>

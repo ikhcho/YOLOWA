@@ -22,7 +22,7 @@ public class BoardVO {
 
 	private Date reg_date;
 
-	
+	private String userName;
 
 	public BoardVO() {
 
@@ -141,19 +141,24 @@ public class BoardVO {
 	}
 
 
-
-	@Override
-
-	public String toString() {
-
-		return "BoardVO [no=" + no + ", house_no=" + house_no + ", user_no=" + user_no + ", content=" + content
-
-				+ ", score=" + score + ", blind_state=" + blind_state + ", reg_date=" + reg_date + "]";
-
+	public String getUserName() {
+		return userName;
 	}
 
-	
 
-	
+
+	public void setUserName(String userName) {
+		this.userName = userName.substring(0,1)+"*" +userName.substring(2);
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "BoardVO [no=" + no + ", house_no=" + house_no + ", user_no=" + user_no + ", content=" + content
+				+ ", score=" + score + ", blind_state=" + blind_state + ", reg_date=" + reg_date + ", userName="
+				+ userName + "]";
+	}
+
 
 }

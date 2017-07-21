@@ -46,61 +46,95 @@
 					</label>
 				</div>
 				<script>
+					var option = [];
+					function removeOption(arr, name){
+						arr = Array.from(new Set(arr));
+						var index = arr.indexOf(name);
+						arr.splice(index,1);
+						return arr;
+					}
 					$('#bbq').change(function() {
 						if($(this).prop('checked')){
 							$('.bbq-N').hide(500);
+							option.push('.bbq-N');
 						}else{
 							$('.bbq-N').show(500);
+							option = removeOption(option,'.bbq-N');
+							for(var i in option){
+								$(option[i]).hide();
+							}
 						}
-						console.log($(this).prop('checked'));
 					});
 					$('#pool').change(function() {
 						if($(this).prop('checked')){
 							$('.pool-N').hide(500);
+							option.push('.pool-N');
 						}else{
 							$('.pool-N').show(500);
+							option = removeOption(option,'.pool-N');
+							for(var i in option){
+								$(option[i]).hide();
+							}
 						}
-						console.log($(this).prop('checked'));
 					});
 					$('#parking').change(function() {
 						if($(this).prop('checked')){
 							$('.parking-N').hide(500);
+							option.push('.parking-N');
 						}else{
 							$('.parking-N').show(500);
+							option = removeOption(option,'.parking-N');
+							for(var i in option){
+								$(option[i]).hide();
+							}
 						}
-						console.log($(this).prop('checked'));
 					});
 					$('#singing').change(function() {
 						if($(this).prop('checked')){
 							$('.singing-N').hide(500);
+							option.push('.singing-N');
 						}else{
 							$('.singing-N').show(500);
+							option = removeOption(option,'.singing-N');
+							for(var i in option){
+								$(option[i]).hide();
+							}
 						}
-						console.log($(this).prop('checked'));
 					});
 					$('#football').change(function() {
 						if($(this).prop('checked')){
 							$('.football-N').hide(500);
+							option.push('.football-N');
 						}else{
 							$('.football-N').show(500);
+							option = removeOption(option,'.football-N');
+							for(var i in option){
+								$(option[i]).hide();
+							}
 						}
-						console.log($(this).prop('checked'));
 					});
 					$('#pickup').change(function() {
 						if($(this).prop('checked')){
 							$('.pickup-N').hide(500);
+							option.push('.pickup-N');
 						}else{
 							$('.pickup-N').show(500);
+							option = removeOption(option,'.pickup-N');
+							for(var i in option){
+								$(option[i]).hide();
+							}
 						}
-						console.log($(this).prop('checked'));
 					});
 				</script>
 			</div>
 		</div>
 	<div class="page-wrapper">
 		<section class="packages" id="packages">
+			
 			<div class="container">
-
+				<c:if test="${list == '[]' }">
+					<a href="${pageContext.request.contextPath }/user/home.do"><img width="100%" src="${pageContext.request.contextPath }/resources/images/no-find-house.jpg"></a>
+				</c:if>
 				<div class="row projects">
 					<div id="loader">
 						<div class="loader-icon"></div>
@@ -135,6 +169,7 @@
 								</a></li>
 								<!-- / Pension -->
 							</c:forEach>
+							
 						</ul>
 					</div>
 					<!-- END OF PORTFOLIO ITEMS-->

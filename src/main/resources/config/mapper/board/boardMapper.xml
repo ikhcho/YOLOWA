@@ -16,20 +16,19 @@
 
 	<sql id="selectId">
 
-		select no, house_no, user_no, content, score, blind_state,
+		select h.no, h.house_no, h.user_no, h.content, h.score, h.blind_state,
 
-				to_char(reg_date, 'yyyy-mm-dd') as reg_date
+				to_char(h.reg_date, 'yyyy-mm-dd') as reg_date, u.name as userName
 
-		from house_comment
+		from house_comment h, users u
 
 	</sql>
 
-	<select id="selectAllBoard" resultType="boardVO">
+	<select id="selectAllBoard" parameterType="int" resultType="boardVO" >
 
 		<include refid="selectId" />
-
-		order by no desc
-
+		where h.user_no = u.no and house_no = #{no}
+		order by no asc
 	</select>
 
 	
@@ -38,7 +37,7 @@
 
 		<include refid="selectId" />
 
-		where no = #{no}
+		where h.user_no = u.no and h.no = #{no}
 
 	</select>
 

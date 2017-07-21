@@ -56,20 +56,13 @@ public class BoardController {
 
 	@RequestMapping("/list.do")
 
-	public ModelAndView list() {
+	public ModelAndView list(int no) {
 
-		
-
-		List<BoardVO> list = service.selectAllBoard();
-
+		List<BoardVO> list = service.selectAllBoard(no);
 		ModelAndView mav = new ModelAndView("board/list");
-
 		mav.addObject("list", list);
 
-		
-
 		return mav;
-
 	}
 
 	
@@ -84,7 +77,6 @@ public class BoardController {
 
 		model.addAttribute("board", board);
 
-		
 
 		return "board/detail";
 
@@ -109,7 +101,6 @@ public class BoardController {
 		mav.setViewName("board/detail");
 
 		mav.addObject("board", board);
-
 		
 
 		return mav;
@@ -121,39 +112,19 @@ public class BoardController {
 	@RequestMapping(value="/write.do", method=RequestMethod.GET)
 
 	public String writeForm(Model model) {
-
-		
-
 		System.out.println("get...");
-
 		model.addAttribute("boardVO", new BoardVO());
-
-		
-
 		return "board/writeForm";
-
 	}
 
 	
 
 	@RequestMapping(value="/write.do", method=RequestMethod.POST)
 
-	public String write(BoardVO board) {
-
-		
-
-		
-
-		
-
-		System.out.println("posst : " + board);
-
-		
+	public String write(BoardVO board,Model model) {
 
 		service.insertBoard(board);
-
-		
-
+		model.addAttribute("no", board.getHouse_no());
 		return "redirect:/board/list.do";
 
 	}
@@ -164,16 +135,11 @@ public class BoardController {
 
 		@RequestMapping("/delete.do")
 
-		public String delete(@RequestParam("no") int no) {
+		public String delete(@RequestParam("no") int no, Model model) {
 
-			BoardVO board = new BoardVO();
-
-			board.setNo(no);
-
-			
-
+			BoardVO board = service.selectByNoBoard(no);
 			service.deleteBoard(board);
-			
+			model.addAttribute("no", board.getHouse_no());
 			return "redirect:/board/list.do";
 
 		}
@@ -183,15 +149,8 @@ public class BoardController {
 		@RequestMapping(value="/update.do", method=RequestMethod.GET)
 
 		public String updateForm(@RequestParam("no") int no, Model model) {
-
-			
-
 			BoardVO board = service.selectByNoBoard(no);
-
 			model.addAttribute("board", board);
-
-			
-
 			return "board/updateForm";
 
 		}

@@ -14,7 +14,7 @@ public interface BoardService {
 
 
 
-	List<BoardVO> selectAllBoard();
+	List<BoardVO> selectAllBoard(int no);
 
 	BoardVO selectByNoBoard(int no);
 
