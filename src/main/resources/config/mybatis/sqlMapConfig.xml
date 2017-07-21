@@ -20,6 +20,7 @@
 		<typeAlias alias="approveVO" type="kr.co.bit.admin.vo.ApproveVO" />
 		<typeAlias alias="commentBlindVO" type="kr.co.bit.admin.vo.CommentBlindVO" />
 		<typeAlias alias="houseBlindVO" type="kr.co.bit.admin.vo.HouseBlindVO" />
+		<typeAlias alias="reservationVO" type="kr.co.bit.reservation.vo.ReservationVO"/>
 	
 	</typeAliases>
 </configuration>
