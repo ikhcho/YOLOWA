@@ -143,15 +143,15 @@ public class BoardController {
 
 		@RequestMapping(value="/update.do", method=RequestMethod.POST)
 
-		public String update(BoardVO board, Model model) {
+		public String update(BoardVO board) {
 
 			
 
 			service.updateBoard(board);
 
-			model.addAttribute("no", board.getNo());
+			
 
-			return "redirect:/board/detail.do";
+			return "redirect:/user/mypageupdate.do";
 
 		}
 
