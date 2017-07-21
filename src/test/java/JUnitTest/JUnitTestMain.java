@@ -1,5 +1,7 @@
 package JUnitTest;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -8,6 +10,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import kr.co.bit.admin.service.AdminService;
+import kr.co.bit.admin.vo.ApproveVO;
+import kr.co.bit.admin.vo.CommentBlindVO;
 import kr.co.bit.busi.vo.HouseVO;
 import kr.co.bit.detail.dao.DetailDAO;
 import kr.co.bit.detail.service.DetailService;
@@ -34,6 +39,9 @@ public class JUnitTestMain {
 	@Autowired
 	private DetailService dservice;
 	
+	@Autowired
+	private AdminService aservice;
+	
 	@Test
 	public void 테스트() throws Exception {
 		
@@ -41,10 +49,20 @@ public class JUnitTestMain {
 		//HouseVO house = udao.houseDetail(1);
 		//HouseVO house = uservice.houseDetail(1);
 		
-		HouseVO house = dservice.houseDetail(1);
+		//HouseVO house = dservice.houseDetail(1);
 		
 		//HouseVO house = (HouseVO)request.getAttribute("houseVO");
 		
-		System.out.println(house);
+		//List<CommentBlindVO> commentBlindList = aservice.getCommentBlindList();
+		
+		//int commentBlindCount = aservice.getCommentBlindCount(1);
+		
+		//aservice.joinPartner(new ApproveVO(1, "32y"));
+		
+		//aservice.addCommentBlind(new CommentBlindVO(1, 2));
+		
+		List<ApproveVO> list = aservice.getApproveList("보류");
+		
+		System.out.println(list);
 	}
 }
