@@ -113,4 +113,32 @@ public class UserController {
 		return map;
 	}
 	
+	@RequestMapping(value="/mypageupdate.do", method=RequestMethod.GET)
+	public String updateForm(HttpSession session) {
+		
+		UserVO uvo = new UserVO();
+		uvo.setId("yolowa");
+		uvo.setPassword("yolowa");
+		
+		UserVO userVO = uService.login(uvo);
+		session.setAttribute("userVO", userVO);
+		
+		return "user/mypageupdate";
+	}
+	
+	@RequestMapping(value="/mypageupdate.do", method=RequestMethod.POST)
+	public String update(UserVO uvo, HttpSession session) {
+
+		
+		uService.updateUser(uvo);
+		
+		
+		// 수정된 사용자의 정보 조회
+		UserVO userVO = uService.selectById(uvo.getId());
+
+		session.setAttribute("userVO", userVO);
+
+		return "redirect:/user/mypageupdate.do";
+
+	}
 }

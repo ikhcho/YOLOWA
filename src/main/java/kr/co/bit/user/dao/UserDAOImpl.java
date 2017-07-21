@@ -42,7 +42,11 @@ public class UserDAOImpl implements UserDAO{
 		return template.selectList("user.houseList");
 	}
 	
-	
+	@Override
+	public void updateUser(UserVO uvo) {
+		
+		template.update("user.updateUser", uvo);
+	}
 	
 }
 

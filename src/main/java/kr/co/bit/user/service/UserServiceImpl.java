@@ -39,6 +39,14 @@ public class UserServiceImpl implements UserService{
 	public List<HomeListVO> houseList() {
 		return udao.houseList();
 	}
-	
+	@Override
+	public UserVO selectById(String id) {
+		return udao.idCheck(id);
+	}
+	@Override
+	public void updateUser(UserVO uvo) {
+		udao.updateUser(uvo);
+
+	}
 	
 }

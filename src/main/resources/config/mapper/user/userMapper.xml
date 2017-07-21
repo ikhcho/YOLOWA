@@ -45,4 +45,9 @@
 						group by house_no) room
 		where house.no = room.house_no
 	</select>
+	
+	<update id="updateUser" parameterType="userVO">
+		update users 
+		set password = #{password}, tel = #{tel}, email = #{email} where id = #{id}
+	</update>
 </mapper>

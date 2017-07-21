@@ -13,4 +13,5 @@ public interface UserDAO {
 	public void register(UserVO uvo);
 	HouseVO houseDetail(int no);
 	public List<HomeListVO> houseList();
+	void updateUser(UserVO uvo);
 }

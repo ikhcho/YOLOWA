@@ -13,4 +13,6 @@ public interface UserService {
 	public void register(UserVO uvo);
 	HouseVO houseDetail(int no);
 	public List<HomeListVO> houseList();
+	public UserVO selectById(String id);
+	void updateUser(UserVO uvo);
 }
