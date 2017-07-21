@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+
 import kr.co.bit.busi.vo.HouseVO;
 import kr.co.bit.user.vo.HomeListVO;
 import kr.co.bit.user.vo.UserVO;
@@ -42,7 +43,11 @@ public class UserDAOImpl implements UserDAO{
 		return template.selectList("user.houseList");
 	}
 	
-	
-	
+	@Override
+	public void updateUser(UserVO uvo) {
+		
+		template.update("user.updateUser", uvo);
+	}
+
 }
 
