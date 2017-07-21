@@ -7,8 +7,6 @@ select * from USER_CATEGORY
 insert into users values(USERS_SEQ.nextVal, 'yolowa', 'yolowa', '욜로와', '01012345678', 'yolowa@gmail.com', '2017-07-14', 'B', sysdate)
 insert into users values(USERS_SEQ.nextVal, 'businessman', '1234', '사업자1', '01012345678', 'yolowa@gmail.com', '2017-07-17', 'B', sysdate)
 
-select * from users 
-
 update users set type='B' where no =61
 
 insert into HOUSE values(HOUSE_SEQ.nextVal, 1, '양평 풍경속선물 펜션', '경기 양평군 양평읍 덕바위길 93', '02-307-5173', 6, 'Y', 'Y', 'Y', 'N', 'N', 'Y', '','2017-07-04','2017-08-16', '', 'N', '14시 이후', '12시 이전',
@@ -236,6 +234,7 @@ select * from ROOM_PHOTO
 select * from house where addr like '경기%' and addr like '%청평%'
 select * from users
 insert into RESERVATION values(reservation_seq.nextval, 46, 61, 82, '2017-07-22', '2017-07-24', 4, 449000, '핫핫', sysdate)
+insert into RESERVATION values(reservation_seq.nextval, 46, 62, 1, '2017-07-22', '2017-07-24', 4, 399000, '드라하', sysdate)
 select * from RESERVATION
 
 select house.no, house_name as houseName, addr, bbq, pool, parking, singing, football, pickup, photo, blind_state as blindState, price
@@ -260,3 +259,12 @@ on room.no != disable.room_no
 group by house_no
 
 select house_no, min(room.n_week_price) as price from room group by house_no
+
+select house_no as houseNo, no as roomNo, room_no as able
+from (select house_no, no from room where house_no = 46) room ,
+( select room_no from reservation where house_no = 46 and res_start <= '2017-07-22' and '2017-07-22' < res_end ) disable
+where room.no(*) = disable.room_no
+
+select no as able
+			from reservation 
+			where room_no = 61 and res_start <= '2017-07-21' and '2017-07-21' < res_end

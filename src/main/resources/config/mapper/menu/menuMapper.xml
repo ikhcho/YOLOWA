@@ -43,4 +43,23 @@
 			) available
 		where house.no = available.house_no
 	</select>
+	
+	<select id="ableRoom" parameterType="ableRoomVO" resultType="ableRoomVO">
+		select house_no as houseNo, no as roomNo, room_no as able
+		from (select house_no, no from room where house_no = #{houseNo}) room 
+			left outer join
+			(<![CDATA[
+				( select room_no from reservation where house_no = #{houseNo} and res_start <= #{resDate} and #{resDate} < res_end) disable
+			]]>)
+			on room.no = disable.room_no
+	</select>
+	
+	<select id="reservable" parameterType="ableRoomVO" resultType="ableRoomVO">
+		(<![CDATA[
+			select no as able
+			from reservation 
+			where room_no = #{roomNo} and res_start <= #{resDate} and #{resDate} < res_end
+		]]>)
+	</select>
+	
 </mapper>

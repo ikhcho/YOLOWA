@@ -185,7 +185,7 @@
 			<!-- SIDEBAR MENU -->
 			<div class="profile-usermenu">
 				<ul class="nav">
-					<li><a href="#"><i class="glyphicon glyphicon-user"></i>마이페이지</a></li>
+					<li><a href="${pageContext.request.contextPath}/user/mypageupdate.do"><i class="glyphicon glyphicon-user"></i>마이페이지</a></li>
 					<li><a href="#"><i class="glyphicon glyphicon-calendar"></i>예약확인</a></li>
 					<li><a href="#"><i class="glyphicon glyphicon-paperclip"></i>찜목록보기</a></li>
 					<li><a href="#"> <i class="glyphicon glyphicon-flag"></i>고객센터</a></li>

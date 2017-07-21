@@ -116,13 +116,6 @@ public class UserController {
 	@RequestMapping(value="/mypageupdate.do", method=RequestMethod.GET)
 	public String updateForm(HttpSession session) {
 		
-		UserVO uvo = new UserVO();
-		uvo.setId("yolowa");
-		uvo.setPassword("yolowa");
-		
-		UserVO userVO = uService.login(uvo);
-		session.setAttribute("userVO", userVO);
-		
 		return "user/mypageupdate";
 	}
 	

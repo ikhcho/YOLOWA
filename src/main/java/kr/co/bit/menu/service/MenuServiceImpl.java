@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.bit.menu.dao.MenuDAO;
+import kr.co.bit.menu.vo.AbleRoomVO;
 import kr.co.bit.menu.vo.SearchVO;
 import kr.co.bit.user.vo.HomeListVO;
 
@@ -28,6 +29,14 @@ public class MenuServiceImpl implements MenuService{
 		return mdao.selectEmptyRoomHouse(searchVO);
 	}
 
+	public List<AbleRoomVO> ableRoom(AbleRoomVO ableRoomVO){
+		return mdao.ableRoom(ableRoomVO);
+	}
+
+	@Override
+	public Boolean reservable(AbleRoomVO ableRoomVO) {
+		return mdao.reservable(ableRoomVO)==null?false:true;
+	}
 	
 	
 	

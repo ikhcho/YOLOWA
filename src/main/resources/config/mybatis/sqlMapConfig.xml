@@ -16,6 +16,7 @@
 		<typeAlias alias="searchVO" type="kr.co.bit.menu.vo.SearchVO" />
 		<typeAlias alias="homeListVO" type="kr.co.bit.user.vo.HomeListVO" />
 		<typeAlias alias="userVO" type="kr.co.bit.user.vo.UserVO" />
+		<typeAlias alias="ableRoomVO" type="kr.co.bit.menu.vo.AbleRoomVO" />
 		
 	</typeAliases>
 </configuration>

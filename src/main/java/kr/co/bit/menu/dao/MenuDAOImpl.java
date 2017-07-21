@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.bit.menu.vo.AbleRoomVO;
 import kr.co.bit.menu.vo.SearchVO;
 import kr.co.bit.user.vo.HomeListVO;
 
@@ -27,6 +28,14 @@ public class MenuDAOImpl implements MenuDAO{
 		return template.selectList("menu.selectEmptyRoomHouse", searchVO);
 	}
 
+	public List<AbleRoomVO> ableRoom(AbleRoomVO ableRoomVO){
+		return template.selectList("menu.ableRoom", ableRoomVO);
+	}
+
+	@Override
+	public AbleRoomVO reservable(AbleRoomVO ableRoomVO) {
+		return template.selectOne("menu.reservable", ableRoomVO);
+	}
 	
 	
 }
