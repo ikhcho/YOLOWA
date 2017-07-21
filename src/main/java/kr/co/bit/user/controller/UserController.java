@@ -113,4 +113,20 @@ public class UserController {
 		return map;
 	}
 	
+	@RequestMapping("/houseDetail.do")
+	public ModelAndView houseDetail(int no) {
+		System.out.println("Controller : " + no);
+		HouseVO house = uService.houseDetail(no);
+		
+		ModelAndView mav = new ModelAndView("detail/houseDetail");
+		mav.addObject(house);
+		
+		return mav;
+	}
+	
+	/*@RequestMapping("/houseReserve.do")
+	public ModelAndView getPensionInfo() {
+		System.out.println("reserve");
+		return null;		
+	}*/
 }

@@ -3,46 +3,52 @@
 <!DOCTYPE mapper
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	
-<mapper namespace = "user">
+<mapper namespace="user">
 	<sql id="selectUser">
-		select  no, id, password, name, tel, email, birthday, type, to_char(REG_DATE,'yyyy-MM-dd') as regDate
+		select no, id, password, name, tel, email, birthday, type,
+		to_char(REG_DATE,'yyyy-MM-dd') as regDate
 		from users
 	</sql>
+
 	<select id="login" parameterType="userVO" resultType="userVO">
-		<include refid="selectUser"/>
+		<include refid="selectUser" />
 		where id=#{id} and password=#{password}
 	</select>
-	
+
 	<select id="idCheck" parameterType="String" resultType="userVO">
-		<include refid="selectUser"/>
+		<include refid="selectUser" />
 		where id=#{id}
 	</select>
-	
+
 	<insert id="register" parameterType="userVO">
 		insert into users
-		values(USERS_SEQ.nextVal, #{id}, #{password}, #{name}, #{tel}, #{email}, #{birthday}, 'U', sysdate)
+		values(USERS_SEQ.nextVal, #{id}, #{password}, #{name}, #{tel},
+		#{email}, #{birthday}, 'U', sysdate)
 	</insert>
-	
+
 	<resultMap type="houseVO" id="houseMap">
-		<result column="user_no" property="userNo"/>
-		<result column="house_name" property="houseName"/>
-		<result column="room_cnt" property="roomCnt"/>
-		<result column="hot_start" property="hotStart"/>
-		<result column="hot_end" property="hotEnd"/>
-		<result column="blind_state" property="blindState"/>
-		<result column="reg_date" property="regDate"/>
+		<result column="user_no" property="userNo" />
+		<result column="house_name" property="houseName" />
+		<result column="room_cnt" property="roomCnt" />
+		<result column="hot_start" property="hotStart" />
+		<result column="hot_end" property="hotEnd" />
+		<result column="blind_state" property="blindState" />
+		<result column="reg_date" property="regDate" />
 	</resultMap>
-	
+
 	<select id="houseDetail" parameterType="int" resultMap="houseMap">
-		select * from house where no=#{no}
+		select *
+		from house where no=#{no}
 	</select>
-	
+
 	<select id="houseList" resultType="homeListVO">
-		select house.no, house_name as houseName, addr, bbq, pool, parking, singing, football, pickup, photo, blind_state as blindState, price
-		from house , (select house_no, min(room.n_week_price) as price
-						from room
-						group by house_no) room
+		select house.no, house_name as
+		houseName, addr, bbq, pool, parking, singing, football, pickup, photo,
+		blind_state as blindState, price
+		from house , (select house_no,
+		min(room.n_week_price) as price
+		from room
+		group by house_no) room
 		where house.no = room.house_no
 	</select>
 </mapper>
