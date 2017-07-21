@@ -5,4 +5,109 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace = "admin">
+<!-- resultMap 설정 시작 -->
+	<resultMap type="approveVO" id="approveMap">
+		<result column="user_no" property="userNo"/>
+		<result column="approve_state" property="approveState"/>
+		<result column="approve_key" property="approveKey"/>
+		<result column="reg_date" property="regDate"/>
+	</resultMap>
+	
+	<resultMap type="commentBlindVO" id="commentBlindMap">
+		<result column="comment_no" property="commentNo"/>
+		<result column="user_no" property="userNo"/>
+		<result column="reg_date" property="regDate"/>
+	</resultMap>
+	
+	<resultMap type="houseBlindVO" id="houseBlindMap">
+		<result column="house_no" property="houseNo"/>
+		<result column="user_no" property="userNo"/>
+		<result column="reg_date" property="regDate"/>
+	</resultMap>	
+<!-- resultMap 설정 끝 -->
+
+<!-- 가맹 관련 시작 -->
+	<!-- 가맹 신청 -->
+	<insert id="joinPartner" parameterType="approveVO">
+		insert into approve(no, user_no, approve_state, approve_key, reg_date) 
+		values(APPROVE_SEQ.nextVal, #{userNo}, '신청', #{approveKey}, sysdate)
+	</insert>
+	
+	<!-- 가맹 신청 전체 리스트 -->
+	<select id="getApproveList" resultMap="approveMap">
+		select * from approve
+	</select>
+	
+	<!-- 가맹 신청 상태에 따른 리스트 -->
+	<select id="getApproveListByState" parameterType="java.lang.String" resultMap="approveMap">
+		select * from approve where approve_state=#{approveState}
+	</select>
+	
+	<!-- 사용자 번호에 따른 리스트 -->
+	<select id="getApproveListByNo" parameterType="int" resultMap="approveMap">
+		select * from approve where user_no=#{userNo}
+	</select>
+	
+	<!-- 사용자 계정과 사업자 번호에 따른 가맹 신청 조회 -->
+	<select id="getApproveOne" parameterType="approveVO" resultMap="approveMap">
+		select * from approve where user_no=#{userNo} and approve_key=#{approveKey}
+	</select>
+	
+	<!-- 승인 상태 변경 -->
+	<update id="updateApproveState" parameterType="approveVO">
+		update approve set approve_state=#{approveState} where no=#{no}
+	</update>
+	
+	<!-- 승인 상태 변경 -->
+	<update id="updateUserType" parameterType="userVO">
+		update users set type=#{type} where no=#{no}
+	</update>	
+<!-- 가맹 관련 끝 -->
+
+<!-- 댓글 신고 관련 시작 -->
+	<!-- 댓글 신고 -->
+	<insert id="addCommentBlind" parameterType="commentBlindVO">
+		insert into comment_blind(no, comment_no, user_no, reg_date) 
+		values(COMMENT_BLIND_SEQ.nextVal, #{commentNo}, #{userNo}, sysdate)
+	</insert>
+	
+	<!-- 댓글 신고 전체 -->
+	<select id="getCommentBlindList" resultMap="commentBlindMap">
+		select * from comment_blind
+	</select>
+	
+	<!-- 댓글 신고 한 개 -->
+	<select id="getCommentBlindOne" parameterType="int" resultMap="commentBlindMap">
+		select * from comment_blind where comment_no=#{commentNo}
+	</select>
+	
+	<!-- 댓글 신고 개수 -->
+	<select id="getCommentBlindCount" parameterType="int" resultType="int">
+		select count(*) from comment_blind where comment_no=#{commentNo}
+	</select>
+<!-- 댓글 신고 관련 끝 -->
+
+<!-- 업체 신고 관련 시작 -->
+	<!-- 업체 신고 -->
+	<insert id="addHouseBlind" parameterType="houseBlindVO">
+		insert into house_blind(no, house_no, user_no, reg_date) 
+		values(HOUSE_BLIND_SEQ.nextVal, #{houseNo}, #{userNo}, sysdate)
+	</insert>
+	
+	<!-- 업체 신고 전체 -->
+	<select id="getHouseBlindList" resultMap="houseBlindMap">
+		select * from house_blind
+	</select>
+	
+	<!-- 업체 신고 한 개 -->
+	<select id="getHouseBlindOne" parameterType="int" resultMap="houseBlindMap">
+		select * from house_blind where house_no=#{houseNo}
+	</select>
+	
+	<!-- 업체 신고 개수 -->
+	<select id="getHouseBlindCount" parameterType="int" resultType="int">
+		select count(*) from house_blind where house_no=#{houseNo}
+	</select>
+<!-- 업체 신고 관련 끝 -->
+	
 </mapper>

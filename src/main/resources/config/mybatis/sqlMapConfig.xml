@@ -17,6 +17,9 @@
 		<typeAlias alias="homeListVO" type="kr.co.bit.user.vo.HomeListVO" />
 		<typeAlias alias="userVO" type="kr.co.bit.user.vo.UserVO" />
 		<typeAlias alias="ableRoomVO" type="kr.co.bit.menu.vo.AbleRoomVO" />
-		
+		<typeAlias alias="approveVO" type="kr.co.bit.admin.vo.ApproveVO" />
+		<typeAlias alias="commentBlindVO" type="kr.co.bit.admin.vo.CommentBlindVO" />
+		<typeAlias alias="houseBlindVO" type="kr.co.bit.admin.vo.HouseBlindVO" />
+	
 	</typeAliases>
 </configuration>
