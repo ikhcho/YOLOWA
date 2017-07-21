@@ -10,7 +10,6 @@ import javax.validation.Valid;
 
 
 
-import org.mybatis.spring.SqlSessionTemplate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -18,9 +17,6 @@ import org.springframework.stereotype.Controller;
 
 import org.springframework.ui.Model;
 
-import org.springframework.validation.BindingResult;
-
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -74,10 +70,7 @@ public class BoardController {
 	public String detail(@RequestParam("no") int no, Model model) {
 
 		BoardVO board = service.selectByNoBoard(no);
-
 		model.addAttribute("board", board);
-
-
 		return "board/detail";
 
 	}
@@ -90,19 +83,10 @@ public class BoardController {
 
 	public ModelAndView detailNo(@PathVariable int no) {
 
-		
-
 		BoardVO board = service.selectByNoBoard(no);
-
-		
-
 		ModelAndView mav = new ModelAndView();
-
 		mav.setViewName("board/detail");
-
 		mav.addObject("board", board);
-		
-
 		return mav;
 
 	}
