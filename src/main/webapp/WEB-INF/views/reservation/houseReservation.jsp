@@ -34,7 +34,12 @@
 		
 		$( ".datepicker" ).datepicker({
 			dateFormat: "yy-mm-dd",
-			minDate : d
+			minDate : d,
+			onSelect: function(){
+				var uri = "${pageContext.request.contextPath}/reservation/houseReservation.do?houseNo=${param.houseNo}&selectDate="+$(this).val();
+				//console.log(uri);
+				$(location).attr('href', uri);
+			}
 		});
 	});
 	

@@ -25,6 +25,18 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/css/useinfo/useInfo.css">
 <script type="text/javascript">	
 	$(function(){
+		//예약버튼 uri 설정
+		$('.btnReservation').each(function(index){
+			$('.btnReservation').eq(index).click(function(){
+				if(${userVO.id eq null}) {
+					alert("로그인이 필요합니다.");
+				} else {
+					var uri = href="${ pageContext.request.contextPath }/reservation/houseReservation.do?houseNo=${ houseVO.no }&selectDate=" + $('.datepicker').val();
+					$(location).attr('href', uri);
+				}
+			});
+		});
+		
 		var map = null;
 		$(document).on('click','#mapBtn',function(){
 			var myaddress = '${houseVO.addr}';// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
