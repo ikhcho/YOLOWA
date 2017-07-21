@@ -154,7 +154,7 @@
 </div>
 
 <c:if test="${userVO!=null}">
-	<div class="profile col-sm-12">
+	<div class="profile col-sm-2">
 		<div class="profile-content">
 			<!-- SIDEBAR USERPIC -->
 			<div class="profile-userpic">

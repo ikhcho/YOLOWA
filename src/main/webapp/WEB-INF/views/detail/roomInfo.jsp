@@ -79,7 +79,7 @@
 								<td>${ roomInfo.nWeekendPrice }</td>
 								<td rowspan="2">${ roomInfo.overPrice }</td>
 								<td rowspan="2"><a
-									href="${ pageContext.request.contextPath }/user/houseReserve.do"><button>예약하기</button></a></td>
+									href="${ pageContext.request.contextPath }/reservation/houseReservation.do?houseNo=1&selectDate=2017-07-28"><button>예약하기</button></a></td>
 							</tr>
 							<tr>
 								<td>성수기</td>

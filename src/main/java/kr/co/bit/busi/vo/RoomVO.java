@@ -17,6 +17,7 @@ public class RoomVO {
 	private int overPrice;
 	private String content;
 	private Date regDate;
+	private int price;
 	public RoomVO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -104,6 +105,12 @@ public class RoomVO {
 	}
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
 	}
 	@Override
 	public String toString() {

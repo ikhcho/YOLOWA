@@ -22,8 +22,6 @@
 <link href="${ pageContext.request.contextPath }/resources/bootstrap/assets/styles.css" rel="stylesheet" media="screen">
 <script src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=oAJ6Q1ZOST_VK52BarQt&submodules=geocoder"></script>
 
-<script src="${ pageContext.request.contextPath }/resources/bootstrap/vendors/jquery-1.9.1.js"></script>
-
 <script type="text/javascript">	
 	$(function(){
 		var map = null;

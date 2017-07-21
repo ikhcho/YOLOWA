@@ -94,4 +94,9 @@
 		where house_no = #{no}
 	</select>
 	
+	<insert id="insertReservation" parameterType="reservationVO">
+		insert into reservation
+		values(RESERVATION_SEQ.nextval, #{houseNo}, #{roomNo}, #{userNo}, #{resStart}, #{resEnd}, #{personCnt}, #{totalPrice}, #{content}, sysdate)
+	</insert>
+	
 </mapper>
