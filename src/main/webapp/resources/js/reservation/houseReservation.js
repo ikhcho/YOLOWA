@@ -37,6 +37,24 @@ $(function(){
 		$('.day').each(function(index) {
 			$(this).change(function() {
 				if($('.selectRoom').eq(index).is(":checked")){
+					
+					var roomNo = $('.selectRoom').eq(index).val();
+					var day = $('.day').eq(index).val();
+					var resDate = $('.datepicker').val();
+					$.ajax({
+						url : '/Yolowa/menu/ableRoomDay.do',
+						type : 'post',
+						data : {
+							'resDate' : resDate,
+							'roomNo' : roomNo,
+							'day' : day
+						},
+						contentType : 'application/x-www-form-urlencoded; charset=utf-8',
+						success : function(data){
+							alert(data);
+						}
+					});
+					
 					var add;
 					if(parseInt($('.peopleNumber').eq(index).val()) <= parseInt($('.min').eq(index).text())) add = 0;
 					else add = parseInt($('.peopleNumber').eq(index).val()) - parseInt($('.min').eq(index).text());
@@ -46,6 +64,7 @@ $(function(){
 					);
 					
 					setTotalPrice();
+					
 					
 				}
 			});

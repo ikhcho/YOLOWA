@@ -22,17 +22,27 @@
 <link href="${ pageContext.request.contextPath }/resources/bootstrap/assets/styles.css" rel="stylesheet" media="screen">
 <script src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=oAJ6Q1ZOST_VK52BarQt&submodules=geocoder"></script>
 
+<link href="${ pageContext.request.contextPath }/resources/bxslider/jquery.bxslider.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/css/useinfo/useInfo.css">
+
 <script type="text/javascript">	
 	$(function(){
 		//예약버튼 uri 설정
 		$('.btnReservation').each(function(index){
 			$('.btnReservation').eq(index).click(function(){
-				if(${userVO.id eq null}) {
+				if('${userVO.id}' == ""){
 					alert("로그인이 필요합니다.");
 				} else {
-					var uri = href="${ pageContext.request.contextPath }/reservation/houseReservation.do?houseNo=${ houseVO.no }&selectDate=" + $('.datepicker').val();
-					$(location).attr('href', uri);
+					var popWidth  = '1000'; // 파업사이즈 너비
+					var popHeight = '700'; // 팝업사이즈 높이
+					var winWidth  = document.body.clientWidth;  // 현재창의 너비
+					var winHeight = document.body.clientHeight; // 현재창의 높이
+					var winX      = window.screenX || window.screenLeft || 0;// 현재창의 x좌표
+					var winY      = window.screenY || window.screenTop || 0; // 현재창의 y좌표
+					w = winX + (winWidth - popWidth) / 2;
+					h = winY + (winHeight - popHeight) / 2;
+					window.open("${ pageContext.request.contextPath }/reservation/houseReservation.do?houseNo=${ houseVO.no }&selectDate="
+							+ $('.datepicker').val(), "예약하기", "width="+popWidth + " height="+popHeight +" top=100 left="+w);
 				}
 			});
 		});
@@ -199,5 +209,16 @@
 				</div>
 			</div>
 		</footer>
+<script src="${ pageContext.request.contextPath }/resources/bxslider/jquery.bxslider.min.js"></script>
+<script>
+	$(function(){
+		$('.bxslider').bxSlider({
+			mode : 'fade',
+			captions : true,
+			speed:500,
+			auto:true
+		});
+	});
+	</script>
 </body>
 </html>

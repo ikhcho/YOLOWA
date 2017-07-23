@@ -22,7 +22,10 @@
 	<div class="panel-body collapse in">
 		<div id="rootwizard">
 			<div class="tab-content">
+				
 				<c:forEach items="${ list }" var="roomInfo" varStatus="status">
+					
+					</ul>
 					<script>
 						$(function(){
 							var roomNo = '${ roomInfo.no }';
@@ -36,11 +39,12 @@
 								success : function(data){
 									var obj = JSON.parse(data);
 									var selector = "#tab"+roomNo;
+									var text = '<ul class="bxslider">';
 									for(var i=0; i<obj.length; i++){
-										var text = '<img width="100px" height="100px" src="/Yolowa/upload/'+obj[i].photo+'">';
-										$(selector).prepend(text);
+										text += '<li><img width="100px" height="100px" src="/Yolowa/upload/'+obj[i].photo+'"></li>';
 									}
-									console.log(obj);
+									text += '</ul>';
+									$(selector).prepend(text);
 								}
 							});
 						});

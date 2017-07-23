@@ -54,21 +54,16 @@ public class MenuController {
 		return "user/home";
 	}
 	
-	@RequestMapping(value="/test.do", method=RequestMethod.GET)
-	public String test(){
-		return "menu/test";
-	}
-	
-	@RequestMapping(value="/test.do", method=RequestMethod.POST)
+	@RequestMapping(value="/ableRoomList.do", method=RequestMethod.POST)
 	@ResponseBody
-	public List<AbleRoomVO> test(AbleRoomVO able){
+	public List<AbleRoomVO> ableRoomList(AbleRoomVO able){
 		List<AbleRoomVO> ableRoomList = mService.ableRoom(able);
 		return ableRoomList;
 	}
 	
-	@RequestMapping(value="/testOne.do", method=RequestMethod.POST)
+	@RequestMapping(value="/ableRoomDay.do", method=RequestMethod.POST)
 	@ResponseBody
-	public String test(Date resDate, int roomNo, int day){
+	public String ableRoomDay(Date resDate, int roomNo, int day){
 		AbleRoomVO ableRoomVO = new AbleRoomVO();
 		for(int i=1; i<day; i++){
 			resDate.setDate(resDate.getDate() + 1);
