@@ -9,7 +9,6 @@ import kr.co.bit.admin.dao.AdminDAO;
 import kr.co.bit.admin.vo.ApproveVO;
 import kr.co.bit.admin.vo.CommentBlindVO;
 import kr.co.bit.admin.vo.HouseBlindVO;
-import kr.co.bit.user.dao.UserDAO;
 import kr.co.bit.user.vo.UserVO;
 
 @Service
@@ -87,6 +86,7 @@ public class AdminServiceImpl implements AdminService{
 //업체 신고 관련 시작
 	@Override
 	public void addHouseBlind(HouseBlindVO houseBlindVO) {
+		//if(adao.checkHouseBlind(houseBlindVO))
 		adao.addHouseBlind(houseBlindVO);
 	}
 	

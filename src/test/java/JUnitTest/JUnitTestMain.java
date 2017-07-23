@@ -18,6 +18,7 @@ import kr.co.bit.detail.dao.DetailDAO;
 import kr.co.bit.detail.service.DetailService;
 import kr.co.bit.user.dao.UserDAO;
 import kr.co.bit.user.service.UserService;
+import kr.co.bit.user.vo.UserVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -42,6 +43,9 @@ public class JUnitTestMain {
 	@Autowired
 	private AdminService aservice;
 	
+	@Autowired
+	private SqlSessionTemplate sqlSessionTemplate;
+	
 	@Test
 	public void 테스트() throws Exception {
 		
@@ -61,7 +65,11 @@ public class JUnitTestMain {
 		
 		//aservice.addCommentBlind(new CommentBlindVO(1, 2));
 		
-		List<ApproveVO> list = aservice.getApproveList("보류");
+		//List<ApproveVO> list = aservice.getApproveList("보류");
+		
+		UserVO user = new UserVO();
+		user.setType("B");
+		List<UserVO> list = sqlSessionTemplate.selectList("testSQL", user);
 		
 		System.out.println(list);
 	}

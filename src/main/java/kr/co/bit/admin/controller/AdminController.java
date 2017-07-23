@@ -4,7 +4,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -92,17 +91,17 @@ public class AdminController {
 		return mav;
 	}
 
-	//한 업체의 댓글 신고 리스트 확인
-	@RequestMapping("/{no}/getCommentBlind.do")
-	public ModelAndView getCommentBlindList(@PathVariable int no) {
+	//댓글 신고 리스트 확인
+	@RequestMapping(value="/getCommentBlind.do", params={"no"})
+	public ModelAndView getCommentBlindList(@RequestParam int no) {
 		ModelAndView mav = new ModelAndView("admin/commentBlind");
 		mav.addObject("commentBlind", aService.getCommentBlindList(no));
 		return mav;
 	}
 
-	//한 업체의 댓글 신고 개수 확인
-	@RequestMapping("/{no}/getCommentBlindCount.do")
-	public ModelAndView getCommentBlindCount(@PathVariable int no) {
+	//댓글의 신고 개수 확인
+	@RequestMapping(value="/getCommentBlindCount.do", params={"no"})
+	public ModelAndView getCommentBlindCount(@RequestParam int no) {
 		ModelAndView mav = new ModelAndView("admin/commentBlind");
 		mav.addObject("commentBlindCount", aService.getCommentBlindCount(no));
 		return mav;
@@ -125,16 +124,16 @@ public class AdminController {
 	}
 
 	//한 업체의 신고 리스트 확인
-	@RequestMapping("/{no}/getHouseBlind.do")
-	public ModelAndView getHouseBlindOne(@PathVariable int no) {
+	@RequestMapping(value="/getHouseBlind.do", params={"no"})
+	public ModelAndView getHouseBlindOne(@RequestParam int no) {
 		ModelAndView mav = new ModelAndView("admin/houseBlind");
 		mav.addObject("houseBlind", aService.getHouseBlindList(no));
 		return mav;
 	}
 
 	//한 업체의 신고 개수 확인
-	@RequestMapping("/{no}/getHouseBlindCount.do")
-	public ModelAndView getHouseBlindCount(@PathVariable int no) {
+	@RequestMapping(value="/getHouseBlindCount.do", params={"no"})
+	public ModelAndView getHouseBlindCount(@RequestParam int no) {
 		ModelAndView mav = new ModelAndView("admin/houseBlind");
 		mav.addObject("houseBlindCount", aService.getHouseBlindCount(no));
 		return mav;

@@ -71,12 +71,12 @@
 		values(COMMENT_BLIND_SEQ.nextVal, #{commentNo}, #{userNo}, sysdate)
 	</insert>
 	
-	<!-- 댓글 신고 전체 -->
+	<!-- 댓글 신고 전체 목록 -->
 	<select id="getCommentBlindList" resultMap="commentBlindMap">
 		select * from comment_blind
 	</select>
 	
-	<!-- 댓글 신고 한 개 -->
+	<!-- 하나의 댓글에 대한 신고 목록 -->
 	<select id="getCommentBlindOne" parameterType="int" resultMap="commentBlindMap">
 		select * from comment_blind where comment_no=#{commentNo}
 	</select>
@@ -105,9 +105,12 @@
 	</select>
 	
 	<!-- 업체 신고 개수 -->
-	<select id="getHouseBlindCount" parameterType="int" resultType="int">
+	<select id="countHouseBlind" parameterType="int" resultType="int">
 		select count(*) from house_blind where house_no=#{houseNo}
+		and 
+		<where></where>
 	</select>
+	
 <!-- 업체 신고 관련 끝 -->
 	
 </mapper>
