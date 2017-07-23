@@ -93,8 +93,8 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 	@Override
-	public int getHouseBlindCount(int houseNo) {
-		return template.selectOne("getHouseBlindCount", houseNo);
+	public int countHouseBlind(HouseBlindVO houseBlindVO) {
+		return template.selectOne("countHouseBlind", houseBlindVO);
 	}
 //업체 신고 관련 끝	
 

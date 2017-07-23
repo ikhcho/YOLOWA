@@ -101,8 +101,8 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public int getHouseBlindCount(int houseNo) {
-		return adao.getHouseBlindCount(houseNo);
+	public int countHouseBlind(HouseBlindVO houseBlindVO) {
+		return adao.countHouseBlind(houseBlindVO);
 	}	
 //업체 신고 관련 끝		
 

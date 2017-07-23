@@ -125,17 +125,17 @@ public class AdminController {
 
 	//한 업체의 신고 리스트 확인
 	@RequestMapping(value="/getHouseBlind.do", params={"no"})
-	public ModelAndView getHouseBlindOne(@RequestParam int no) {
+	public ModelAndView getHouseBlindList(@RequestParam int no) {
 		ModelAndView mav = new ModelAndView("admin/houseBlind");
 		mav.addObject("houseBlind", aService.getHouseBlindList(no));
 		return mav;
 	}
 
 	//한 업체의 신고 개수 확인
-	@RequestMapping(value="/getHouseBlindCount.do", params={"no"})
-	public ModelAndView getHouseBlindCount(@RequestParam int no) {
+	@RequestMapping(value="/countHouseBlind.do")
+	public ModelAndView countHouseBlind(HouseBlindVO houseBlindVO) {
 		ModelAndView mav = new ModelAndView("admin/houseBlind");
-		mav.addObject("houseBlindCount", aService.getHouseBlindCount(no));
+		mav.addObject("houseBlindCount", aService.countHouseBlind(houseBlindVO));
 		return mav;
 	}
 }

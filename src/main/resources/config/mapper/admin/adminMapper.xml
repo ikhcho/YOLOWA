@@ -105,12 +105,21 @@
 	</select>
 	
 	<!-- 업체 신고 개수 -->
-	<select id="countHouseBlind" parameterType="int" resultType="int">
-		select count(*) from house_blind where house_no=#{houseNo}
-		and 
-		<where></where>
+	<select id="countHouseBlind" parameterType="houseBlindVO" resultType="int">
+		select count(*) from house_blind from house_no = #{houseNo}
+		<if test="user_no != null">
+		and	user_no = #{userNo}
+		</if>
 	</select>
 	
+<select id="testSQL" resultType="userVO">
+  SELECT * FROM users 
+  <where> 
+    <if test="type != null">
+         type like #{type}
+    </if>     
+  </where>
+</select>
 <!-- 업체 신고 관련 끝 -->
 	
 </mapper>

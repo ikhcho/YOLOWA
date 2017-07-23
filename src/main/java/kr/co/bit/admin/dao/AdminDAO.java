@@ -37,6 +37,6 @@ public interface AdminDAO {
 	
 	List<HouseBlindVO> getHouseBlindList(int houseNo);
 	
-	int getHouseBlindCount(int houseNo);
+	int countHouseBlind(HouseBlindVO houseBlindVO);
 
 }
