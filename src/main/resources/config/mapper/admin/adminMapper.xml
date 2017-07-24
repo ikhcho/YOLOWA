@@ -40,15 +40,17 @@
 	<!-- 가맹 신청 전체 리스트 -->
 	<select id="getApprove" resultMap="approveMap">
 		select * from approve
-		<if test="approveState!=null">
-		where approve_state=#{approveState}
-		</if>
-		<if test="userNo!=0">
-		where user_no=#{userNo}
-			<if test="approveKey!=0">
-			and approve_key=#{approveKey}
+		<where>
+			<if test="userNo!=null">
+				user_no=#{userNo}
+				<if test="approveKey!=null">
+				and approve_key=#{approveKey}
+				</if>
 			</if>
-		</if>
+			<if test="approveState!=null">
+				approve_state=#{approveState}
+			</if>
+		</where>		
 	</select>
 <!-- 	
 	가맹 신청 상태에 따른 리스트
@@ -85,6 +87,11 @@
 		values(COMMENT_BLIND_SEQ.nextVal, #{commentNo}, #{userNo}, sysdate)
 	</insert>
 	
+	<!-- 댓글 블라인드 처리 및 블라인드 해지 -->
+	<update id="updateBoardBlindState">
+		update house_comment set blind_state=#{blind_state} where no=#{no}
+	</update>
+	
 	<!-- 댓글 신고 전체 목록 -->
 	<select id="getCommentBlind" resultMap="commentBlindMap">
 		select * from comment_blind
@@ -114,6 +121,11 @@
 		insert into house_blind(no, house_no, user_no, reg_date) 
 		values(HOUSE_BLIND_SEQ.nextVal, #{houseNo}, #{userNo}, sysdate)
 	</insert>
+	
+	<!-- 업체 블라인드 처리 및 블라인드 해지 -->
+	<update id="updateHouseBlindState">
+		update house set blind_state=#{blindState} where no=#{no}
+	</update>
 	
 	<!-- 업체 신고 전체 혹은 한 개 -->
 	<select id="getHouseBlind" resultMap="houseBlindMap">

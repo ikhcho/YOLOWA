@@ -21,6 +21,16 @@ public class AdminController {
 
 	@Autowired
 	private AdminService aService;
+	
+	@RequestMapping(value="/home.do", method=RequestMethod.GET)
+	public String home(){		
+		return "admin/home";
+	}
+	
+	@RequestMapping(value="/home.do", method=RequestMethod.POST)
+	public String home(UserVO userVO){
+		return "busi/home";
+	}
 
 	//가맹 신청 양식으로
 	@RequestMapping(value="/joinPartner.do", method=RequestMethod.GET)
@@ -44,18 +54,21 @@ public class AdminController {
 	}
 
 	//가맹 신청 목록 전체
-	@RequestMapping(value="/getApprove.do")
+	@RequestMapping(value="/getApprove.do", method=RequestMethod.GET)
 	public ModelAndView getApprove() {
+		System.out.println("No Parameter");
 		ModelAndView mav = new ModelAndView("admin/approve");
-		mav.addObject("approveList", aService.getApprove());
+		mav.addObject("approve", aService.getApprove());
 		return mav;
 	}
 
 	//가맹 신청 상태별 목록
-	@RequestMapping(value="/getApprove.do", params={"approveVO"})
-	public ModelAndView getApprove(@RequestParam ApproveVO approveVO) {
+	@RequestMapping(value="/getApprove.do", method=RequestMethod.POST)
+	public ModelAndView getApprove(ApproveVO approveVO) {
+		System.out.println("Parameter");
+		System.out.println(approveVO);
 		ModelAndView mav = new ModelAndView("admin/approve");
-		mav.addObject("approveList", aService.getApprove(approveVO));
+		mav.addObject("approve", aService.getApprove(approveVO));
 		return mav;
 	}
 
@@ -79,7 +92,7 @@ public class AdminController {
 	@RequestMapping("/updateApproveState.do")
 	public String updateApproveState(ApproveVO approveVO) {
 		aService.updateApproveState(approveVO);
-		return "redirect:/admin/approveList.do";
+		return "redirect:/admin/approve.do";
 	}
 
 	//유저가 댓글 신고

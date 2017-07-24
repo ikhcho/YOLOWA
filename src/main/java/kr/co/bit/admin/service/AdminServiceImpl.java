@@ -9,6 +9,9 @@ import kr.co.bit.admin.dao.AdminDAO;
 import kr.co.bit.admin.vo.ApproveVO;
 import kr.co.bit.admin.vo.CommentBlindVO;
 import kr.co.bit.admin.vo.HouseBlindVO;
+import kr.co.bit.board.vo.BoardVO;
+import kr.co.bit.busi.vo.HouseVO;
+import kr.co.bit.detail.dao.DetailDAO;
 import kr.co.bit.user.vo.UserVO;
 
 @Service
@@ -48,6 +51,7 @@ public class AdminServiceImpl implements AdminService{
 	
 	@Override
 	public List<ApproveVO> getApprove() {
+		System.out.println("Service");
 		return adao.getApprove();
 	}
 
@@ -79,14 +83,22 @@ public class AdminServiceImpl implements AdminService{
 //댓글 신고 관련 시작
 	@Override
 	public void addCommentBlind(CommentBlindVO commentBlindVO) {
-		int selectResult = adao.getCommentBlind(commentBlindVO).size();
-		if(selectResult >= 1)
-		{
+		if(adao.countCommentBlind(commentBlindVO) >= 1)
+		{//userNo와 commentNo로 체크
 			System.out.println("이미 신고함");
 		}
 		else
 		{
 			adao.addCommentBlind(commentBlindVO);
+			int commentNo = commentBlindVO.getCommentNo();
+			
+			if(adao.countCommentBlind(new CommentBlindVO(commentNo, 0)) >= 2)
+			{
+				BoardVO bVO = new BoardVO();
+				bVO.setNo(commentNo);
+				bVO.setBlind_state("Y");
+				adao.punishComment(bVO);
+			}
 		}		
 	}
 
@@ -109,14 +121,22 @@ public class AdminServiceImpl implements AdminService{
 //업체 신고 관련 시작
 	@Override
 	public void addHouseBlind(HouseBlindVO houseBlindVO) {
-		int selectResult = adao.getHouseBlind(houseBlindVO).size();
-		if(selectResult >= 1)
-		{
+		if(adao.countHouseBlind(houseBlindVO) >= 1)
+		{//userNo와 houseNo로 체크
 			System.out.println("이미 신고함");
 		}
 		else
 		{
 			adao.addHouseBlind(houseBlindVO);
+			int houseNo = houseBlindVO.getHouseNo();
+			
+			if(adao.countHouseBlind(new HouseBlindVO(houseNo, 0)) >= 2)
+			{
+				HouseVO hVO = new HouseVO();
+				hVO.setNo(houseNo);
+				hVO.setBlindState("Y");
+				adao.punishHouse(hVO);
+			}
 		}		
 	}
 	

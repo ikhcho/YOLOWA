@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import kr.co.bit.admin.vo.ApproveVO;
 import kr.co.bit.admin.vo.CommentBlindVO;
 import kr.co.bit.admin.vo.HouseBlindVO;
+import kr.co.bit.board.vo.BoardVO;
+import kr.co.bit.busi.vo.HouseVO;
 import kr.co.bit.user.vo.UserVO;
 
 @Repository
@@ -29,6 +31,7 @@ public class AdminDAOImpl implements AdminDAO{
 	
 	@Override
 	public List<ApproveVO> getApprove() {
+		System.out.println("DAO");
 		return template.selectList("getApprove");
 	}
 
@@ -63,6 +66,11 @@ public class AdminDAOImpl implements AdminDAO{
 		template.insert("addCommentBlind", commentBlindVO);
 		System.out.println("DAO");
 	}
+	
+	@Override
+	public void punishComment(BoardVO bVO) {
+		template.update("updateBoardBlindState", bVO);
+	}
 
 	@Override
 	public List<CommentBlindVO> getCommentBlind() {		
@@ -86,6 +94,11 @@ public class AdminDAOImpl implements AdminDAO{
 		template.insert("addHouseBlind", houseBlindVO);
 		System.out.println("DAO");
 	}	
+	
+	@Override
+	public void punishHouse(HouseVO hVO) {
+		template.update("updateHouseBlindState", hVO);
+	}
 
 	@Override
 	public List<HouseBlindVO> getHouseBlind() {

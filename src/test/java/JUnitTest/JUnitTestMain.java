@@ -72,12 +72,22 @@ public class JUnitTestMain {
 		user.setType("B");
 		List<UserVO> list = sqlSessionTemplate.selectList("testSQL", user);*/
 		
-		HouseBlindVO hbVO = new HouseBlindVO();
+		/*HouseBlindVO hbVO = new HouseBlindVO();
 		hbVO.setHouseNo(1);
 		//hbVO.setUserNo(1);
 		List<HouseBlindVO> hbList = sqlSessionTemplate.selectList("countHouseBlind", hbVO);
+		*/
 		
-		System.out.println(hbVO.getUserNo());
-		System.out.println(hbList);
+		ApproveVO aVO = new ApproveVO();
+		aVO.setApproveState("승인");
+		//aVO.setUserNo(11);
+		System.out.println(aVO.getUserNo());
+		List<ApproveVO> aList = sqlSessionTemplate.selectList("getApprove", aVO);
+		
+		
+		//System.out.println(hbVO.getUserNo());
+		//System.out.println(hbList);
+		
+		System.out.println(aList);
 	}
 }
