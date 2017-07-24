@@ -53,20 +53,17 @@ public class AdminController {
 		return "admin/quitPartner";
 	}
 
-	//가맹 신청 목록 전체
-	@RequestMapping(value="/getApprove.do", method=RequestMethod.GET)
+	/*//가맹 신청 목록 전체
+	@RequestMapping(value="/getApprove.do")
 	public ModelAndView getApprove() {
-		System.out.println("No Parameter");
 		ModelAndView mav = new ModelAndView("admin/approve");
 		mav.addObject("approve", aService.getApprove());
 		return mav;
-	}
+	}*/
 
 	//가맹 신청 상태별 목록
-	@RequestMapping(value="/getApprove.do", method=RequestMethod.POST)
+	@RequestMapping(value="/getApprove.do")
 	public ModelAndView getApprove(ApproveVO approveVO) {
-		System.out.println("Parameter");
-		System.out.println(approveVO);
 		ModelAndView mav = new ModelAndView("admin/approve");
 		mav.addObject("approve", aService.getApprove(approveVO));
 		return mav;
