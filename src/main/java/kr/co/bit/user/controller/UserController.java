@@ -113,6 +113,15 @@ public class UserController {
 		return map;
 	}
 	
+	@RequestMapping("/mypage.do")
+	public String mypage(Model model, HttpSession session){
+		UserVO userVO = (UserVO)session.getAttribute("userVO");
+		
+		List<HouseVO> zzimList = uService.getZzimHouseList(userVO.getNo());
+		model.addAttribute("zzimList", zzimList);
+		return "user/mypage";
+	}
+	
 	@RequestMapping(value="/mypageupdate.do", method=RequestMethod.GET)
 	public String updateForm(HttpSession session) {
 		
@@ -145,9 +154,47 @@ public class UserController {
 		return mav;
 	}
 	
-	/*@RequestMapping("/houseReserve.do")
-	public ModelAndView getPensionInfo() {
-		System.out.println("reserve");
-		return null;		
-	}*/
+	//찜여부 확인
+	@RequestMapping(value="/zzim.do", method=RequestMethod.GET)
+	@ResponseBody
+	public String zzimCheck(int houseNo,int userNo){
+		
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		map.put("houseNo", houseNo);
+		map.put("userNo", userNo);
+		//찜한 기록 존재
+		if(userNo != 0 && uService.selectZzim(map)){
+			return "disable"; //이미 찜
+		}else{
+			return "able"; //찜 가능
+		}
+	}
+	
+	@RequestMapping(value="/zzim.do", method=RequestMethod.POST)
+	@ResponseBody
+	public String zzimReg(int houseNo,int userNo, String method){
+		
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		map.put("houseNo", houseNo);
+		map.put("userNo", userNo);
+		if(method.equals("delete")){
+			uService.deleteZzim(map);
+			return "삭제되었습니다.";
+		}else{
+			uService.insertZzim(map);
+			return "찜 *^-^*";
+		}
+		
+	}
+	
+	@RequestMapping("/zzimList.do")
+	public String zzimList(Model model, HttpSession session){
+		
+		UserVO userVO = (UserVO)session.getAttribute("userVO");
+		
+		List<HouseVO> zzimList = uService.getZzimHouseList(userVO.getNo());
+		model.addAttribute("zzimList", zzimList);
+		
+		return "user/zzim";
+	}
 }

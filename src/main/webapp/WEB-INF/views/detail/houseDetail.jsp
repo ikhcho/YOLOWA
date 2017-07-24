@@ -47,6 +47,7 @@
 			});
 		});
 		
+		//찾아오는 길 Naver Map API
 		var map = null;
 		$(document).on('click','#mapBtn',function(){
 			var myaddress = '${houseVO.addr}';// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
@@ -78,8 +79,64 @@
 				}); 
 			});
 		});
+		
+		//찜가능여부 확인
+		var userNo = '${userVO.no}'; 
+		if(userNo == ''){
+			userNo=0;
+		}
+		$.ajax({
+			url : '/Yolowa/user/zzim.do',
+			type : 'get',
+			data : {
+				'houseNo' : '${param.no}',
+				'userNo' : userNo
+			},
+			success : function(data){
+				if(data == "able"){
+					$('#zzim').attr("class","glyphicon glyphicon-heart-empty");
+				}else{
+					$('#zzim').attr("class","glyphicon glyphicon-heart");
+				}
+			}
+		});
 	});
 	
+	//찜하기
+	function zzim(){
+		var method;
+		if($('#zzim')[0].className.split(" ")[1] == "glyphicon-heart"){
+			if(confirm('이미 찜한 펜션입니다.\n목록에서 삭제하겠습니까?')){
+				method = "delete";
+			}else{
+				return false;
+			}
+		}else{
+			method = "insert";
+		}
+		if('${userVO.no}' == ''){
+			alert('로그인이 필요합니다.');
+		}else{
+			$.ajax({
+				url : '/Yolowa/user/zzim.do',
+				type : 'post',
+				data : {
+					'houseNo' : '${param.no}',
+					'userNo' : '${userVO.no}',
+					'method' : method
+				},
+				contentType : 'application/x-www-form-urlencoded; charset=utf-8',
+				success : function(data){
+					if(method =="delete"){
+						$('#zzim').attr("class","glyphicon glyphicon-heart-empty");
+					}else{
+						$('#zzim').attr("class","glyphicon glyphicon-heart");
+					}
+					alert(data);
+				}
+			});
+		}
+	}
 </script>
 </head>
 <body>
@@ -93,6 +150,7 @@
 					<div class="span6">
 						<hr />
 						<div>
+							<button class="btn btn-danger pull-right" onclick="zzim()">찜하기&nbsp;<i class="glyphicon glyphicon-heart-empty" aria-hidden="true" id="zzim"></i></button>
 							<h2>${ houseVO.houseName }</h2>
 						</div>
 						<hr />

@@ -1,6 +1,7 @@
 package kr.co.bit.user.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,29 @@ public class UserDAOImpl implements UserDAO{
 		
 		template.update("user.updateUser", uvo);
 	}
+	@Override
+	public List<HouseVO> getZzimHouseList(int no) {
+		List<HouseVO> zzimList = template.selectList("user.zzimList", no);
+		return zzimList;
+	}
+
+	@Override
+	public HouseVO selectZzim(Map<String, Integer> map) {
+		// TODO Auto-generated method stub
+		return template.selectOne("user.selectZzim", map);
+	}
+
+	@Override
+	public void insertZzim(Map<String, Integer> map) {
+		// TODO Auto-generated method stub
+		template.insert("user.insertZzim", map);
+	}
+
+	@Override
+	public void deleteZzim(Map<String, Integer> map) {
+		// TODO Auto-generated method stub
+		template.delete("user.deleteZzim", map);
+	}
+	
 	
 }

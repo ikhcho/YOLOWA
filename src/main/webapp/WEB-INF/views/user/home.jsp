@@ -55,10 +55,10 @@
 					}
 					$('#bbq').change(function() {
 						if($(this).prop('checked')){
-							$('.bbq-N').hide(500);
+							$('.bbq-N').hide(1000);
 							option.push('.bbq-N');
 						}else{
-							$('.bbq-N').show(500);
+							$('.bbq-N').show(1000);
 							option = removeOption(option,'.bbq-N');
 							for(var i in option){
 								$(option[i]).hide();
@@ -67,10 +67,10 @@
 					});
 					$('#pool').change(function() {
 						if($(this).prop('checked')){
-							$('.pool-N').hide(500);
+							$('.pool-N').hide(1000);
 							option.push('.pool-N');
 						}else{
-							$('.pool-N').show(500);
+							$('.pool-N').show(1000);
 							option = removeOption(option,'.pool-N');
 							for(var i in option){
 								$(option[i]).hide();
@@ -79,10 +79,10 @@
 					});
 					$('#parking').change(function() {
 						if($(this).prop('checked')){
-							$('.parking-N').hide(500);
+							$('.parking-N').hide(1000);
 							option.push('.parking-N');
 						}else{
-							$('.parking-N').show(500);
+							$('.parking-N').show(1000);
 							option = removeOption(option,'.parking-N');
 							for(var i in option){
 								$(option[i]).hide();
@@ -91,10 +91,10 @@
 					});
 					$('#singing').change(function() {
 						if($(this).prop('checked')){
-							$('.singing-N').hide(500);
+							$('.singing-N').hide(1000);
 							option.push('.singing-N');
 						}else{
-							$('.singing-N').show(500);
+							$('.singing-N').show(1000);
 							option = removeOption(option,'.singing-N');
 							for(var i in option){
 								$(option[i]).hide();
@@ -103,10 +103,10 @@
 					});
 					$('#football').change(function() {
 						if($(this).prop('checked')){
-							$('.football-N').hide(500);
+							$('.football-N').hide(1000);
 							option.push('.football-N');
 						}else{
-							$('.football-N').show(500);
+							$('.football-N').show(1000);
 							option = removeOption(option,'.football-N');
 							for(var i in option){
 								$(option[i]).hide();
@@ -115,10 +115,10 @@
 					});
 					$('#pickup').change(function() {
 						if($(this).prop('checked')){
-							$('.pickup-N').hide(500);
+							$('.pickup-N').hide(1000);
 							option.push('.pickup-N');
 						}else{
-							$('.pickup-N').show(500);
+							$('.pickup-N').show(1000);
 							option = removeOption(option,'.pickup-N');
 							for(var i in option){
 								$(option[i]).hide();

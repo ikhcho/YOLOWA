@@ -557,10 +557,10 @@ input:focus {
 }
 
 /*----OTHER FOCUSES ----*/
-.other-focuses {
+/* .other-focuses {
 	background: url(../images/lines.png) repeat-x center;
 	margin-bottom: 25px;
-}
+} */
 .other-focuses .section-footer-title {
 	background: #FFF;
 	padding: 0 15px;
@@ -827,10 +827,10 @@ width: -webkit-calc(100% / 2);
 }
 
 /*--OUR CLIENTS --*/
-.our-clients {
+/* .our-clients {
 	background: url(../images/lines-dark.png) repeat-x center;
 	margin-bottom: 40px;
-}
+} */
 .our-clients .section-footer-title {
 	background: #272727;
 	padding: 0 15px;

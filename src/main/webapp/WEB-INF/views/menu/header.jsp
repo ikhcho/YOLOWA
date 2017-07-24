@@ -146,7 +146,7 @@
 							<td><div class="col-sm-1"></div></td>
 							<td><div class="col-sm-1"></div></td>
 							<td>
-								<button type="submit" class="btn btn-warning btn-lg">
+								<button type="submit" class="btn btn-info btn-lg">
 									<span>
 										<h4 style="margin: 0px;">
 											빈객실검색<i class="glyphicon glyphicon-search"></i>
@@ -185,7 +185,7 @@
 			<!-- SIDEBAR MENU -->
 			<div class="profile-usermenu">
 				<ul class="nav">
-					<li><a href="${pageContext.request.contextPath}/user/mypageupdate.do"><i class="glyphicon glyphicon-user"></i>마이페이지</a></li>
+					<li><a href="${pageContext.request.contextPath}/user/mypage.do"><i class="glyphicon glyphicon-user"></i>마이페이지</a></li>
 					<li><a href="#"><i class="glyphicon glyphicon-calendar"></i>예약확인</a></li>
 					<li><a href="#"><i class="glyphicon glyphicon-paperclip"></i>찜목록보기</a></li>
 					<li><a href="#"> <i class="glyphicon glyphicon-flag"></i>고객센터</a></li>
