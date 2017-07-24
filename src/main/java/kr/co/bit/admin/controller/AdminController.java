@@ -35,24 +35,31 @@ public class AdminController {
 		mav.addObject("approveVO", aService.joinPartner(approveVO));
 		return mav;
 	}
+	
+	//가맹 해지 신청
+	@RequestMapping(value="/quitPartner.do")
+	public String quitPartner(ApproveVO approveVO) {
+		aService.quitPartner(approveVO);
+		return "admin/quitPartner";
+	}
 
 	//가맹 신청 목록 전체
-	@RequestMapping(value="/getApproveList.do")
-	public ModelAndView getApproveList() {
-		ModelAndView mav = new ModelAndView("admin/approveList");
-		mav.addObject("approveList", aService.getApproveList());
+	@RequestMapping(value="/getApprove.do")
+	public ModelAndView getApprove() {
+		ModelAndView mav = new ModelAndView("admin/approve");
+		mav.addObject("approveList", aService.getApprove());
 		return mav;
 	}
 
 	//가맹 신청 상태별 목록
-	@RequestMapping(value="/getApproveList.do", params={"approveState"})
-	public ModelAndView getApproveList(@RequestParam String approveState) {
-		ModelAndView mav = new ModelAndView("admin/approveList");
-		mav.addObject("approveList", aService.getApproveList(approveState));
+	@RequestMapping(value="/getApprove.do", params={"approveVO"})
+	public ModelAndView getApprove(@RequestParam ApproveVO approveVO) {
+		ModelAndView mav = new ModelAndView("admin/approve");
+		mav.addObject("approveList", aService.getApprove(approveVO));
 		return mav;
 	}
 
-	//가맹 신청 사용자 번호에 따른 목록
+	/*//가맹 신청 사용자 번호에 따른 목록
 	@RequestMapping(value="/getApproveList.do", params={"no"})
 	public ModelAndView getApproveList(@RequestParam int no) {
 		ModelAndView mav = new ModelAndView("admin/approveList");
@@ -66,7 +73,7 @@ public class AdminController {
 		ModelAndView mav = new ModelAndView("admin/approveOne");
 		mav.addObject("approveVO", aService.getApproveOne(approveVO));
 		return mav;
-	}
+	}*/
 	
 	//승인 상태 변경
 	@RequestMapping("/updateApproveState.do")
@@ -85,25 +92,25 @@ public class AdminController {
 
 	//댓글 신고 전체 리스트 확인
 	@RequestMapping("/getCommentBlind.do")
-	public ModelAndView getCommentBlindList() {
+	public ModelAndView getCommentBlind() {
 		ModelAndView mav = new ModelAndView("admin/commentBlind");
-		mav.addObject("commentBlind", aService.getCommentBlindList());
+		mav.addObject("commentBlind", aService.getCommentBlind());
 		return mav;
 	}
 
 	//댓글 신고 리스트 확인
-	@RequestMapping(value="/getCommentBlind.do", params={"no"})
-	public ModelAndView getCommentBlindList(@RequestParam int no) {
+	@RequestMapping(value="/getCommentBlind.do", params={"commentBlindVO"})
+	public ModelAndView getCommentBlind(@RequestParam CommentBlindVO commentBlindVO) {
 		ModelAndView mav = new ModelAndView("admin/commentBlind");
-		mav.addObject("commentBlind", aService.getCommentBlindList(no));
+		mav.addObject("commentBlind", aService.getCommentBlind(commentBlindVO));
 		return mav;
 	}
 
 	//댓글의 신고 개수 확인
-	@RequestMapping(value="/getCommentBlindCount.do", params={"no"})
-	public ModelAndView getCommentBlindCount(@RequestParam int no) {
+	@RequestMapping(value="/countCommentBlind.do", params={"commentBlindVO"})
+	public ModelAndView countCommentBlind(@RequestParam CommentBlindVO commentBlindVO) {
 		ModelAndView mav = new ModelAndView("admin/commentBlind");
-		mav.addObject("commentBlindCount", aService.getCommentBlindCount(no));
+		mav.addObject("commentBlindCount", aService.countCommentBlind(commentBlindVO));
 		return mav;
 	}
 
@@ -117,17 +124,17 @@ public class AdminController {
 
 	//업체 신고 전체 리스트 확인
 	@RequestMapping("/getHouseBlind.do")
-	public ModelAndView getHouseBlindList() {
+	public ModelAndView getHouseBlind() {
 		ModelAndView mav = new ModelAndView("admin/houseBlind");
-		mav.addObject("houseBlind", aService.getHouseBlindList());
+		mav.addObject("houseBlind", aService.getHouseBlind());
 		return mav;
 	}
 
 	//한 업체의 신고 리스트 확인
-	@RequestMapping(value="/getHouseBlind.do", params={"no"})
-	public ModelAndView getHouseBlindList(@RequestParam int no) {
+	@RequestMapping(value="/getHouseBlind.do", params={"houseBlindVO"})
+	public ModelAndView getHouseBlind(@RequestParam HouseBlindVO houseBlindVO) {
 		ModelAndView mav = new ModelAndView("admin/houseBlind");
-		mav.addObject("houseBlind", aService.getHouseBlindList(no));
+		mav.addObject("houseBlind", aService.getHouseBlind(houseBlindVO));
 		return mav;
 	}
 

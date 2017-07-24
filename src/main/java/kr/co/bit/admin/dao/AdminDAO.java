@@ -11,13 +11,15 @@ public interface AdminDAO {
 	
 	int joinPartner(ApproveVO approveVO);
 	
-	List<ApproveVO> getApproveList();
+	int quitPartner(ApproveVO approveVO);
+	
+	List<ApproveVO> getApprove();
 
-	List<ApproveVO> getApproveList(String approveState);
+	List<ApproveVO> getApprove(ApproveVO approveVO);
 	
-	List<ApproveVO> getApproveList(int no);
+	/*List<ApproveVO> getApproveList(int no);
 	
-	ApproveVO getApproveOne(ApproveVO approveVO);
+	ApproveVO getApproveOne(ApproveVO approveVO);*/
 	
 	void updateApproveState(ApproveVO approveVO);
 	
@@ -25,17 +27,17 @@ public interface AdminDAO {
 
 	void addCommentBlind(CommentBlindVO commentBlindVO);
 	
-	List<CommentBlindVO> getCommentBlindList();
+	List<CommentBlindVO> getCommentBlind();
 	
-	List<CommentBlindVO> getCommentBlindList(int commentNo);
+	List<CommentBlindVO> getCommentBlind(CommentBlindVO commentBlindVO);
 	
-	int getCommentBlindCount(int commentNo);
+	int countCommentBlind(CommentBlindVO commentBlindVO);
 
 	void addHouseBlind(HouseBlindVO houseBlindVO);	
 
-	List<HouseBlindVO> getHouseBlindList();
+	List<HouseBlindVO> getHouseBlind();
 	
-	List<HouseBlindVO> getHouseBlindList(int houseNo);
+	List<HouseBlindVO> getHouseBlind(HouseBlindVO houseBlindVO);
 	
 	int countHouseBlind(HouseBlindVO houseBlindVO);
 

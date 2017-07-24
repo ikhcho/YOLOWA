@@ -13,6 +13,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import kr.co.bit.admin.service.AdminService;
 import kr.co.bit.admin.vo.ApproveVO;
 import kr.co.bit.admin.vo.CommentBlindVO;
+import kr.co.bit.admin.vo.HouseBlindVO;
 import kr.co.bit.busi.vo.HouseVO;
 import kr.co.bit.detail.dao.DetailDAO;
 import kr.co.bit.detail.service.DetailService;
@@ -67,10 +68,16 @@ public class JUnitTestMain {
 		
 		//List<ApproveVO> list = aservice.getApproveList("보류");
 		
-		UserVO user = new UserVO();
+		/*UserVO user = new UserVO();
 		user.setType("B");
-		List<UserVO> list = sqlSessionTemplate.selectList("testSQL", user);
+		List<UserVO> list = sqlSessionTemplate.selectList("testSQL", user);*/
 		
-		System.out.println(list);
+		HouseBlindVO hbVO = new HouseBlindVO();
+		hbVO.setHouseNo(1);
+		//hbVO.setUserNo(1);
+		List<HouseBlindVO> hbList = sqlSessionTemplate.selectList("countHouseBlind", hbVO);
+		
+		System.out.println(hbVO.getUserNo());
+		System.out.println(hbList);
 	}
 }
