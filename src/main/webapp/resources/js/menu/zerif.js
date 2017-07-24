@@ -162,10 +162,9 @@ jQuery(document).ready(function($) {
     $('.more').on('click', function(event) {
         event.preventDefault();
 
-        var href = $(this).attr('href') + ' .single-project',
+        var href = $(this).attr('href');
             portfolioList = $('#portfolio-list'),
             content = $('#loaded-content');
-
         portfolioList.animate({'marginLeft':'-120%'},{duration:400,queue:false});
         portfolioList.fadeOut(400);
         setTimeout(function(){ $('#loader').show(); },400);

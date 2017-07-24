@@ -17,22 +17,19 @@
 
 </head>
 <body>
-<!-- =========================
-   HOME SECTION       
-============================== -->
 	<header id="profile" class="header">
 		<div id="main-nav" class="navbar navbar-inverse bs-docs-nav"
 			role="banner">
 			<div class="container">
-				<nav class="navbar-collapse collapse" role="navigation"
-					id="bs-navbar-collapse">
-					<ul
-						class="nav navbar-nav navbar-right responsive-nav main-nav-list">
+				<nav class="navbar-collapse collapse" role="navigation" id="bs-navbar-collapse">
+					<a role="button" class="links" href="${pageContext.request.contextPath}/user/home.do">
+					<img style="width:260px; padding-top:10px" src="${pageContext.request.contextPath }/resources/images/logo.png"></a>
+					<ul class="nav navbar-nav navbar-right responsive-nav main-nav-list">
 						<li><a href="#profile">프로필</a></li>
 						<li><a href="#reservation">예약정보</a></li>
 						<li><a href="#zzim">찜목록</a></li>
 						<li><a href="#contact">고객센터</a></li>
-						<li><a href="#aboutus">YOLOWA</a></li>
+						<li><a href="#aboutus">ABOUT</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -141,7 +138,7 @@
 							<!-- Pension -->
 							<li class="wow fadeInLeft animated" data-wow-offset="30"
 								data-wow-duration="1.5s" data-wow-delay="0.15s"><a
-								href="${pageContext.request.contextPath}/detail/houseDetail.do?no=${houseVO.no }"
+								href="${pageContext.request.contextPath}/detail/houseSimple.do?no=${houseVO.no }"
 								class="more">
 									<img src="${pageContext.request.contextPath }/upload/${houseVO.photo}" />
 									<div class="project-info">
@@ -158,9 +155,13 @@
 				</div>
 				<!-- END OF PORTFOLIO ITEMS-->
 			</div>
-			<div id="loaded-content"></div>
-
-   			<a id="back-button" class="red-btn" href="#"><i class="icon-fontawesome-webfont-27"></i> Go Back</a>
+			<div id="loaded-content">
+			
+			</div>
+			<div class="row">
+				<a id="back-button" class="red-btn" href="#"><i class="icon-fontawesome-webfont-27"></i> Go Back</a>
+			</div>
+   			
 			<!-- PROJECT DETAILS WILL BE LOADED HERE -->
 		</div>
 		<!-- / END CONTAINER -->

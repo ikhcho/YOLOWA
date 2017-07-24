@@ -100,7 +100,11 @@
 		dayNum.setAttribute("value", day);
 		people.setAttribute("value", personCnt);
 		price.setAttribute("value", totalPrice);
-		form.submit();
+		if(roomNo.length == 0){
+			alert("객실을 선택해 주세요.");
+		}else{
+			form.submit();
+		}
 	}
 	
 </script>

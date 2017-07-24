@@ -71,7 +71,7 @@
 			<div class="row">
 				<div class="col-sm-3">
 					<h1 style="margin: 0px;">
-						<a role="button" class="links" href="${pageContext.request.contextPath}/user/home.do"><span class="largenav text-center">YOLOWA</span></a>
+						<a role="button" class="links" href="${pageContext.request.contextPath}/user/home.do"><span class="largenav text-center"><img width="260px" src="${pageContext.request.contextPath }/resources/images/logo.png"></span></a>
 					</h1>
 				</div>
 				<div class="col-sm-9 col-xs-11">

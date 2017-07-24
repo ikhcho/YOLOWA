@@ -422,6 +422,7 @@ input:focus {
 	width: 100%;
 	z-index: 1000;
 	min-height: 75px;
+	background-color: #2874f0;
 }
 #main-nav.fixed {
 	position: fixed !important;

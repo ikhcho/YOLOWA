@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -50,6 +51,16 @@ public class DetailController {
 		mav.addObject(house);
 		
 		return mav;
+	}
+	
+	@RequestMapping("/houseSimple.do")
+	public String houseSimple(int no, Model model)
+	{
+		List<RoomVO> list = detailService.roomNameList(no);
+		HouseVO house = detailService.houseDetail(no);
+		model.addAttribute("list", list);
+		model.addAttribute("houseVO",house);
+		return "detail/houseSimple";
 	}
 	
 }
