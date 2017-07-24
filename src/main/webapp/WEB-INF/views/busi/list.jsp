@@ -29,7 +29,7 @@
 						var text = '<tr><td rowspan="2">' + obj[i].roomName + '</td><td rowspan="2">' + obj[i].style + '</td><td rowspan="2">' + obj[i].roomSize 
 									+ '</td><td rowspan="2">' + obj[i].personMin + '/' + obj[i].personMax + '</td><td>' + '비수기' 
 									+ '</td><td>' + obj[i].nWeekPrice + '</td><td>' + obj[i].nWeekendPrice + '</td><td rowspan="2">'
-									+ '<a href="${pageContext.request.contextPath}/busi/pension/updateRoom.do?no='+ obj[i].no +'">'
+									+ '<a href="${pageContext.request.contextPath}/busi/pension/updateRoom.do?houseNo='+houseNo+'&roomNo='+ obj[i].no +'">'
 									+ '<button class="btn btn-info"><i class="icon-pencil icon-white"></i></button></a>' + '</td><td rowspan="2">'
 									+ '<a><button class="btn btn-danger" onclick="roomDel(' + obj[i].no + ')">'
 									+ '<i class="icon-remove icon-white"></i></button>' + '</td></tr>'

@@ -82,8 +82,13 @@ public class BusiServiceImpl implements BusiService{
 		// TODO Auto-generated method stub
 		return bdao.selectRoomPhotoList(no);
 	}
-	
-	
+
+	@Override
+	public void deleteRoomPhoto(int roomNo) {
+		// TODO Auto-generated method stub
+		bdao.deleteRoomPhoto(roomNo);
+	}
+
 	
 	
 }

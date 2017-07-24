@@ -268,3 +268,7 @@ where room.no(*) = disable.room_no
 select no as able
 			from reservation 
 			where room_no = 61 and res_start <= '2017-07-21' and '2017-07-21' < res_end
+
+select * from room where house_no = 2
+select * from room_photo
+insert into room_photo values(room_photo_seq.nextval, 7, 'mlec-d3670582-34e7-4d16-8c87-3778f6d3350b.jpg')

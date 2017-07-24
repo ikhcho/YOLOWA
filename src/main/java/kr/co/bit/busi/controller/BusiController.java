@@ -229,9 +229,9 @@ public class BusiController {
 	}
 	
 	@RequestMapping(value="/pension/updateRoom.do", method=RequestMethod.GET)
-	public String updateRoom(int no, Model model){
-		RoomVO roomVO = bService.selectRoomByNo(no);
-		List<RoomPhotoVO> photoList = bService.selectRoomPhotoList(no);  
+	public String updateRoom(int houseNo, int roomNo, Model model){
+		RoomVO roomVO = bService.selectRoomByNo(roomNo);
+		List<RoomPhotoVO> photoList = bService.selectRoomPhotoList(roomNo);  
 		model.addAttribute("roomVO", roomVO);
 		model.addAttribute("roomPhotoList", photoList);
 		return "busi/updateRoom";
@@ -241,7 +241,8 @@ public class BusiController {
 	public String updateRoom(MultipartHttpServletRequest mRequest) throws IllegalStateException, IOException{
 		String uploadDir = servletContext.getRealPath("/upload/");
 		RoomVO roomVO = new RoomVO();
-		roomVO.setNo(Integer.parseInt(mRequest.getParameter("no")));
+		roomVO.setNo(Integer.parseInt(mRequest.getParameter("roomNo")));
+		roomVO.setHouseNo(Integer.parseInt(mRequest.getParameter("houseNo")));
 		roomVO.setRoomName(mRequest.getParameter("roomName"));
 		roomVO.setStyle(mRequest.getParameter("style"));
 		roomVO.setRoomSize(mRequest.getParameter("roomSize"));
@@ -265,12 +266,7 @@ public class BusiController {
 		roomVO.setContent(mRequest.getParameter("content"));
 		System.out.println(roomVO);
 		bService.updateRoom(roomVO);
-		
-		//RoomPhoto를 등록하기위해 저장한 room 번호 조회 
-		Map<String,String> map = new HashMap<String,String>();
-		map.put("houseNo", mRequest.getParameter("houseNo"));
-		map.put("roomName", roomVO.getRoomName());
-		int roomNo = bService.findRoomNo(map);
+		bService.deleteRoomPhoto(roomVO.getNo());
 		
 		Iterator<String> iter = mRequest.getFileNames();
 		String formFileName = iter.next();
@@ -300,7 +296,7 @@ public class BusiController {
 				file.transferTo(new File(uploadDir + saveFileName));
 				
 				RoomPhotoVO roomPhotoVO = new RoomPhotoVO();
-				roomPhotoVO.setRoomNo(roomNo);
+				roomPhotoVO.setRoomNo(roomVO.getNo());
 				roomPhotoVO.setPhoto(saveFileName);
 				bService.insertRoomPhoto(roomPhotoVO);
 			} 

@@ -21,11 +21,23 @@
 	</div>
 	<div class="panel-body collapse in">
 		<div id="rootwizard">
-			<div class="tab-content">
-				
+				<div class="tab-content">
 				<c:forEach items="${ list }" var="roomInfo" varStatus="status">
-					
-					</ul>
+					<c:choose>
+						<c:when test="${status.first }">
+							<div class="tab-pane active" id="tab${ roomInfo.no }">
+						</c:when>
+						<c:otherwise>
+							<div class="tab-pane" id="tab${ roomInfo.no }">
+						</c:otherwise>
+					</c:choose>
+					<div class="col-sm-8">
+						<ul id="slider${roomInfo.no }">
+							
+						</ul>
+					</div>
+					<div class="col-sm-4" id="pager${roomInfo.no }">
+					</div>
 					<script>
 						$(function(){
 							var roomNo = '${ roomInfo.no }';
@@ -36,27 +48,32 @@
 									'no' : roomNo
 								},
 								contentType : 'application/x-www-form-urlencoded; charset=utf-8',
+								async : false,
 								success : function(data){
 									var obj = JSON.parse(data);
 									var selector = "#tab"+roomNo;
-									var text = '<ul class="bxslider">';
+									var slider = '#slider'+roomNo;
+									var pager = '#pager'+roomNo;
+									var text = '';
+									var ptext = '';
 									for(var i=0; i<obj.length; i++){
-										text += '<li><img width="100px" height="100px" src="/Yolowa/upload/'+obj[i].photo+'"></li>';
+										text += '<li><img src="/Yolowa/upload/'+obj[i].photo+'"></li>';
+										ptext += '<div class="col-sm-6"><a data-slide-index="' + i + '"><img style="width:100%" src="/Yolowa/upload/'+obj[i].photo+'"></a></div>'
 									}
-									text += '</ul>';
-									$(selector).prepend(text);
+									$(slider).append(text);
+									$(pager).append(ptext);
+									$(slider).bxSlider({
+										mode : 'fade',
+										captions : true,
+										speed : 500,
+										auto : true,
+										responsive : false,
+										pagerCustom: pager
+									});
 								}
 							});
 						});
 					</script>
-					<c:choose>
-						<c:when test="${status.first }">
-							<div class="tab-pane active" id="tab${ roomInfo.no }">
-						</c:when>
-						<c:otherwise>
-							<div class="tab-pane" id="tab${ roomInfo.no }">
-						</c:otherwise>
-					</c:choose>
 					<div class="block-content collapse in">
 						<table class="table table-bordered text-center">
 							<tr>
@@ -98,11 +115,16 @@
 					</div>
 			</div>
 			</c:forEach>
-
+			</div>
 		</div>
 	</div>
 </div>
-
-<!-- /block -->
-</div>
-
+<script src="${ pageContext.request.contextPath }/resources/bxslider/jquery.bxslider.min.js"></script>
+<script>
+	$(document).on('click','.tab-pane',function(){
+		$('ul[id^=slider]').bxSlider();
+		$('.bx-viewport').css('height','400px');
+		$('ul[id^=slider]').find('li').css('width','100%');
+		$('img').css('width','100%');
+	});
+</script>

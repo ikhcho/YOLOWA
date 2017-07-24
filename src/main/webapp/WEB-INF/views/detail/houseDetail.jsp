@@ -79,6 +79,7 @@
 			});
 		});
 	});
+	
 </script>
 </head>
 <body>
@@ -209,16 +210,6 @@
 				</div>
 			</div>
 		</footer>
-<script src="${ pageContext.request.contextPath }/resources/bxslider/jquery.bxslider.min.js"></script>
-<script>
-	$(function(){
-		$('.bxslider').bxSlider({
-			mode : 'fade',
-			captions : true,
-			speed:500,
-			auto:true
-		});
-	});
-	</script>
+
 </body>
 </html>
