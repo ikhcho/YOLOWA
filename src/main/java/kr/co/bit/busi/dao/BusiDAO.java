@@ -20,4 +20,5 @@ public interface BusiDAO {
 	public int findRoomNo(Map<String, String> map);
 	public void insertRoomPhoto(RoomPhotoVO roomPhotoVO);
 	public List<RoomPhotoVO> selectRoomPhotoList(int no);
+	public void deleteRoomPhoto(int roomNo);
 }

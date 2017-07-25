@@ -9,7 +9,9 @@ import kr.co.bit.admin.dao.AdminDAO;
 import kr.co.bit.admin.vo.ApproveVO;
 import kr.co.bit.admin.vo.CommentBlindVO;
 import kr.co.bit.admin.vo.HouseBlindVO;
-import kr.co.bit.user.dao.UserDAO;
+import kr.co.bit.board.vo.BoardVO;
+import kr.co.bit.busi.vo.HouseVO;
+import kr.co.bit.detail.dao.DetailDAO;
 import kr.co.bit.user.vo.UserVO;
 
 @Service
@@ -23,7 +25,7 @@ public class AdminServiceImpl implements AdminService{
 		if(adao.joinPartner(approveVO) == 1)
 		{
 			System.out.println("개수 1");
-			approveVO = adao.getApproveOne(approveVO);
+			approveVO = adao.getApprove(approveVO).get(0);
 		}
 		else
 		{
@@ -33,16 +35,32 @@ public class AdminServiceImpl implements AdminService{
 	}
 	
 	@Override
-	public List<ApproveVO> getApproveList() {
-		return adao.getApproveList();
+	public void quitPartner(ApproveVO approveVO) {
+		if(adao.quitPartner(approveVO) == 1)
+		{
+			UserVO uVO = new UserVO();
+			uVO.setNo(approveVO.getUserNo());
+			uVO.setType("U");
+			adao.updateUserType(uVO);
+		}
+		else
+		{
+			System.out.println("DB 오류");
+		}
 	}
+	
+	/*@Override
+	public List<ApproveVO> getApprove() {
+		System.out.println("Service");
+		return adao.getApprove();
+	}*/
 
 	@Override
-	public List<ApproveVO> getApproveList(String approveState) {
-		return adao.getApproveList(approveState);
+	public List<ApproveVO> getApprove(ApproveVO approveVO) {
+		return adao.getApprove(approveVO);
 	}
 
-	@Override
+	/*@Override
 	public List<ApproveVO> getApproveList(int no) {
 		return adao.getApproveList(no);
 	}
@@ -50,7 +68,7 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public ApproveVO getApproveOne(ApproveVO approveVO) {
 		return adao.getApproveOne(approveVO);
-	}
+	}*/
 	
 	@Override
 	public void updateApproveState(ApproveVO approveVO) {
@@ -61,48 +79,80 @@ public class AdminServiceImpl implements AdminService{
 		uVO.setType("B");
 		adao.updateUserType(uVO);
 	}
-
+	
 //댓글 신고 관련 시작
 	@Override
 	public void addCommentBlind(CommentBlindVO commentBlindVO) {
-		adao.addCommentBlind(commentBlindVO);
+		if(adao.countCommentBlind(commentBlindVO) >= 1)
+		{//userNo와 commentNo로 체크
+			System.out.println("이미 신고함");
+		}
+		else
+		{
+			adao.addCommentBlind(commentBlindVO);
+			int commentNo = commentBlindVO.getCommentNo();
+			
+			if(adao.countCommentBlind(new CommentBlindVO(commentNo, 0)) >= 2)
+			{
+				BoardVO bVO = new BoardVO();
+				bVO.setNo(commentNo);
+				bVO.setBlind_state("Y");
+				adao.punishComment(bVO);
+			}
+		}		
 	}
 
-	@Override
-	public List<CommentBlindVO> getCommentBlindList() {
-		return adao.getCommentBlindList();
-	}	
+	/*@Override
+	public List<CommentBlindVO> getCommentBlind() {
+		return adao.getCommentBlind();
+	}	*/
 	
 	@Override
-	public List<CommentBlindVO> getCommentBlindList(int commentNo) {
-		return adao.getCommentBlindList(commentNo);
+	public List<CommentBlindVO> getCommentBlind(CommentBlindVO commentBlindVO) {
+		return adao.getCommentBlind(commentBlindVO);
 	}
 
 	@Override
-	public int getCommentBlindCount(int commentNo) {
-		return adao.getCommentBlindCount(commentNo);
+	public int countCommentBlind(CommentBlindVO commentBlindVO) {
+		return adao.countCommentBlind(commentBlindVO);
 	}
 //댓글 신고 관련 끝
 	
 //업체 신고 관련 시작
 	@Override
 	public void addHouseBlind(HouseBlindVO houseBlindVO) {
-		adao.addHouseBlind(houseBlindVO);
+		if(adao.countHouseBlind(houseBlindVO) >= 1)
+		{//userNo와 houseNo로 체크
+			System.out.println("이미 신고함");
+		}
+		else
+		{
+			adao.addHouseBlind(houseBlindVO);
+			int houseNo = houseBlindVO.getHouseNo();
+			
+			if(adao.countHouseBlind(new HouseBlindVO(houseNo, 0)) >= 2)
+			{
+				HouseVO hVO = new HouseVO();
+				hVO.setNo(houseNo);
+				hVO.setBlindState("Y");
+				adao.punishHouse(hVO);
+			}
+		}		
 	}
 	
-	@Override
-	public List<HouseBlindVO> getHouseBlindList() {
-		return adao.getHouseBlindList();
-	}	
+	/*@Override
+	public List<HouseBlindVO> getHouseBlind() {
+		return adao.getHouseBlind();
+	}	*/
 
 	@Override
-	public List<HouseBlindVO> getHouseBlindList(int houseNo) {
-		return adao.getHouseBlindList(houseNo);
+	public List<HouseBlindVO> getHouseBlind(HouseBlindVO houseBlindVO) {
+		return adao.getHouseBlind(houseBlindVO);
 	}
 
 	@Override
-	public int getHouseBlindCount(int houseNo) {
-		return adao.getHouseBlindCount(houseNo);
+	public int countHouseBlind(HouseBlindVO houseBlindVO) {
+		return adao.countHouseBlind(houseBlindVO);
 	}	
 //업체 신고 관련 끝		
 

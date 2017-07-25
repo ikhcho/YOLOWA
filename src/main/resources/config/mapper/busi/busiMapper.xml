@@ -55,7 +55,7 @@
 	</select>
 	
 	<update id="updateRoom" parameterType="roomVO">
-		update roomVO
+		update room
 		set HOUSE_NO = #{houseNo}, room_name = #{roomName}, style = #{style}, room_size = #{roomSize}, person_min = #{personMin},
 			person_max = #{personMax}, h_week_price = #{hWeekPrice}, h_weekend_price = #{hWeekendPrice}, n_week_price = #{nWeekPrice},
 			n_weekend_price = #{nWeekendPrice}, over_price = #{overPrice}, content = #{content}
@@ -93,6 +93,11 @@
 		<include refid="selectRoom"/>
 		where house_no = #{no}
 	</select>
+	
+	<insert id="deleteRoomPhoto" parameterType="int">
+		delete from room_photo
+		where room_no = #{roomNO}
+	</insert>
 	
 	<insert id="insertReservation" parameterType="reservationVO">
 		insert into reservation

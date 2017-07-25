@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import kr.co.bit.admin.vo.ApproveVO;
 import kr.co.bit.admin.vo.CommentBlindVO;
 import kr.co.bit.admin.vo.HouseBlindVO;
+import kr.co.bit.board.vo.BoardVO;
+import kr.co.bit.busi.vo.HouseVO;
 import kr.co.bit.user.vo.UserVO;
 
 @Repository
@@ -23,24 +25,30 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 	
 	@Override
-	public List<ApproveVO> getApproveList() {
-		return template.selectList("getApproveList");
+	public int quitPartner(ApproveVO approveVO) {
+		return template.delete("quitPartner", approveVO);
 	}
+	
+	/*@Override
+	public List<ApproveVO> getApprove() {
+		System.out.println("DAO");
+		return template.selectList("getApprove");
+	}*/
 
 	@Override
-	public List<ApproveVO> getApproveList(String approveState) {
-		return template.selectList("getApproveListByState", approveState);
+	public List<ApproveVO> getApprove(ApproveVO approveVO) {
+		return template.selectList("getApprove", approveVO);
 	}
 
-	@Override
-	public List<ApproveVO> getApproveList(int no) {
-		return template.selectList("getApproveListByNo", no);
+	/*@Override
+	public List<ApproveVO> getApprove(ApproveVO approveVO) {
+		return template.selectList("getApproveListByNo", approveVO);
 	}	
 	
 	@Override
-	public ApproveVO getApproveOne(ApproveVO approveVO) {
+	public ApproveVO getApprove(ApproveVO approveVO) {
 		return template.selectOne("getApproveOne", approveVO);
-	}
+	}*/
 	
 	@Override
 	public void updateApproveState(ApproveVO approveVO) {
@@ -50,7 +58,7 @@ public class AdminDAOImpl implements AdminDAO{
 	@Override
 	public void updateUserType(UserVO uVO) {
 		template.update("updateUserType", uVO);
-	}
+	}	
 
 //댓글 신고 관련 시작
 	@Override
@@ -58,20 +66,25 @@ public class AdminDAOImpl implements AdminDAO{
 		template.insert("addCommentBlind", commentBlindVO);
 		System.out.println("DAO");
 	}
-
-	@Override
-	public List<CommentBlindVO> getCommentBlindList() {		
-		return template.selectList("getCommentBlindList");
-	}	
 	
 	@Override
-	public List<CommentBlindVO> getCommentBlindList(int commentNo) {
-		return template.selectList("getCommentBlindOne", commentNo);
+	public void punishComment(BoardVO bVO) {
+		template.update("updateBoardBlindState", bVO);
+	}
+
+	/*@Override
+	public List<CommentBlindVO> getCommentBlind() {		
+		return template.selectList("getCommentBlind");
+	}	*/
+	
+	@Override
+	public List<CommentBlindVO> getCommentBlind(CommentBlindVO commentBlindVO) {
+		return template.selectList("getCommentBlind", commentBlindVO);
 	}
 
 	@Override
-	public int getCommentBlindCount(int commentNo) {
-		return template.selectOne("getCommentBlindCount", commentNo);
+	public int countCommentBlind(CommentBlindVO commentBlindVO) {
+		return template.selectOne("countCommentBlind", commentBlindVO);
 	}
 //댓글 신고 관련 끝
 	
@@ -81,20 +94,25 @@ public class AdminDAOImpl implements AdminDAO{
 		template.insert("addHouseBlind", houseBlindVO);
 		System.out.println("DAO");
 	}	
-
-	@Override
-	public List<HouseBlindVO> getHouseBlindList() {
-		return template.selectList("getHouseBlindList");
-	}
 	
 	@Override
-	public List<HouseBlindVO> getHouseBlindList(int houseNo) {
-		return template.selectList("getHouseBlindOne", houseNo);
+	public void punishHouse(HouseVO hVO) {
+		template.update("updateHouseBlindState", hVO);
+	}
+
+	/*@Override
+	public List<HouseBlindVO> getHouseBlind() {
+		return template.selectList("getHouseBlind");
+	}*/
+	
+	@Override
+	public List<HouseBlindVO> getHouseBlind(HouseBlindVO houseBlindVO) {
+		return template.selectList("getHouseBlind", houseBlindVO);
 	}
 
 	@Override
-	public int getHouseBlindCount(int houseNo) {
-		return template.selectOne("getHouseBlindCount", houseNo);
+	public int countHouseBlind(HouseBlindVO houseBlindVO) {
+		return template.selectOne("countHouseBlind", houseBlindVO);
 	}
 //업체 신고 관련 끝	
 

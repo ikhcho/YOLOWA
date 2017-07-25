@@ -80,6 +80,11 @@ public class BusiDAOImpl implements BusiDAO{
 		// TODO Auto-generated method stub
 		return template.selectList("busi.selectRoomPhotoList", no);
 	}
-	
+
+	@Override
+	public void deleteRoomPhoto(int roomNo) {
+		// TODO Auto-generated method stub
+		template.delete("busi.deleteRoomPhoto",roomNo);
+	}
 	
 }

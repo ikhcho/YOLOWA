@@ -28,86 +28,134 @@
 
 <!-- 가맹 관련 시작 -->
 	<!-- 가맹 신청 -->
-	<insert id="joinPartner" parameterType="approveVO">
+	<insert id="joinPartner">
 		insert into approve(no, user_no, approve_state, approve_key, reg_date) 
 		values(APPROVE_SEQ.nextVal, #{userNo}, '신청', #{approveKey}, sysdate)
 	</insert>
 	
-	<!-- 가맹 신청 전체 리스트 -->
-	<select id="getApproveList" resultMap="approveMap">
-		select * from approve
-	</select>
+	<delete id="quitPartner">
+		delete from approve where user_no=#{userNo} and approve_key=#{approveKey}
+	</delete>
 	
-	<!-- 가맹 신청 상태에 따른 리스트 -->
+	<!-- 가맹 신청 전체 리스트 -->
+	<select id="getApprove" resultMap="approveMap">
+		select * from approve
+		<where>
+			<if test="approveState!=null">
+				approve_state='${approveState}'
+			</if>
+			<if test="userNo!=0">
+				and user_no=${userNo}
+			</if>
+			<if test="approveKey!=null and approveKey!=''">
+				and approve_key='${approveKey}'
+			</if>
+		</where>
+	</select>
+<!-- 	
+	가맹 신청 상태에 따른 리스트
 	<select id="getApproveListByState" parameterType="java.lang.String" resultMap="approveMap">
 		select * from approve where approve_state=#{approveState}
 	</select>
 	
-	<!-- 사용자 번호에 따른 리스트 -->
+	사용자 번호에 따른 리스트
 	<select id="getApproveListByNo" parameterType="int" resultMap="approveMap">
 		select * from approve where user_no=#{userNo}
 	</select>
 	
-	<!-- 사용자 계정과 사업자 번호에 따른 가맹 신청 조회 -->
+	사용자 계정과 사업자 번호에 따른 가맹 신청 조회
 	<select id="getApproveOne" parameterType="approveVO" resultMap="approveMap">
 		select * from approve where user_no=#{userNo} and approve_key=#{approveKey}
 	</select>
-	
+	 -->
 	<!-- 승인 상태 변경 -->
-	<update id="updateApproveState" parameterType="approveVO">
+	<update id="updateApproveState">
 		update approve set approve_state=#{approveState} where no=#{no}
 	</update>
 	
 	<!-- 승인 상태 변경 -->
-	<update id="updateUserType" parameterType="userVO">
+	<update id="updateUserType">
 		update users set type=#{type} where no=#{no}
 	</update>	
 <!-- 가맹 관련 끝 -->
 
 <!-- 댓글 신고 관련 시작 -->
+
 	<!-- 댓글 신고 -->
-	<insert id="addCommentBlind" parameterType="commentBlindVO">
+	<insert id="addCommentBlind">
 		insert into comment_blind(no, comment_no, user_no, reg_date) 
 		values(COMMENT_BLIND_SEQ.nextVal, #{commentNo}, #{userNo}, sysdate)
 	</insert>
 	
-	<!-- 댓글 신고 전체 -->
-	<select id="getCommentBlindList" resultMap="commentBlindMap">
-		select * from comment_blind
-	</select>
+	<!-- 댓글 블라인드 처리 및 블라인드 해지 -->
+	<update id="updateBoardBlindState">
+		update house_comment set blind_state=#{blind_state} where no=#{no}
+	</update>
 	
-	<!-- 댓글 신고 한 개 -->
+	<!-- 댓글 신고 전체 목록 -->
+	<select id="getCommentBlind" resultMap="commentBlindMap">
+		select * from comment_blind
+		<if test="commentNo!=0">
+		where comment_no=#{commentNo}
+		</if>
+	</select>
+<!-- 		
+	하나의 댓글에 대한 신고 목록
 	<select id="getCommentBlindOne" parameterType="int" resultMap="commentBlindMap">
 		select * from comment_blind where comment_no=#{commentNo}
 	</select>
-	
+	 -->
 	<!-- 댓글 신고 개수 -->
-	<select id="getCommentBlindCount" parameterType="int" resultType="int">
+	<select id="countCommentBlind" resultType="int">
 		select count(*) from comment_blind where comment_no=#{commentNo}
+		<if test="userNo!=0">
+		and	user_no=#{userNo}
+		</if>
 	</select>
+		
 <!-- 댓글 신고 관련 끝 -->
 
 <!-- 업체 신고 관련 시작 -->
 	<!-- 업체 신고 -->
-	<insert id="addHouseBlind" parameterType="houseBlindVO">
+	<insert id="addHouseBlind">
 		insert into house_blind(no, house_no, user_no, reg_date) 
 		values(HOUSE_BLIND_SEQ.nextVal, #{houseNo}, #{userNo}, sysdate)
 	</insert>
 	
-	<!-- 업체 신고 전체 -->
-	<select id="getHouseBlindList" resultMap="houseBlindMap">
-		select * from house_blind
-	</select>
+	<!-- 업체 블라인드 처리 및 블라인드 해지 -->
+	<update id="updateHouseBlindState">
+		update house set blind_state=#{blindState} where no=#{no}
+	</update>
 	
-	<!-- 업체 신고 한 개 -->
+	<!-- 업체 신고 전체 혹은 한 개 -->
+	<select id="getHouseBlind" resultMap="houseBlindMap">
+		select * from house_blind
+		<if test="houseNo!=0">
+		where house_no=#{houseNo}
+		</if>
+	</select>
+<!-- 	
+	업체 신고 한 개
 	<select id="getHouseBlindOne" parameterType="int" resultMap="houseBlindMap">
 		select * from house_blind where house_no=#{houseNo}
 	</select>
-	
+	 -->
 	<!-- 업체 신고 개수 -->
-	<select id="getHouseBlindCount" parameterType="int" resultType="int">
+	<select id="countHouseBlind" resultType="int">
 		select count(*) from house_blind where house_no=#{houseNo}
+		<if test="userNo!=0">
+		and	user_no=#{userNo}
+		</if>
 	</select>
+	
+<!-- <select id="testSQL" resultType="userVO">
+  SELECT * FROM users 
+  <where> 
+    <if test="type != null">
+         type like #{type}
+    </if>     
+  </where>
+</select> -->
 <!-- 업체 신고 관련 끝 -->
 	
 </mapper>

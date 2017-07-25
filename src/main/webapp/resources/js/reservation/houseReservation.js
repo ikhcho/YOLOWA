@@ -15,7 +15,26 @@ $(function(){
 			$(this).click(function() {
 								
 				if($('.selectRoom').eq(index).is(":checked")){
-					
+					var roomNo = $('.selectRoom').eq(index).val();
+					var day = $('.day').eq(index).val();
+					var resDate = $('.datepicker').val();
+					$.ajax({
+						url : '/Yolowa/menu/ableRoomDay.do',
+						type : 'post',
+						data : {
+							'resDate' : resDate,
+							'roomNo' : roomNo,
+							'day' : day
+						},
+						contentType : 'application/x-www-form-urlencoded; charset=utf-8',
+						async: false,
+						success : function(data){
+							if(data!=''){
+								alert(data);
+								$('.day').eq(index).val('1');
+							}
+						}
+					});
 					var add;
 					if(parseInt($('.peopleNumber').eq(index).val()) <= parseInt($('.min').eq(index).text())) add = 0;
 					else add = parseInt($('.peopleNumber').eq(index).val()) - parseInt($('.min').eq(index).text());
@@ -25,7 +44,6 @@ $(function(){
 					);
 					
 					setTotalPrice();
-					
 				} else {
 					$('.price').eq(index).val(0);
 					
@@ -37,6 +55,27 @@ $(function(){
 		$('.day').each(function(index) {
 			$(this).change(function() {
 				if($('.selectRoom').eq(index).is(":checked")){
+					
+					var roomNo = $('.selectRoom').eq(index).val();
+					var day = $('.day').eq(index).val();
+					var resDate = $('.datepicker').val();
+					$.ajax({
+						url : '/Yolowa/menu/ableRoomDay.do',
+						type : 'post',
+						data : {
+							'resDate' : resDate,
+							'roomNo' : roomNo,
+							'day' : day
+						},
+						contentType : 'application/x-www-form-urlencoded; charset=utf-8',
+						async: false,
+						success : function(data){
+							if(data!=''){
+								alert(data);
+								$('.day').eq(index).val('1');
+							}
+						}
+					});
 					var add;
 					if(parseInt($('.peopleNumber').eq(index).val()) <= parseInt($('.min').eq(index).text())) add = 0;
 					else add = parseInt($('.peopleNumber').eq(index).val()) - parseInt($('.min').eq(index).text());
@@ -46,6 +85,7 @@ $(function(){
 					);
 					
 					setTotalPrice();
+					
 					
 				}
 			});

@@ -5,19 +5,23 @@ import java.util.List;
 import kr.co.bit.admin.vo.ApproveVO;
 import kr.co.bit.admin.vo.CommentBlindVO;
 import kr.co.bit.admin.vo.HouseBlindVO;
+import kr.co.bit.board.vo.BoardVO;
+import kr.co.bit.busi.vo.HouseVO;
 import kr.co.bit.user.vo.UserVO;
 
 public interface AdminDAO {
 	
 	int joinPartner(ApproveVO approveVO);
 	
-	List<ApproveVO> getApproveList();
+	int quitPartner(ApproveVO approveVO);
+	
+	//List<ApproveVO> getApprove();
 
-	List<ApproveVO> getApproveList(String approveState);
+	List<ApproveVO> getApprove(ApproveVO approveVO);
 	
-	List<ApproveVO> getApproveList(int no);
+	/*List<ApproveVO> getApproveList(int no);
 	
-	ApproveVO getApproveOne(ApproveVO approveVO);
+	ApproveVO getApproveOne(ApproveVO approveVO);*/
 	
 	void updateApproveState(ApproveVO approveVO);
 	
@@ -25,18 +29,22 @@ public interface AdminDAO {
 
 	void addCommentBlind(CommentBlindVO commentBlindVO);
 	
-	List<CommentBlindVO> getCommentBlindList();
+	void punishComment(BoardVO bVO);
 	
-	List<CommentBlindVO> getCommentBlindList(int commentNo);
+	//List<CommentBlindVO> getCommentBlind();
 	
-	int getCommentBlindCount(int commentNo);
+	List<CommentBlindVO> getCommentBlind(CommentBlindVO commentBlindVO);
+	
+	int countCommentBlind(CommentBlindVO commentBlindVO);
 
 	void addHouseBlind(HouseBlindVO houseBlindVO);	
+	
+	void punishHouse(HouseVO hVO);
 
-	List<HouseBlindVO> getHouseBlindList();
+	//List<HouseBlindVO> getHouseBlind();
 	
-	List<HouseBlindVO> getHouseBlindList(int houseNo);
+	List<HouseBlindVO> getHouseBlind(HouseBlindVO houseBlindVO);
 	
-	int getHouseBlindCount(int houseNo);
+	int countHouseBlind(HouseBlindVO houseBlindVO);
 
 }

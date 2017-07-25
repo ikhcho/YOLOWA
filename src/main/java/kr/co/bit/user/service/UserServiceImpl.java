@@ -1,6 +1,7 @@
 package kr.co.bit.user.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,5 +49,29 @@ public class UserServiceImpl implements UserService{
 		udao.updateUser(uvo);
 
 	}
+	@Override
+	public List<HouseVO> getZzimHouseList(int no) {
+		List<HouseVO> zzimList = udao.getZzimHouseList(no);
+		return zzimList;
+	}
+
+	@Override
+	public Boolean selectZzim(Map<String, Integer> map) {
+		// TODO Auto-generated method stub
+		return udao.selectZzim(map) != null?true:false;
+	}
+
+	@Override
+	public void insertZzim(Map<String, Integer> map) {
+		// TODO Auto-generated method stub
+		udao.insertZzim(map);
+	}
+
+	@Override
+	public void deleteZzim(Map<String, Integer> map) {
+		// TODO Auto-generated method stub
+		udao.deleteZzim(map);
+	}
+	
 	
 }

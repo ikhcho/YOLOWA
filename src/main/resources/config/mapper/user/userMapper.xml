@@ -56,4 +56,22 @@
 		update users 
 		set password = #{password}, tel = #{tel}, email = #{email} where id = #{id}
 	</update>
+	
+	<select id="zzimList" parameterType="int" resultMap="houseMap">
+		select * from house where no in (select house_no from zzim where user_no = #{no})
+	</select>
+	
+	<select id="selectZzim" parameterType="java.util.Map" resultMap="houseMap">
+		select * from house where no = (select house_no from zzim where user_no = #{userNo} and house_no = #{houseNo})
+	</select>
+	
+	<insert id="insertZzim" parameterType="java.util.Map">
+		insert into zzim
+		values(zzim_seq.nextval, #{houseNo}, #{userNo}, sysdate)
+	</insert>
+	
+	<insert id="deleteZzim" parameterType="java.util.Map">
+		delete zzim
+		where house_no = #{houseNo} and user_no = #{userNo}
+	</insert>
 </mapper>

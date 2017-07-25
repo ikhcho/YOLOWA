@@ -42,7 +42,11 @@ public class MenuController {
 		SearchVO searchVO = new SearchVO();
 		searchVO.setResDate(resDate);
 		if(!country.equals("전체")){
-			searchVO.setCountry(country.substring(0, 2));
+			if(country.length()==4){
+				searchVO.setCountry(country.substring(0, 1) + country.substring(2, 3));
+			}else{
+				searchVO.setCountry(country.substring(0, 2));
+			}
 		}
 		if(!state.equals("전체")){
 			searchVO.setState(state.substring(0, 2));
@@ -54,21 +58,16 @@ public class MenuController {
 		return "user/home";
 	}
 	
-	@RequestMapping(value="/test.do", method=RequestMethod.GET)
-	public String test(){
-		return "menu/test";
-	}
-	
-	@RequestMapping(value="/test.do", method=RequestMethod.POST)
+	@RequestMapping(value="/ableRoomList.do", method=RequestMethod.POST)
 	@ResponseBody
-	public List<AbleRoomVO> test(AbleRoomVO able){
+	public List<AbleRoomVO> ableRoomList(AbleRoomVO able){
 		List<AbleRoomVO> ableRoomList = mService.ableRoom(able);
 		return ableRoomList;
 	}
 	
-	@RequestMapping(value="/testOne.do", method=RequestMethod.POST)
+	@RequestMapping(value="/ableRoomDay.do", method=RequestMethod.POST)
 	@ResponseBody
-	public String test(Date resDate, int roomNo, int day){
+	public String ableRoomDay(Date resDate, int roomNo, int day){
 		AbleRoomVO ableRoomVO = new AbleRoomVO();
 		for(int i=1; i<day; i++){
 			resDate.setDate(resDate.getDate() + 1);

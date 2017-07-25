@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -12,32 +11,45 @@
 <link href="${pageContext.request.contextPath }/resources/css/menu/header.css" rel="stylesheet">
 <script src="${pageContext.request.contextPath }/resources/js/menu/jquery-1.12.4.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/menu/jquery-ui.js"></script>
-<script src="${pageContext.request.contextPath }/resources/bootstrap/bootstrap/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/menu/header.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/login/loginForm.js"></script>
-
 <link href="${pageContext.request.contextPath }/resources/css/home/style.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath }/resources/css/home/response.css" rel="stylesheet">
-<link href="${ pageContext.request.contextPath }/resources/bootstrap/bootstrap/css/bootstrap-responsive.css" rel="stylesheet" media="screen">
-<link href="${ pageContext.request.contextPath }/resources/bootstrap/assets/styles.css" rel="stylesheet" media="screen">
-<script src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=oAJ6Q1ZOST_VK52BarQt&submodules=geocoder"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/home/owl.theme.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/home/owl.carousel.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/home/jquery.vegas.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/home/animate.min.css">
 
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/css/useinfo/useInfo.css">
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+<script src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=oAJ6Q1ZOST_VK52BarQt&submodules=geocoder"></script>
+<link href="${ pageContext.request.contextPath }/resources/bxslider/jquery.bxslider.css" rel="stylesheet">
+<%-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/css/useinfo/useInfo.css"> --%>
+
 <script type="text/javascript">	
 	$(function(){
 		//예약버튼 uri 설정
 		$('.btnReservation').each(function(index){
 			$('.btnReservation').eq(index).click(function(){
-				if(${userVO.id eq null}) {
+				if('${userVO.id}' == ""){
 					alert("로그인이 필요합니다.");
 				} else {
-					var uri = href="${ pageContext.request.contextPath }/reservation/houseReservation.do?houseNo=${ houseVO.no }&selectDate=" + $('.datepicker').val();
-					//$(location).attr('href', uri);
-					window.open(uri, "new", 'width=1000, height=1000, top=100, left=100 resizable=no, status=no, location=no, directories=no;');
+					var popWidth  = '1000'; // 파업사이즈 너비
+					var popHeight = '700'; // 팝업사이즈 높이
+					var winWidth  = document.body.clientWidth;  // 현재창의 너비
+					var winHeight = document.body.clientHeight; // 현재창의 높이
+					var winX      = window.screenX || window.screenLeft || 0;// 현재창의 x좌표
+					var winY      = window.screenY || window.screenTop || 0; // 현재창의 y좌표
+					w = winX + (winWidth - popWidth) / 2;
+					h = winY + (winHeight - popHeight) / 2;
+					window.open("${ pageContext.request.contextPath }/reservation/houseReservation.do?houseNo=${ houseVO.no }&selectDate="
+							+ $('.datepicker').val(), "예약하기", "width="+popWidth + " height="+popHeight +" top=100 left="+w);
 				}
 			});
 		});
 		
+		//찾아오는 길 Naver Map API
 		var map = null;
 		$(document).on('click','#mapBtn',function(){
 			var myaddress = '${houseVO.addr}';// 도로명 주소나 지번 주소만 가능 (건물명 불가!!!!)
@@ -69,56 +81,108 @@
 				}); 
 			});
 		});
+		
+		//찜가능여부 확인
+		var userNo = '${userVO.no}'; 
+		if(userNo == ''){
+			userNo=0;
+		}
+		$.ajax({
+			url : '/Yolowa/user/zzim.do',
+			type : 'get',
+			data : {
+				'houseNo' : '${param.no}',
+				'userNo' : userNo
+			},
+			success : function(data){
+				if(data == "able"){
+					$('#zzim').attr("class","glyphicon glyphicon-heart-empty");
+				}else{
+					$('#zzim').attr("class","glyphicon glyphicon-heart");
+				}
+			}
+		});
 	});
+	
+	//찜하기
+	function zzim(){
+		var method;
+		if($('#zzim')[0].className.split(" ")[1] == "glyphicon-heart"){
+			if(confirm('이미 찜한 펜션입니다.\n목록에서 삭제하겠습니까?')){
+				method = "delete";
+			}else{
+				return false;
+			}
+		}else{
+			method = "insert";
+		}
+		if('${userVO.no}' == ''){
+			alert('로그인이 필요합니다.');
+		}else{
+			$.ajax({
+				url : '/Yolowa/user/zzim.do',
+				type : 'post',
+				data : {
+					'houseNo' : '${param.no}',
+					'userNo' : '${userVO.no}',
+					'method' : method
+				},
+				contentType : 'application/x-www-form-urlencoded; charset=utf-8',
+				success : function(data){
+					if(method =="delete"){
+						$('#zzim').attr("class","glyphicon glyphicon-heart-empty");
+					}else{
+						$('#zzim').attr("class","glyphicon glyphicon-heart");
+					}
+					alert(data);
+				}
+			});
+		}
+	}
 </script>
 </head>
 <body>
-	<jsp:include page="/menu/header.do"/>
-		<section class="about-us" id="about-us">
+<div class="preloader" style="display: none;">
+  <div class="status" style="display: none;">&nbsp;</div>
+</div>
+<jsp:include page="/menu/header.do" />
+	<div class="intro" style="margin-top:150px">
+		<section class="packages" id="packages">
+		<!-- <section class="about-us" id="about-us"> -->
 			<div class="container">
-				<div class="row-fluid">
-					<div class="span6">
-						<img width="100%" height="400px" src="/Yolowa/upload/${houseVO.photo}" alt="${houseVO.houseName }">
-					</div>
-					<div class="span6">
-						<hr />
+				<div class="row">
+					<hr />
 						<div>
+							<button class="btn btn-danger pull-right" onclick="zzim()">찜하기&nbsp;<i class="glyphicon glyphicon-heart-empty" aria-hidden="true" id="zzim"></i></button>
 							<h2>${ houseVO.houseName }</h2>
 						</div>
 						<hr />
-						<div class="col-sm-6 col-sm-offset-1">
-							<div class="row">
-								<div class="pull-left"> 상세주소 : ${ houseVO.addr }</div>
-							</div>
-							<div class="row">
-								<div class="pull-left"> 입실시간 : ${ houseVO.checkin }</div>
-							</div>
-							<div class="row">
-								<div class="pull-left"> 퇴실시간 : ${ houseVO.checkout }</div>
-							</div>
-							<div class="row">
-								<div class="pull-left">
-									<div>픽업여부 : 
+					<div class="col-sm-6">
+						<img width="100%" height="400px" src="/Yolowa/upload/${houseVO.photo}" alt="${houseVO.houseName }">
+					</div>
+					<div class="col-sm-6">
+						<div class="col-sm-offset-1 text-left">
+							<ul>
+								<li> 상세주소 : ${ houseVO.addr }</li>
+								<li> 입실시간 : ${ houseVO.checkin }</li>
+								<li> 퇴실시간 : ${ houseVO.checkout }</li>
+								<li>픽업여부 : 
 										<c:choose>
 											<c:when test="${ houseVO.pickup eq 'Y' }">픽업가능</c:when>
 											<c:otherwise>픽업불가능</c:otherwise>
 										</c:choose>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="pull-left"> 예약문의 : ${ houseVO.tel }</div>
-							</div>
-							<div class="row">
-								<div class="pull-left"> 성수기구분 : ${ houseVO.hotStart } ~ ${ houseVO.hotEnd }</div>
-							</div>
+								<li> 예약문의 : ${ houseVO.tel }</li>
+								<li> 성수기구분 : ${ houseVO.hotStart } ~ ${ houseVO.hotEnd }</li>
+							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
-		<section class="packages " id="packages ">
+	</header>
+	<section class="products">
 			<div class="container">
+		<section class="works" id="detail">
 				<div class="row-fluid">
 					<div class="panel panel-warning">
 						<div class="navbar navbar-inner panel-heading">
@@ -158,47 +222,25 @@
 						</div>
 					</div>
 				</div>
-			</div>
 		</section>
+			</div>
+			</section>
 		<footer>
 			<div class="container">
-	
-				<!-- COMPANY ADDRESS-->
-				<div class="col-md-5 company-details">
-					<div class="icon-top red-text">
-					    <i class="icon-fontawesome-webfont-302"></i>
-					</div>
-					PO Box 16122 Collins Street West, Victoria 8007 Australia
-				</div>
-				
-				<!-- COMPANY EMAIL-->
-				<div class="col-md-2 company-details">
-					<div class="icon-top green-text">
-					<i class="icon-fontawesome-webfont-329"></i>
-					</div>
-					 contact@designlab.co
-				</div>
-				
-				<!-- COMPANY PHONE NUMBER -->
-				<div class="col-md-2 company-details">
-					<div class="icon-top blue-text">
-					<i class="icon-fontawesome-webfont-101"></i>
-					</div>
-					+613 0000 0000
-				</div>
 				
 				<!-- SOCIAL ICON AND COPYRIGHT -->
-				<div class="col-lg-3 col-sm-3 copyright">
-					<ul class="social">
-						<li><a href=""><i class="icon-facebook"></i></a></li>
-						<li><a href=""><i class="icon-twitter-alt"></i></a></li>
-						<li><a href=""><i class="icon-linkedin"></i></a></li>
-						<li><a href=""><i class="icon-behance"></i></a></li>
-						<li><a href=""><i class="icon-dribbble"></i></a></li>
-					</ul>
-					 ©2013 Zerif LLC
+				<div class="col-lg-12 copyright">
+					 ©2017 Yolowa Inc. Develop with <i>심형섭, 전지유, 조익현, 황동주</i>
 				</div>
 			</div>
 		</footer>
+<script src="${pageContext.request.contextPath }/resources/js/menu/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/menu/wow.min.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/menu/jquery.nav.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/menu/jquery.knob.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/menu/owl.carousel.min.js"></script>
+<%-- <script src="${pageContext.request.contextPath }/resources/js/menu/smoothscroll.js"></script> --%>
+<script src="${pageContext.request.contextPath }/resources/js/menu/jquery.vegas.min.js"></script>
+<script src="${pageContext.request.contextPath }/resources/js/menu/zerif.js"></script>
 </body>
 </html>
