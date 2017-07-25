@@ -21,6 +21,8 @@
 		<typeAlias alias="commentBlindVO" type="kr.co.bit.admin.vo.CommentBlindVO" />
 		<typeAlias alias="houseBlindVO" type="kr.co.bit.admin.vo.HouseBlindVO" />
 		<typeAlias alias="reservationVO" type="kr.co.bit.reservation.vo.ReservationVO"/>
+		<typeAlias alias="ckReservationVO" type="kr.co.bit.data.vo.CkReservationVO"/>
+		<typeAlias alias="scoreVO" type="kr.co.bit.data.vo.ScoreVO"/>
 	
 	</typeAliases>
 </configuration>

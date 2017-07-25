@@ -76,7 +76,7 @@
 							</ul></li>
 					</ul>
 					<ul class="nav">
-						<li><a href="${pageContext.request.contextPath}/busi/home.do">대시보드</a></li>
+						<li><a href="${pageContext.request.contextPath}/data/home.do?userNo=${ userVO.no }">대시보드</a></li>
 						<li class="active"><a href="${pageContext.request.contextPath}/busi/pension/list.do">펜션정보 </a></li>
 						<li><a href="${pageContext.request.contextPath}/user/home.do">예약사이트 </a></li>
 					</ul>

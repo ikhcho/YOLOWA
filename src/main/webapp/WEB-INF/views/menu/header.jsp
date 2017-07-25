@@ -59,7 +59,7 @@
 					
 				</c:if>
 				<c:if test="${userVO.type=='B'}">
-					<li class="upper-links"><a role="button" class="links" href="${pageContext.request.contextPath }/busi/home.do">펜션관리</a></li>				
+					<li class="upper-links"><a role="button" class="links" href="${pageContext.request.contextPath }/data/home.do?userNo=${ userVO.no }">펜션관리</a></li>				
 				</c:if>
 				<c:if test="${userVO.type=='U' || userVO == null}">
 					<li class="upper-links"><a role="button" class="links" id="contact">가맹신청</a></li>

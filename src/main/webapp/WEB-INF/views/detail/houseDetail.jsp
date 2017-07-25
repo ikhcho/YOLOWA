@@ -32,7 +32,8 @@
 					alert("로그인이 필요합니다.");
 				} else {
 					var uri = href="${ pageContext.request.contextPath }/reservation/houseReservation.do?houseNo=${ houseVO.no }&selectDate=" + $('.datepicker').val();
-					$(location).attr('href', uri);
+					//$(location).attr('href', uri);
+					window.open(uri, "new", 'width=1000, height=1000, top=100, left=100 resizable=no, status=no, location=no, directories=no;');
 				}
 			});
 		});

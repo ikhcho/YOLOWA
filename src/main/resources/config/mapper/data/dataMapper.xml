@@ -5,4 +5,58 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace = "data">
+	
+	<select id="rankPersonCnt" parameterType="int" resultType="dataVO">
+		select house.house_name as houseName, room.room_name as roomName, sum(res.person_cnt) as totalPersonCnt, rank() over(order by sum(res.person_cnt) desc) as rank
+		from reservation res inner join room
+		on res.room_no = room.no
+		    inner join house
+		    on house.no = res.house_no
+		where house.user_no = #{no}
+		group by house.house_name, room.room_name, res.person_cnt
+	</select>
+	
+	<select id="rankReservationCnt" parameterType="int" resultType="dataVO">
+		select house.house_name as houseName, room.room_name as roomName, count(res.room_no) as totalCnt, rank() over(order by count(res.room_no) desc) as rank
+		from reservation res inner join room
+		on res.room_no = room.no
+		    inner join house
+		    on house.no = res.house_no
+		where house.user_no = #{no}
+		group by house.house_name, room.room_name, res.room_no
+	</select>
+	
+	<select id="rankTotalProfit" parameterType="int" resultType="dataVO">
+		select house.house_name as houseName, room.room_name as roomName, sum(res.TOTAL_PRICE) as totalPrice,	sum(res.TOTAL_PRICE)*0.9 as totalProfit, rank() over(order by sum(res.TOTAL_PRICE)*0.9 desc) as rank
+		from reservation res inner join room
+		on res.room_no = room.no
+		    inner join house
+		    on house.no = res.house_no
+		where house.user_no = #{no}
+		group by house.house_name, room.room_name, res.room_no
+	</select>
+	
+	<select id="ckOneBusiReservation" parameterType="int" resultType="ckReservationVO">
+		select res.no as no, house.house_name as houseName, room.room_name as roomName, users.name as userName, users.tel as userTel,
+		res.res_start as resStart, res.res_end as resEnd, res.person_cnt as personCnt, res.total_price as totalPrice, res.content as content, res.reg_date as regDate
+		from reservation res left join room
+		on res.room_no = room.no
+		    left join house
+		    on house.no = res.house_no
+		        left join users
+		        on res.user_no = users.no
+		where res.house_no in ( select no from house where user_no = #{no} )
+		order by 1 desc
+	</select>
+	
+	<select id="avgScoreOfHouse" parameterType="int" resultType="scoreVO">
+		select house.house_name as houseName, avg(h1.score) as avgScore, rank() over(order by avg(h1.score) desc) as rank
+		from house_comment h1 left join house
+		on h1.house_no = house.no
+		where house.user_no = #{no}
+		group by house.house_name
+		order by 3
+	</select>
+	
+	
 </mapper>

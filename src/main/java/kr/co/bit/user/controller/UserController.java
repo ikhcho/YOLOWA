@@ -63,7 +63,7 @@ public class UserController {
 		UserVO userVO = uService.login(uvo);
 		session.setAttribute("userVO", userVO);
 		if(userVO.getType().equals("B")){
-			return "redirect:/busi/home.do"; //move to business page
+			return "redirect:/data/home.do?userNo=" + userVO.getNo(); //move to business page
 		}
 		return "redirect:/user/home.do"; //move to main page
 	}

@@ -14,6 +14,11 @@ import kr.co.bit.admin.service.AdminService;
 import kr.co.bit.admin.vo.ApproveVO;
 import kr.co.bit.admin.vo.CommentBlindVO;
 import kr.co.bit.busi.vo.HouseVO;
+import kr.co.bit.data.dao.DataDAO;
+import kr.co.bit.data.service.DataService;
+import kr.co.bit.data.vo.CkReservationVO;
+import kr.co.bit.data.vo.DataVO;
+import kr.co.bit.data.vo.ScoreVO;
 import kr.co.bit.detail.dao.DetailDAO;
 import kr.co.bit.detail.service.DetailService;
 import kr.co.bit.user.dao.UserDAO;
@@ -31,7 +36,7 @@ public class JUnitTestMain {
 	private UserDAO udao;
 	
 	@Autowired
-	private DetailDAO ddao;
+	private DataDAO dataDao;
 	
 	@Autowired
 	private UserService uservice;
@@ -61,8 +66,9 @@ public class JUnitTestMain {
 		
 		//aservice.addCommentBlind(new CommentBlindVO(1, 2));
 		
-		List<ApproveVO> list = aservice.getApproveList("보류");
-		
+		//List<ApproveVO> list = aservice.getApproveList("보류");
+		List<ScoreVO> list = SqlSessionTemplate.selectList("data.avgScoreOfHouse", 1);
 		System.out.println(list);
+		
 	}
 }
