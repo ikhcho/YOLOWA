@@ -1,13 +1,17 @@
 package kr.co.bit.admin.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.bit.admin.vo.ApproveVO;
 import kr.co.bit.admin.vo.CommentBlindVO;
 import kr.co.bit.admin.vo.HouseBlindVO;
-import kr.co.bit.user.vo.UserVO;
 
 public interface AdminService {
+	
+	Map<String, Integer> countHouseByRegion();
+	
+	int countReservation();
 	
 	ApproveVO joinPartner(ApproveVO approveVO);
 	

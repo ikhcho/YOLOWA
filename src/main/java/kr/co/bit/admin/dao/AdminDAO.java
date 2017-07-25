@@ -11,6 +11,8 @@ import kr.co.bit.user.vo.UserVO;
 
 public interface AdminDAO {
 	
+	List<String> countHouseByRegion();
+	
 	int joinPartner(ApproveVO approveVO);
 	
 	int quitPartner(ApproveVO approveVO);

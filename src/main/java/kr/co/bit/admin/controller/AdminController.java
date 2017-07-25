@@ -23,8 +23,13 @@ public class AdminController {
 	private AdminService aService;
 	
 	@RequestMapping(value="/home.do", method=RequestMethod.GET)
-	public String home(){		
-		return "admin/home";
+	public ModelAndView home() {
+		ModelAndView mav = new ModelAndView("admin/home");
+		mav.addObject("locationMap", aService.countHouseByRegion());
+		//지역별 숙소 개수
+		mav.addObject("ReservationCount", aService.countReservation());
+		//예약 건수
+		return mav;
 	}
 	
 	@RequestMapping(value="/home.do", method=RequestMethod.POST)

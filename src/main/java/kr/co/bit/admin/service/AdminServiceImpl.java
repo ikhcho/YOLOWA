@@ -1,6 +1,8 @@
 package kr.co.bit.admin.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +13,6 @@ import kr.co.bit.admin.vo.CommentBlindVO;
 import kr.co.bit.admin.vo.HouseBlindVO;
 import kr.co.bit.board.vo.BoardVO;
 import kr.co.bit.busi.vo.HouseVO;
-import kr.co.bit.detail.dao.DetailDAO;
 import kr.co.bit.user.vo.UserVO;
 
 @Service
@@ -19,6 +20,30 @@ public class AdminServiceImpl implements AdminService{
 
 	@Autowired
 	private AdminDAO adao;
+	
+	@Override
+	public Map<String, Integer> countHouseByRegion() {
+		List<String> regionList = adao.countHouseByRegion();
+		
+		Map<String, Integer> regionCount = new HashMap<>();
+		
+		for(int i = 0; i < regionList.size(); i++)
+		{
+			String province = regionList.get(i).split(" ")[0];
+			System.out.println(province);
+			
+			if(regionCount.containsKey(province))
+			{
+				regionCount.replace(province, regionCount.get(province) + 1);
+			}
+			else
+			{
+				regionCount.put(province, 1);
+			}
+		}
+		
+		return regionCount;
+	}
 	
 	@Override
 	public ApproveVO joinPartner(ApproveVO approveVO) {		
