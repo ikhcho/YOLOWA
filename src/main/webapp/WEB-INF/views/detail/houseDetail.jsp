@@ -146,7 +146,7 @@
   <div class="status" style="display: none;">&nbsp;</div>
 </div>
 <jsp:include page="/menu/header.do" />
-	<div class="intro" style="margin-top:150px">
+	<div class="intro" style="margin-top:185px">
 		<section class="packages" id="packages">
 		<!-- <section class="about-us" id="about-us"> -->
 			<div class="container">

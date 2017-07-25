@@ -64,6 +64,8 @@ public class UserController {
 		session.setAttribute("userVO", userVO);
 		if(userVO.getType().equals("B")){
 			return "redirect:/data/home.do?userNo=" + userVO.getNo(); //move to business page
+		}else if(userVO.getType().equals("A")){
+			return "redirect:/admin/home.do";
 		}
 		return "redirect:/user/home.do"; //move to main page
 	}

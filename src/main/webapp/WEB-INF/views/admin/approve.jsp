@@ -36,7 +36,7 @@
 					<div class="block">
 						<div class="navbar navbar-inner block-header">
 							<div class="muted pull-left">가맹 신청 현황</div>
-							<div>
+							<div class="pull-right">
 								<form action="${pageContext.request.contextPath}/admin/getApprove.do" method="post">
 									<select name="approveState">
 										<option selected="selected">검색</option>
@@ -44,33 +44,37 @@
 										<option value="승인">승인</option>			
 										<option value="거부">거부</option>			
 									</select>
-									<input type="submit" value="검색">
+									<button class="btn btn-default" type="submit">검색</button>
 								</form>
-							</div>
-							<div class="pull-right">
-								<span class="badge badge-warning">${ approve.size() }</span>
 							</div>
 						</div>
 						<div class="block-content collapse in">
-							<table border="1">
-								<tr>
-									<th>유저번호 userNo</th>
-									<th>승인 상태 approveState</th>
-									<th>사업자번호 approveKey</th>
-								</tr>
-								<c:forEach items="${ approve }" var="approveVO">
-									<tr>
-										<td>${ approveVO.userNo }</td>
-										<td>${ approveVO.approveState }</td>
-										<td>${ approveVO.approveKey }</td>
-										<td><c:if test="${ approveVO.approveState == '신청' }">
-											<button name="approveState" onclick="doApprove()">승인</button>
-											<button name="approveState" onclick="doApprove()">거부</button>
-										</c:if></td>
-									</tr>
-								</c:forEach>
-							</table>
-						</div>
+							<div class="span12">
+							<!-- block -->
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th>유저번호 userNo</th>
+												<th>승인 상태 approveState</th>
+												<th>사업자번호 approveKey</th>
+												<th><span class="badge badge-warning pull-right">${ approve.size() }</span></th>
+											</tr>
+										</thead>
+										<tbody>
+											<c:forEach items="${ approve }" var="approveVO">
+													<tr>
+														<td>${ approveVO.userNo }</td>
+														<td>${ approveVO.approveState }</td>
+														<td>${ approveVO.approveKey }</td>
+														<td><c:if test="${ approveVO.approveState == '신청' }">
+															<button name="approveState" onclick="doApprove()">승인</button>
+															<button name="approveState" onclick="doApprove()">거부</button>
+														</c:if></td>
+													</tr>
+												</c:forEach>
+										</tbody>
+									</table>
+							<!-- /block -->
 						<div class="navbar navbar-inner block-header">
 							<div class="muted pull-left">userNo로 검색</div>
 							<div>

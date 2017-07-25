@@ -188,7 +188,7 @@
 	</div>
 </div>
 <header class="header" style="z-index:2">
-	<div id="main-nav" class="navbar navbar-inverse bs-docs-nav" role="banner">
+	<div id="main-nav" class="navbar navbar-inverse bs-docs-nav" role="banner" style="background-color: rgba( 255, 255, 255, 0 );">
 		<div id="flipkart-navbar" class="navbar navbar-fixed-top">
 			<div class="container">
 				<div class="row row1">
@@ -237,7 +237,7 @@
 									<td><div class="col-sm-1"></div></td>
 									<td><div class="col-sm-1"></div></td>
 									<td>
-										<h4 style="margin: 0px; color:#FFCF40">
+										<h4 style="margin: 0px; color:white">
 											<span class="largenav text-center">투숙날짜</span>
 										</h4>
 									</td>
@@ -249,7 +249,7 @@
 									</td>
 									<td><div class="col-sm-1"></div></td>
 									<td>
-										<h4 style="margin: 0px; color:#FFCF40">
+										<h4 style="margin: 0px; color:white">
 											<span class="largenav text-center">지역검색</span>
 										</h4>
 									</td>
@@ -273,7 +273,7 @@
 									</td>
 									<td><div class="col-sm-1"></div></td>
 									<td>
-										<h4 style="margin: 0px; color:#FFCF40">
+										<h4 style="margin: 0px; color:white">
 											<span class="largenav text-center">상세지역</span>
 										</h4>
 									</td>
