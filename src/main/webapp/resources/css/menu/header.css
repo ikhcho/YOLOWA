@@ -3,7 +3,6 @@
     background-color: #2874f0;
     color: #FFFFFF;
     width : 100%;
-    padding-bottom:20px;
     z-index:2;
 }
 
@@ -16,8 +15,6 @@ div.page-wrapper{
 div#filter{
 	position:relative;
 	width : 100%;
-	top:200px;
-	background-color: #4AF0E4;
 }
 
 .row1{
@@ -82,7 +79,7 @@ li.upper-links {
     text-decoration: none;
 }
 /* Profile container */
-.profile {
+.myprofile {
 	position: fixed;
 	top: 250px;
 	right: 50px;
@@ -93,15 +90,15 @@ li.upper-links {
 }
 
 /* Profile sidebar */
-.profile-content {
+.myprofile-content {
   background-color:white;
   height:100%;
-  margin: 0 auto;
   margin-top : 15px;
   margin-bottom: 15px;
+  margin-left: 15px;
 }
 
-.profile-userpic img {
+.myprofile-userpic img {
   float: none;
   margin: 0 auto;
   margin-top : 10px;
@@ -113,19 +110,19 @@ li.upper-links {
   
 }
 
-.profile-usertitle {
+.myprofile-usertitle {
   text-align: center;
   margin-top: 20px;
 }
 
-.profile-usertitle-name {
+.myprofile-usertitle-name {
   color: #5a7391;
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 7px;
 }
 
-.profile-usertitle-job {
+.myprofile-usertitle-job {
   text-transform: uppercase;
   color: #5b9bd1;
   font-size: 12px;
@@ -133,12 +130,12 @@ li.upper-links {
   margin-bottom: 15px;
 }
 
-.profile-userbuttons {
+.myprofile-userbuttons {
   text-align: center;
   margin-top: 10px;
 }
 
-.profile-userbuttons .btn {
+.myprofile-userbuttons .btn {
   text-transform: uppercase;
   font-size: 11px;
   font-weight: 600;
@@ -146,43 +143,43 @@ li.upper-links {
   margin-right: 5px;
 }
 
-.profile-userbuttons .btn:last-child {
+.myprofile-userbuttons .btn:last-child {
   margin-right: 0px;
 }
     
-.profile-usermenu {
+.myprofile-usermenu {
   margin-top: 30px;
 }
 
-.profile-usermenu ul li {
+.myprofile-usermenu ul li {
   border-bottom: 1px solid #f0f4f7;
 }
 
-.profile-usermenu ul li:last-child {
+.myprofile-usermenu ul li:last-child {
   border-bottom: none;
 }
 
-.profile-usermenu ul li a {
+.myprofile-usermenu ul li a {
   color: #93a3b5;
   font-size: 14px;
   font-weight: 300;
 }
 
-.profile-usermenu ul li a i {
+.myprofile-usermenu ul li a i {
   margin-right: 8px;
   font-size: 14px;
 }
 
-.profile-usermenu ul li a:hover {
+.myprofile-usermenu ul li a:hover {
   background-color: #fafcfd;
   color: #5b9bd1;
 }
 
-.profile-usermenu ul li.active {
+.myprofile-usermenu ul li.active {
   border-bottom: none;
 }
 
-.profile-usermenu ul li.active a {
+.myprofile-usermenu ul li.active a {
   color: #5b9bd1;
   background-color: #f6f9fb;
   border-left: 2px solid #5b9bd1;
@@ -190,7 +187,7 @@ li.upper-links {
 }
 
 /* Profile Content */
-.profile-content {
+.myprofile-content {
   padding: 20px;
   background: #fff;
   min-height: 460px;

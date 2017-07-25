@@ -118,7 +118,9 @@ public class UserController {
 		UserVO userVO = (UserVO)session.getAttribute("userVO");
 		
 		List<HouseVO> zzimList = uService.getZzimHouseList(userVO.getNo());
+		List<HomeListVO> houseList = uService.houseList();
 		model.addAttribute("zzimList", zzimList);
+		model.addAttribute("houseList", houseList);
 		return "user/mypage";
 	}
 	
@@ -129,18 +131,13 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/mypageupdate.do", method=RequestMethod.POST)
-	public String update(UserVO uvo, HttpSession session) {
-
-		
+	public String update(UserVO uvo, HttpSession session, Model model) {
 		uService.updateUser(uvo);
-		
-		
 		// 수정된 사용자의 정보 조회
 		UserVO userVO = uService.selectById(uvo.getId());
-
 		session.setAttribute("userVO", userVO);
-
-		return "redirect:/user/mypageupdate.do";
+		model.addAttribute("msg", "프로필이 수정 됐습니다.");
+		return "redirect:/user/mypage.do";
 
 	}
 	@RequestMapping("/houseDetail.do")

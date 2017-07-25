@@ -14,7 +14,15 @@
 <link href="${pageContext.request.contextPath }/resources/css/home/style.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath }/resources/css/home/response.css" rel="stylesheet">
 <script src="${pageContext.request.contextPath }/resources/js/menu/jquery-1.12.4.js"></script>
-
+<link href="${pageContext.request.contextPath }/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<script>
+	if("${param.msg}" !=  "") {
+		alert("${param.msg}");
+	}
+	function update(){
+		$('#updateModal').modal();
+	}
+</script>
 </head>
 <body>
 	<header id="profile" class="header">
@@ -28,8 +36,9 @@
 						<li><a href="#profile">프로필</a></li>
 						<li><a href="#reservation">예약정보</a></li>
 						<li><a href="#zzim">찜목록</a></li>
-						<li><a href="#contact">고객센터</a></li>
+						<li><a href="#contact">문의하기</a></li>
 						<li><a href="#aboutus">ABOUT</a></li>
+						<li><a role="button" href="${pageContext.request.contextPath }/user/logout.do" onclick="javascript:return confirm('로그아웃 하시겠습니까?')">로그아웃</a></li>		
 					</ul>
 				</nav>
 			</div>
@@ -39,7 +48,7 @@
 			<div class="panel panel-info intro col-sm-8 col-sm-offset-2">
 				<div class="panel-heading resume-heading">
 					<div class="row">
-						<div class="col-lg-12">
+						<div class="col-xs-12">
 							<div class="col-xs-12 col-sm-7">
 								<figure>
 									<img class="img-circle img-responsive" alt="${userVO.name }"
@@ -48,15 +57,16 @@
 							</div>
 							<div class="col-xs-12 col-sm-5">
 								<ul class="list-group">
-									<li class="list-group-item">${userVO.name }</li>
+									<li class="list-group-item alert alert-info">
+		    							<i class="fa fa-user"></i> ${userVO.name }</li>
 									<li class="list-group-item alert alert-info"><i class="fa fa-phone"></i>
 										${userVO.tel }</li>
 									<li class="list-group-item alert alert-info"><i class="fa fa-envelope"></i>
 										${userVO.email }</li>
-									<li class="list-group-item alert alert-info"><i class="fa fa-envelope"></i>
+									<li class="list-group-item alert alert-info"><i class="fa fa-heart"></i>
 										${userVO.birthday }</li>
 								</ul>
-								
+								<button class="btn pull-right" onclick="update()">수정</button>
 							</div>
 						</div>
 					</div>
@@ -159,8 +169,13 @@
 			
 			</div>
 			<div class="row">
-				<a id="back-button" class="red-btn" href="#"><i class="icon-fontawesome-webfont-27"></i> Go Back</a>
-			</div>
+					<div class="col-sm-3 col-sm-offset-3">
+						<a id="back-button" class="red-btn" href="#"><i class="icon-fontawesome-webfont-27"></i> Go Back</a>
+					</div>
+					<div class="col-sm-3">
+						<a id="detail-button" class="green-btn" href="#"><i class="icon-fontawesome-webfont-27"></i> More Detail</a>
+					</div>
+				</div>
    			
 			<!-- PROJECT DETAILS WILL BE LOADED HERE -->
 		</div>
@@ -185,31 +200,27 @@
 	
 	<!-- CONTACT FORM-->
 	<div class="row">
-		<form role="form" class="contact-form" id="contact-form">
+		
+		<form role="form" action="${pageContext.request.contextPath}/board/qwrite.do" method="POST">
 			<div class="wow fadeInLeft animated" data-wow-offset="30" data-wow-duration="1.5s" data-wow-delay="0.15s">
 			<div class="col-lg-4 col-sm-4">
-				<input type="text" name="name" placeholder="Your Name" class="form-control input-box" id="name">
+				<select name="house_no" class="form-control input-box" id="name">
+					<option value="99999">관리자</option>
+					<c:forEach items="${houseList}" var="houseVO">
+						<option value="${houseVO.no }">${houseVO.houseName }</option>
+					</c:forEach>
+				</select>
 			</div>
 			<div class="col-lg-4 col-sm-4">
-				<input type="email" name="email" placeholder="Your Email" class="form-control input-box" id="email">
-			</div>
-			<div class="col-lg-4 col-sm-4">
-				<input type="text" name="subject" placeholder="Subject" class="form-control input-box" id="subject">
+				<input type="hidden" name="user_no" value="${userVO.no}">
+				<input type="text" class="form-control input-box" value="${userVO.name}" readonly="readonly">				
 			</div>
 			</div>
 			
 			<div class="col-md-12 wow fadeInRight animated" data-wow-offset="30" data-wow-duration="1.5s" data-wow-delay="0.15s">
-				<textarea name="message" class="form-control textarea-box" placeholder="Your Message" id="message"></textarea>
+				<textarea name="question" class="form-control textarea-box" placeholder="Your Message" id="message"></textarea>
 			</div>
-			<!-- IF MAIL SENT SUCCESSFULLY -->
-					<h4 class="success pull-left white-text">
-						Your message has been sent successfully.
-					</h4>
-					
-					<!-- IF MAIL SENDING UNSUCCESSFULL -->
-					<h4 class="error pull-left white-text">
-						E-mail must be valid and message must be longer than 1 character.
-					</h4>
+			
 			<button class="btn btn-primary custom-button red-btn wow fadeInLeft animated" id="submit" data-wow-offset="30" data-wow-duration="1.5s" data-wow-delay="0.15s" type="submit">Send Message</button>
 		</form>
 	</div>
@@ -219,7 +230,7 @@
 
 
 
-<section class="about-us" id="aboutus">
+	<section class="about-us" id="aboutus">
 <div class="container">
 	
 	<!-- SECTION HEADER -->
@@ -230,7 +241,7 @@
 		
 		<!-- SHORT DESCRIPTION ABOUT THE SECTION -->
 		<h6 class="white-text">
-				We design &amp; develop qaulity products to help small &amp; medium level business.
+				We design &amp; develop qaulity products to reserve the pension &amp; hotel.
 		</h6>
 	</div>
 	<!-- / END SECTION HEADER -->
@@ -241,16 +252,18 @@
 		<!-- COLUMN 1 - BIG MESSAGE ABOUT THE COMPANY-->
 		<div class="col-lg-4 col-md-4 column">
 			<div class="big-intro wow fadeInLeft animated" data-wow-offset="30" data-wow-duration="1.5s" data-wow-delay="0.15s">
-				 Developing Amazing Things with Passion since 2002.
+				 HYOUNGSUB<br/>DONGJOO<br/>IKHYEON<br/>JIYU
 			</div>
 		</div>
 		
 		<!-- COLUMN 2 - BRIEF ABOUT THE COMPANY-->
 		<div class="col-lg-4 col-md-4 column">
 			<p class="wow fadeInUp animated" data-wow-offset="30" data-wow-duration="1.5s" data-wow-delay="0.15s">
-				 Created forth two. Behold appear first, kind all i saying fowl man itself moved which every open shall moved subdue appear. Saying life wherein stars. Give dry, own, male had that us third lesser over deep. May every bring in it Whose. Female earth heaven won't behold female.<br/><br/>
-				Moved bearing give a two after. Had. Seas. Man they're. Grass above kind saying thing for that void sixth fly His after it.<br/><br/>
-				The set doesn't moved. Deep don't fruit fowl gathering heaven days moving creeping under from i air. Set it fifth Meat was darkness. every bring in it Whose. Female earth heaven won't behold female.
+				
+				서비스 개발(객실정보, 펜션정보, 가맹신청, 관리자 모드, 블라인드)및 통합, DB설계<br/><br/>
+				서비스 개발(펜션 예약하기 및 비용 계산, 객실정보, 펜션정보, 통계)및 통합, DB설계<br/><br/>
+				서비스 개발(로그인, 펜션검색, 펜션위치, 펜션 및 객실 등록, 프로필 수정, 찜, 예약 현황)및 통합, Bootstrap, Modal, CSS, DB설계<br/><br/>
+				서비스 개발(마이페이지, 찜, 예약 현황, 문의하기, 후기 등록)
 			</p>
 		</div>
 		
@@ -261,44 +274,44 @@
 				<!-- SKILL ONE -->
 				<li class="skill">
 					<div class="skill-count">
-						<input type="text" value="86" data-thickness=".2" class="skill1">
+						<input type="text" value="30" data-thickness=".2" class="skill1">
 					</div>
-					<h6>Web Design</h6>
+					<h6>DB DESIGN</h6>
 					<p>
-						We are expert on HTML development. Clean, semantic and valid HTML codes.
+						ORACLE, APACHE
 					</p>
 				</li>
 				
 				<!-- SKILL TWO -->
 				<li class="skill">
 					<div class="skill-count">
-						<input type="text" value="80" data-thickness=".2" class="skill2">
+						<input type="text" value="60" data-thickness=".2" class="skill2">
 					</div>
-					<h6>development</h6>
+					<h6>DEVELOPMENT</h6>
 					<p>
-						We are expert on HTML development. Clean, semantic and valid HTML codes.
+						JAVA, JAVASCRIPT, JQUERY, AJAX, JSP, JSON
 					</p>
 				</li>
 				
 				<!-- SKILL THREE -->
 				<li class="skill">
 					<div class="skill-count">
-						<input type="text" value="89" data-thickness=".2" class="skill3">
+						<input type="text" value="80" data-thickness=".2" class="skill3">
 					</div>
-					<h6>photography</h6>
+					<h6>WEB DESIGN</h6>
 					<p>
-						We are expert on HTML development. Clean, semantic and valid HTML codes.
+						HTML, CSS, BOOTSTRAP, MODAL
 					</p>
 				</li>
 				
 				<!-- SKILL FOUR -->
 				<li class="skill">
 					<div class="skill-count">
-						<input type="text" value="95" data-thickness=".2" class="skill4">
+						<input type="text" value="100" data-thickness=".2" class="skill4">
 					</div>
-					<h6>SEO</h6>
+					<h6>TEST</h6>
 					<p>
-						We are expert on HTML development. Clean, semantic and valid HTML codes.
+						TEST
 					</p>
 				</li>
 				
@@ -308,13 +321,87 @@
 
 	<!-- CLIENTS -->
 	<div class="our-clients">
-		<h5><span class="section-footer-title">OUR HAPPY CLIENTS</span></h5>
+		<h5><span class="section-footer-title">YOLOWA</span></h5>
 	</div>
 	<!-- CLIENT LIST -->
 </div> <!-- / END CONTAINER -->
 
 </section> <!-- END ABOUT US SECTION -->
-
+	<footer>
+		<div class="col-lg-12 copyright">
+			©2017 Yolowa Inc. Develop with <i>심형섭, 전지유, 조익현, 황동주</i>
+		</div>
+	</footer>
+	
+<div class="modal fade" id="updateModal">
+  <div class="modal-dialog">
+		<div class="modal-content" style="min-width:100%">
+			<div class="modal-header">
+				<!-- 닫기(x) 버튼 -->
+				<button type="button" class="close" data-dismiss="modal">x</button>
+				<!-- header title -->
+			</div>
+			<!-- body -->
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title">프로필수정</h3>
+								
+							</div>
+							<div class="panel-body">
+								<form action="${pageContext.request.contextPath }/user/mypageupdate.do" method="post">
+									<div class="col-xs-12">
+										<fieldset class="col-xs-10 col-xs-offset-1">
+											<div class="input-group form-group">
+												<input type="text" class="form-control" value="${ userVO.id }" aria-describedby="addon1" readonly="readonly" name="id">
+												<span style="cursor:pointer" role="button" class="input-group-addon" id="addon1">
+													<i class="fa fa-user"></i>
+												</span>
+											</div>
+											<div class="input-group form-group">
+												<input type="password" class="form-control" value="${ userVO.password }" aria-describedby="addon2" name="password">
+												<span style="cursor:pointer" role="button" class="input-group-addon" id="addon2">
+													<i class="fa fa-lock  "></i>
+												</span>
+											</div>
+											<div class="input-group form-group">
+												<input type="text" class="form-control" value="${ userVO.birthday }" aria-describedby="addon3" readonly="readonly" maxlength="10">
+												<span style="cursor:pointer" role="button" class="input-group-addon" id="addon3">
+													<i class="fa fa-heart"></i>
+												</span>
+											</div>
+											<div class="input-group form-group">
+												<input type="text" class="form-control" value="${ userVO.tel }" aria-describedby="addon4" name="tel" maxlength="13">
+												<span style="cursor:pointer" role="button" class="input-group-addon" id="addon3">
+													<i class="fa fa-phone"></i>
+												</span>
+											</div>
+											<div class="input-group form-group">
+												<input type="text" class="form-control" value="${ userVO.email }" aria-describedby="addon5" name="email">
+												<span style="cursor:pointer" role="button" class="input-group-addon" id="addon3">
+													<i class="fa fa-envelope"></i>
+												</span>
+											</div>
+										</fieldset>
+										<button role="button" class="btn btn-success pull-right" type="submit">수정</button>
+									</div>
+									<!-- Change this to a button or input when using this as a form -->
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+	
 <script src="${pageContext.request.contextPath }/resources/js/menu/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/menu/wow.min.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/menu/jquery.nav.js"></script>

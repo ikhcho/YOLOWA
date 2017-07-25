@@ -349,7 +349,7 @@ input:focus {
 
 /*** SECTION HEADERS ***/
 .focus,.works,.about-us,.features,.packages,.products,.testimonial,.contact-us {
-	padding-top: 50px;
+	padding-top: 100px;
 }
 .section-header {
 	text-align: center;
@@ -750,6 +750,19 @@ width: -webkit-calc(100% / 2);
 #back-button i {
 	margin-right: 10px;
 }
+
+#detail-button {
+	display: none;
+	text-align: center;
+	text-transform: uppercase;
+	padding: 13px 35px 13px 35px;
+	border-radius: 4px;
+	margin: 10px;
+}
+#detail-button i {
+	margin-right: 10px;
+}
+
 #loader {
 	min-height: 930px;
 	position: relative;

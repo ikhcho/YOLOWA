@@ -47,133 +47,18 @@
 	});
 </script>
 
-<div id="flipkart-navbar" class="navbar navbar-fixed-top">
-	<div class="container">
-		<div class="row row1">
-			<ul class="largenav pull-right">
-				<c:if test="${userVO==null}">
-					<li class="upper-links"><a role="button" class="links" id="login">로그인/회원가입</a></li>
-				</c:if>
-				<c:if test="${userVO!=null}">
-					<li class="upper-links"><a role="button" class="links" href="${pageContext.request.contextPath }/user/logout.do">로그아웃</a></li>				
-					
-				</c:if>
-				<c:if test="${userVO.type=='B'}">
-					<li class="upper-links"><a role="button" class="links" href="${pageContext.request.contextPath }/busi/home.do">펜션관리</a></li>				
-				</c:if>
-				<c:if test="${userVO.type=='U' || userVO == null}">
-					<li class="upper-links"><a role="button" class="links" id="contact">가맹신청</a></li>
-				</c:if>
-				<li class="upper-links"><a class="links" href="#">고객센터</a></li>
-			</ul>
-		</div>
-		<form name="searchHouseForm" action="${pageContext.request.contextPath }/menu/searchHouse.do" method="post">
-			<div class="row">
-				<div class="col-sm-3">
-					<h1 style="margin: 0px;">
-						<a role="button" class="links" href="${pageContext.request.contextPath}/user/home.do"><span class="largenav text-center"><img width="260px" src="${pageContext.request.contextPath }/resources/images/logo.png"></span></a>
-					</h1>
-				</div>
-				<div class="col-sm-9 col-xs-11">
-					<div class="row">
-						<div class="input-group input-group-lg">
-							<input type="text" class="form-control"  placeholder="펜션검색" id="houseName" name="houseName" aria-describedby="searchHouseBtn">
-							<span style="cursor:pointer" role="button" class="input-group-addon" id="searchHouseBtn">
-								<i class="glyphicon glyphicon-search"></i>
-							</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</form>
-		<div class="row row1">
-			<div class="col-sm-12">
-				<form name="searchRoomForm" action="${pageContext.request.contextPath }/menu/searchRoom.do" method="post">
-					<table>
-						<tr>
-							<td><div class="col-sm-1"></div></td>
-							<td><div class="col-sm-1"></div></td>
-							<td><div class="col-sm-1"></div></td>
-							<td>
-								<h4 style="margin: 0px; color:#FFCF40">
-									<span class="largenav text-center">투숙날짜</span>
-								</h4>
-							</td>
-							<td><div class="col-sm-1"></div></td>
-							<td>
-								<div class="input-group input-group-lg">
-									<input type="text" size="10" class="form-control datepicker" name="resDate">
-								</div>
-							</td>
-							<td><div class="col-sm-1"></div></td>
-							<td>
-								<h4 style="margin: 0px; color:#FFCF40">
-									<span class="largenav text-center">지역검색</span>
-								</h4>
-							</td>
-							<td><div class="col-sm-1"></div></td>
-							<td>
-								<div class="input-group input-group-lg">
-									<select class="form-control" name="country" onchange="changeState()">
-										<option>전체</option>
-										<option>강원도</option>
-										<option>경기도</option>
-										<option>경상남도</option>
-										<option>경상북도</option>
-										<option>서울시</option>
-										<option>전라남도</option>
-										<option>전라북도</option>
-										<option>제주도</option>
-										<option>충청남도</option>
-										<option>충청북도</option>
-									</select>
-								</div>
-							</td>
-							<td><div class="col-sm-1"></div></td>
-							<td>
-								<h4 style="margin: 0px; color:#FFCF40">
-									<span class="largenav text-center">상세지역</span>
-								</h4>
-							</td>
-							<td><div class="col-sm-1"></div></td>
-							<td>
-								<div class="input-group input-group-lg">
-									<select class="form-control" name="state">
-										<option>전체</option>
-									</select>
-								</div>
-							</td>
-							<td><div class="col-sm-1"></div></td>
-							<td><div class="col-sm-1"></div></td>
-							<td>
-								<button type="submit" class="btn btn-info btn-lg">
-									<span>
-										<h4 style="margin: 0px;">
-											빈객실검색<i class="glyphicon glyphicon-search"></i>
-										</h4>
-									</span>
-								</button>
-							</td>
-						</tr>
-					</table>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
-
 <c:if test="${userVO!=null}">
-	<div class="profile col-sm-2">
-		<div class="profile-content">
+	<div class="myprofile">
+		<div class="myprofile-content col-sm-10">
 			<!-- SIDEBAR USERPIC -->
 			<div class="profile-userpic">
 				<img src="${pageContext.request.contextPath}/resources/images/github-logo.png" class="img-responsive" alt="">
 			</div>
 			<!-- END SIDEBAR USERPIC -->
 			<!-- SIDEBAR USER TITLE -->
-			<div class="profile-usertitle">
-				<div class="profile-usertitle-name">${userVO.name }</div>
-				<div class="profile-usertitle-job">${userVO.id }</div>
+			<div class="myprofile-usertitle">
+				<div class="myprofile-usertitle-name">${userVO.name }</div>
+				<div class="myprofile-usertitle-job">${userVO.id }</div>
 			</div>
 			<!-- END SIDEBAR USER TITLE -->
 			<!-- SIDEBAR BUTTONS -->
@@ -183,12 +68,12 @@
 			</div> -->
 			<!-- END SIDEBAR BUTTONS -->
 			<!-- SIDEBAR MENU -->
-			<div class="profile-usermenu">
+			<div class="myprofile-usermenu">
 				<ul class="nav">
 					<li><a href="${pageContext.request.contextPath}/user/mypage.do"><i class="glyphicon glyphicon-user"></i>마이페이지</a></li>
-					<li><a href="#"><i class="glyphicon glyphicon-calendar"></i>예약확인</a></li>
-					<li><a href="#"><i class="glyphicon glyphicon-paperclip"></i>찜목록보기</a></li>
-					<li><a href="#"> <i class="glyphicon glyphicon-flag"></i>고객센터</a></li>
+					<li><a href="${pageContext.request.contextPath}/user/mypage.do#reservation"><i class="glyphicon glyphicon-calendar"></i>예약확인</a></li>
+					<li><a href="${pageContext.request.contextPath}/user/mypage.do#zzim"><i class="glyphicon glyphicon-paperclip"></i>찜목록</a></li>
+					<li><a href="${pageContext.request.contextPath}/user/mypage.do#contact"> <i class="glyphicon glyphicon-flag"></i>문의하기</a></li>
 				</ul>
 			</div>
 			<!-- END MENU -->
@@ -302,3 +187,120 @@
 		</div>
 	</div>
 </div>
+<header class="header" style="z-index:2">
+	<div id="main-nav" class="navbar navbar-inverse bs-docs-nav" role="banner">
+		<div id="flipkart-navbar" class="navbar navbar-fixed-top">
+			<div class="container">
+				<div class="row row1">
+					<ul class="largenav pull-right">
+						<c:if test="${userVO==null}">
+							<li class="upper-links"><a role="button" class="links" id="login">로그인/회원가입</a></li>
+						</c:if>
+						<c:if test="${userVO!=null}">
+							<li class="upper-links"><a role="button" class="links" href="${pageContext.request.contextPath }/user/logout.do" onclick="javascript:return confirm('로그아웃 하시겠습니까?')">로그아웃</a></li>				
+							
+						</c:if>
+						<c:if test="${userVO.type=='B'}">
+							<li class="upper-links"><a role="button" class="links" href="${pageContext.request.contextPath }/busi/home.do">펜션관리</a></li>				
+						</c:if>
+						<c:if test="${userVO.type=='U' || userVO == null}">
+							<li class="upper-links"><a role="button" class="links" id="contact">가맹신청</a></li>
+						</c:if>
+						<li class="upper-links"><a class="links" href="#">고객센터</a></li>
+					</ul>
+				</div>
+				<form name="searchHouseForm" action="${pageContext.request.contextPath }/menu/searchHouse.do" method="post">
+					<div class="row">
+						<div class="col-sm-3">
+							<a role="button" class="links" href="${pageContext.request.contextPath}/user/home.do">
+								<img style="width:260px;" src="${pageContext.request.contextPath }/resources/images/logo.png">
+							</a>
+						</div>
+						<div class="col-sm-9 col-xs-11" style="margin-top:5px">
+							<div class="row">
+								<div class="input-group input-group-lg">
+									<input type="text" class="form-control"  placeholder="펜션검색" id="houseName" name="houseName" aria-describedby="searchHouseBtn">
+									<span style="cursor:pointer" role="button" class="input-group-addon" id="searchHouseBtn">
+										<i class="glyphicon glyphicon-search"></i>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+				<div class="row row1">
+					<div class="col-sm-12">
+						<form name="searchRoomForm" action="${pageContext.request.contextPath }/menu/searchRoom.do" method="post">
+							<table>
+								<tr>
+									<td><div class="col-sm-1"></div></td>
+									<td><div class="col-sm-1"></div></td>
+									<td><div class="col-sm-1"></div></td>
+									<td>
+										<h4 style="margin: 0px; color:#FFCF40">
+											<span class="largenav text-center">투숙날짜</span>
+										</h4>
+									</td>
+									<td><div class="col-sm-1"></div></td>
+									<td>
+										<div class="input-group input-group-lg">
+											<input type="text" size="10" class="form-control datepicker" name="resDate">
+										</div>
+									</td>
+									<td><div class="col-sm-1"></div></td>
+									<td>
+										<h4 style="margin: 0px; color:#FFCF40">
+											<span class="largenav text-center">지역검색</span>
+										</h4>
+									</td>
+									<td><div class="col-sm-1"></div></td>
+									<td>
+										<div class="input-group input-group-lg">
+											<select class="form-control" name="country" onchange="changeState()">
+												<option>전체</option>
+												<option>강원도</option>
+												<option>경기도</option>
+												<option>경상남도</option>
+												<option>경상북도</option>
+												<option>서울시</option>
+												<option>전라남도</option>
+												<option>전라북도</option>
+												<option>제주도</option>
+												<option>충청남도</option>
+												<option>충청북도</option>
+											</select>
+										</div>
+									</td>
+									<td><div class="col-sm-1"></div></td>
+									<td>
+										<h4 style="margin: 0px; color:#FFCF40">
+											<span class="largenav text-center">상세지역</span>
+										</h4>
+									</td>
+									<td><div class="col-sm-1"></div></td>
+									<td>
+										<div class="input-group input-group-lg">
+											<select class="form-control" name="state">
+												<option>전체</option>
+											</select>
+										</div>
+									</td>
+									<td><div class="col-sm-1"></div></td>
+									<td><div class="col-sm-1"></div></td>
+									<td>
+										<button type="submit" class="btn btn-warning btn-lg">
+											<span>
+												<h4 style="margin: 0px;">
+													빈객실검색<i class="glyphicon glyphicon-search"></i>
+												</h4>
+											</span>
+										</button>
+									</td>
+								</tr>
+							</table>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

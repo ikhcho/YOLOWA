@@ -174,11 +174,18 @@ jQuery(document).ready(function($) {
                 $('#loader').hide();
                 content.fadeIn(600);
                 $('#back-button').fadeIn(600);
+                $('#detail-button').fadeIn(600);
             });
         },800);
 
     });
-
+    
+    $('#detail-button').on('click', function(event) {
+    	event.preventDefault();
+    	var href = $('.single-project').find('a').attr('href');
+    	location.href = href;
+    });
+    
     $('#back-button').on('click', function(event) {
         event.preventDefault();
 
@@ -187,6 +194,7 @@ jQuery(document).ready(function($) {
 
         content.fadeOut(400);
         $('#back-button').fadeOut(400);
+        $('#detail-button').fadeOut(400);
         setTimeout(function(){
             portfolioList.animate({'marginLeft':'0'},{duration:400,queue:false});
             portfolioList.fadeIn(600);

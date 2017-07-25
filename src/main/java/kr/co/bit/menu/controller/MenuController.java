@@ -42,7 +42,11 @@ public class MenuController {
 		SearchVO searchVO = new SearchVO();
 		searchVO.setResDate(resDate);
 		if(!country.equals("전체")){
-			searchVO.setCountry(country.substring(0, 2));
+			if(country.length()==4){
+				searchVO.setCountry(country.substring(0, 1) + country.substring(2, 3));
+			}else{
+				searchVO.setCountry(country.substring(0, 2));
+			}
 		}
 		if(!state.equals("전체")){
 			searchVO.setState(state.substring(0, 2));
