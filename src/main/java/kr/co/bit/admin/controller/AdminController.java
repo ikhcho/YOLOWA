@@ -4,7 +4,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +21,16 @@ public class AdminController {
 
 	@Autowired
 	private AdminService aService;
+	
+	@RequestMapping(value="/home.do", method=RequestMethod.GET)
+	public String home(){		
+		return "admin/home";
+	}
+	
+	@RequestMapping(value="/home.do", method=RequestMethod.POST)
+	public String home(UserVO userVO){
+		return "busi/home";
+	}
 
 	//가맹 신청 양식으로
 	@RequestMapping(value="/joinPartner.do", method=RequestMethod.GET)
@@ -36,24 +45,33 @@ public class AdminController {
 		mav.addObject("approveVO", aService.joinPartner(approveVO));
 		return mav;
 	}
-
-	//가맹 신청 목록 전체
-	@RequestMapping(value="/getApproveList.do")
-	public ModelAndView getApproveList() {
-		ModelAndView mav = new ModelAndView("admin/approveList");
-		mav.addObject("approveList", aService.getApproveList());
-		return mav;
+	
+	//가맹 해지 신청
+	@RequestMapping(value="/quitPartner.do")
+	public String quitPartner(ApproveVO approveVO) {
+		aService.quitPartner(approveVO);
+		return "admin/quitPartner";
 	}
+
+	/*//가맹 신청 목록 전체
+	@RequestMapping(value="/getApprove.do")
+	public ModelAndView getApprove() {
+		ModelAndView mav = new ModelAndView("admin/approve");
+		mav.addObject("approve", aService.getApprove());
+		return mav;
+	}*/
 
 	//가맹 신청 상태별 목록
-	@RequestMapping(value="/getApproveList.do", params={"approveState"})
-	public ModelAndView getApproveList(@RequestParam String approveState) {
-		ModelAndView mav = new ModelAndView("admin/approveList");
-		mav.addObject("approveList", aService.getApproveList(approveState));
+	@RequestMapping(value="/getApprove.do")
+	public ModelAndView getApprove(ApproveVO approveVO) {
+		System.out.println(approveVO.getUserNo());
+		System.out.println(approveVO.getApproveKey());
+		ModelAndView mav = new ModelAndView("admin/approve");
+		mav.addObject("approve", aService.getApprove(approveVO));
 		return mav;
 	}
 
-	//가맹 신청 사용자 번호에 따른 목록
+	/*//가맹 신청 사용자 번호에 따른 목록
 	@RequestMapping(value="/getApproveList.do", params={"no"})
 	public ModelAndView getApproveList(@RequestParam int no) {
 		ModelAndView mav = new ModelAndView("admin/approveList");
@@ -67,13 +85,13 @@ public class AdminController {
 		ModelAndView mav = new ModelAndView("admin/approveOne");
 		mav.addObject("approveVO", aService.getApproveOne(approveVO));
 		return mav;
-	}
+	}*/
 	
 	//승인 상태 변경
 	@RequestMapping("/updateApproveState.do")
 	public String updateApproveState(ApproveVO approveVO) {
 		aService.updateApproveState(approveVO);
-		return "redirect:/admin/approveList.do";
+		return "redirect:/admin/approve.do";
 	}
 
 	//유저가 댓글 신고
@@ -84,27 +102,27 @@ public class AdminController {
 		//return "";
 	}
 
-	//댓글 신고 전체 리스트 확인
+	/*//댓글 신고 전체 리스트 확인
 	@RequestMapping("/getCommentBlind.do")
-	public ModelAndView getCommentBlindList() {
+	public ModelAndView getCommentBlind() {
 		ModelAndView mav = new ModelAndView("admin/commentBlind");
-		mav.addObject("commentBlind", aService.getCommentBlindList());
+		mav.addObject("commentBlind", aService.getCommentBlind());
+		return mav;
+	}*/
+
+	//댓글 신고 리스트 확인
+	@RequestMapping(value="/getCommentBlind.do")
+	public ModelAndView getCommentBlind(CommentBlindVO commentBlindVO) {
+		ModelAndView mav = new ModelAndView("admin/commentBlind");
+		mav.addObject("commentBlind", aService.getCommentBlind(commentBlindVO));
 		return mav;
 	}
 
-	//한 업체의 댓글 신고 리스트 확인
-	@RequestMapping("/{no}/getCommentBlind.do")
-	public ModelAndView getCommentBlindList(@PathVariable int no) {
+	//댓글의 신고 개수 확인
+	@RequestMapping(value="/countCommentBlind.do", params={"commentBlindVO"})
+	public ModelAndView countCommentBlind(@RequestParam CommentBlindVO commentBlindVO) {
 		ModelAndView mav = new ModelAndView("admin/commentBlind");
-		mav.addObject("commentBlind", aService.getCommentBlindList(no));
-		return mav;
-	}
-
-	//한 업체의 댓글 신고 개수 확인
-	@RequestMapping("/{no}/getCommentBlindCount.do")
-	public ModelAndView getCommentBlindCount(@PathVariable int no) {
-		ModelAndView mav = new ModelAndView("admin/commentBlind");
-		mav.addObject("commentBlindCount", aService.getCommentBlindCount(no));
+		mav.addObject("commentBlindCount", aService.countCommentBlind(commentBlindVO));
 		return mav;
 	}
 
@@ -116,27 +134,27 @@ public class AdminController {
 		//return "";
 	}
 
-	//업체 신고 전체 리스트 확인
+	/*//업체 신고 전체 리스트 확인
 	@RequestMapping("/getHouseBlind.do")
-	public ModelAndView getHouseBlindList() {
+	public ModelAndView getHouseBlind() {
 		ModelAndView mav = new ModelAndView("admin/houseBlind");
-		mav.addObject("houseBlind", aService.getHouseBlindList());
+		mav.addObject("houseBlind", aService.getHouseBlind());
 		return mav;
-	}
+	}*/
 
 	//한 업체의 신고 리스트 확인
-	@RequestMapping("/{no}/getHouseBlind.do")
-	public ModelAndView getHouseBlindOne(@PathVariable int no) {
+	@RequestMapping(value="/getHouseBlind.do")
+	public ModelAndView getHouseBlind(HouseBlindVO houseBlindVO) {
 		ModelAndView mav = new ModelAndView("admin/houseBlind");
-		mav.addObject("houseBlind", aService.getHouseBlindList(no));
+		mav.addObject("houseBlind", aService.getHouseBlind(houseBlindVO));
 		return mav;
 	}
 
 	//한 업체의 신고 개수 확인
-	@RequestMapping("/{no}/getHouseBlindCount.do")
-	public ModelAndView getHouseBlindCount(@PathVariable int no) {
+	@RequestMapping(value="/countHouseBlind.do")
+	public ModelAndView countHouseBlind(HouseBlindVO houseBlindVO) {
 		ModelAndView mav = new ModelAndView("admin/houseBlind");
-		mav.addObject("houseBlindCount", aService.getHouseBlindCount(no));
+		mav.addObject("houseBlindCount", aService.countHouseBlind(houseBlindVO));
 		return mav;
 	}
 }

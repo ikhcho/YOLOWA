@@ -56,7 +56,7 @@ public class ReservationController {
 		mav.setViewName("reservation/houseReservation");
 		mav.addObject("houseVO", houseVO);
 		mav.addObject("list", list);
-		return mav;
+		return mav; 
 	}
 
 	@RequestMapping(value = "/reservation.do", method = RequestMethod.POST)
