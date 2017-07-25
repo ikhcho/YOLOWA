@@ -64,6 +64,8 @@ public class AdminController {
 	//가맹 신청 상태별 목록
 	@RequestMapping(value="/getApprove.do")
 	public ModelAndView getApprove(ApproveVO approveVO) {
+		System.out.println(approveVO.getUserNo());
+		System.out.println(approveVO.getApproveKey());
 		ModelAndView mav = new ModelAndView("admin/approve");
 		mav.addObject("approve", aService.getApprove(approveVO));
 		return mav;
@@ -100,17 +102,17 @@ public class AdminController {
 		//return "";
 	}
 
-	//댓글 신고 전체 리스트 확인
+	/*//댓글 신고 전체 리스트 확인
 	@RequestMapping("/getCommentBlind.do")
 	public ModelAndView getCommentBlind() {
 		ModelAndView mav = new ModelAndView("admin/commentBlind");
 		mav.addObject("commentBlind", aService.getCommentBlind());
 		return mav;
-	}
+	}*/
 
 	//댓글 신고 리스트 확인
-	@RequestMapping(value="/getCommentBlind.do", params={"commentBlindVO"})
-	public ModelAndView getCommentBlind(@RequestParam CommentBlindVO commentBlindVO) {
+	@RequestMapping(value="/getCommentBlind.do")
+	public ModelAndView getCommentBlind(CommentBlindVO commentBlindVO) {
 		ModelAndView mav = new ModelAndView("admin/commentBlind");
 		mav.addObject("commentBlind", aService.getCommentBlind(commentBlindVO));
 		return mav;
@@ -132,17 +134,17 @@ public class AdminController {
 		//return "";
 	}
 
-	//업체 신고 전체 리스트 확인
+	/*//업체 신고 전체 리스트 확인
 	@RequestMapping("/getHouseBlind.do")
 	public ModelAndView getHouseBlind() {
 		ModelAndView mav = new ModelAndView("admin/houseBlind");
 		mav.addObject("houseBlind", aService.getHouseBlind());
 		return mav;
-	}
+	}*/
 
 	//한 업체의 신고 리스트 확인
-	@RequestMapping(value="/getHouseBlind.do", params={"houseBlindVO"})
-	public ModelAndView getHouseBlind(@RequestParam HouseBlindVO houseBlindVO) {
+	@RequestMapping(value="/getHouseBlind.do")
+	public ModelAndView getHouseBlind(HouseBlindVO houseBlindVO) {
 		ModelAndView mav = new ModelAndView("admin/houseBlind");
 		mav.addObject("houseBlind", aService.getHouseBlind(houseBlindVO));
 		return mav;

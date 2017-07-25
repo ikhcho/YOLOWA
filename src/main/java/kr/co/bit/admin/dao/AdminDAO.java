@@ -15,7 +15,7 @@ public interface AdminDAO {
 	
 	int quitPartner(ApproveVO approveVO);
 	
-	List<ApproveVO> getApprove();
+	//List<ApproveVO> getApprove();
 
 	List<ApproveVO> getApprove(ApproveVO approveVO);
 	
@@ -31,7 +31,7 @@ public interface AdminDAO {
 	
 	void punishComment(BoardVO bVO);
 	
-	List<CommentBlindVO> getCommentBlind();
+	//List<CommentBlindVO> getCommentBlind();
 	
 	List<CommentBlindVO> getCommentBlind(CommentBlindVO commentBlindVO);
 	
@@ -41,7 +41,7 @@ public interface AdminDAO {
 	
 	void punishHouse(HouseVO hVO);
 
-	List<HouseBlindVO> getHouseBlind();
+	//List<HouseBlindVO> getHouseBlind();
 	
 	List<HouseBlindVO> getHouseBlind(HouseBlindVO houseBlindVO);
 	

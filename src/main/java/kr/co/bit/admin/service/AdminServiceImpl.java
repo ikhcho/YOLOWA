@@ -49,11 +49,11 @@ public class AdminServiceImpl implements AdminService{
 		}
 	}
 	
-	@Override
+	/*@Override
 	public List<ApproveVO> getApprove() {
 		System.out.println("Service");
 		return adao.getApprove();
-	}
+	}*/
 
 	@Override
 	public List<ApproveVO> getApprove(ApproveVO approveVO) {
@@ -102,10 +102,10 @@ public class AdminServiceImpl implements AdminService{
 		}		
 	}
 
-	@Override
+	/*@Override
 	public List<CommentBlindVO> getCommentBlind() {
 		return adao.getCommentBlind();
-	}	
+	}	*/
 	
 	@Override
 	public List<CommentBlindVO> getCommentBlind(CommentBlindVO commentBlindVO) {
@@ -140,10 +140,10 @@ public class AdminServiceImpl implements AdminService{
 		}		
 	}
 	
-	@Override
+	/*@Override
 	public List<HouseBlindVO> getHouseBlind() {
 		return adao.getHouseBlind();
-	}	
+	}	*/
 
 	@Override
 	public List<HouseBlindVO> getHouseBlind(HouseBlindVO houseBlindVO) {

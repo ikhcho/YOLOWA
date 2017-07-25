@@ -29,11 +29,11 @@ public class AdminDAOImpl implements AdminDAO{
 		return template.delete("quitPartner", approveVO);
 	}
 	
-	@Override
+	/*@Override
 	public List<ApproveVO> getApprove() {
 		System.out.println("DAO");
 		return template.selectList("getApprove");
-	}
+	}*/
 
 	@Override
 	public List<ApproveVO> getApprove(ApproveVO approveVO) {
@@ -72,10 +72,10 @@ public class AdminDAOImpl implements AdminDAO{
 		template.update("updateBoardBlindState", bVO);
 	}
 
-	@Override
+	/*@Override
 	public List<CommentBlindVO> getCommentBlind() {		
 		return template.selectList("getCommentBlind");
-	}	
+	}	*/
 	
 	@Override
 	public List<CommentBlindVO> getCommentBlind(CommentBlindVO commentBlindVO) {
@@ -100,10 +100,10 @@ public class AdminDAOImpl implements AdminDAO{
 		template.update("updateHouseBlindState", hVO);
 	}
 
-	@Override
+	/*@Override
 	public List<HouseBlindVO> getHouseBlind() {
 		return template.selectList("getHouseBlind");
-	}
+	}*/
 	
 	@Override
 	public List<HouseBlindVO> getHouseBlind(HouseBlindVO houseBlindVO) {

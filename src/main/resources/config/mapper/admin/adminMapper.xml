@@ -40,15 +40,17 @@
 	<!-- 가맹 신청 전체 리스트 -->
 	<select id="getApprove" resultMap="approveMap">
 		select * from approve
-		<if test="userNo!=0">
-			where user_no=${userNo}
-			<if test="approveKey!=null">
+		<where>
+			<if test="approveState!=null">
+				approve_state='${approveState}'
+			</if>
+			<if test="userNo!=0">
+				and user_no=${userNo}
+			</if>
+			<if test="approveKey!=null and approveKey!=''">
 				and approve_key='${approveKey}'
 			</if>
-		</if>
-		<if test="approveState!=null">
-			where approve_state='${approveState}'
-		</if>
+		</where>
 	</select>
 <!-- 	
 	가맹 신청 상태에 따른 리스트

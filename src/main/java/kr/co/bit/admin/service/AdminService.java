@@ -13,7 +13,7 @@ public interface AdminService {
 	
 	void quitPartner(ApproveVO approveVO);
 	
-	List<ApproveVO> getApprove();
+	//List<ApproveVO> getApprove();
 
 	List<ApproveVO> getApprove(ApproveVO approveVO);
 	
@@ -25,7 +25,7 @@ public interface AdminService {
 
 	void addCommentBlind(CommentBlindVO commentBlindVO);
 
-	List<CommentBlindVO> getCommentBlind();
+	//List<CommentBlindVO> getCommentBlind();
 	
 	List<CommentBlindVO> getCommentBlind(CommentBlindVO commentBlindVO);
 
@@ -33,7 +33,7 @@ public interface AdminService {
 
 	void addHouseBlind(HouseBlindVO houseBlindVO);	
 
-	List<HouseBlindVO> getHouseBlind();
+	//List<HouseBlindVO> getHouseBlind();
 	
 	List<HouseBlindVO> getHouseBlind(HouseBlindVO houseBlindVO);
 
