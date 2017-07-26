@@ -82,4 +82,13 @@
 		where res.house_no = house.no and res.room_no = room.no
 		order by res_start desc
 	</select>
+	
+	<update id="updateUser" parameterType="userVO" >
+
+		update users 
+
+		 set password = #{password}, tel = #{tel}, email = #{email}
+
+		 where id = #{id}
+	</update>
 </mapper>

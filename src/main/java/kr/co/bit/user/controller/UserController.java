@@ -11,8 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 
 import kr.co.bit.busi.vo.HouseVO;
 import kr.co.bit.reservation.vo.MyResVO;
@@ -115,6 +117,35 @@ public class UserController {
 		}
 		return map;
 	}
+
+	@RequestMapping(value="/mypageupdate.do", method=RequestMethod.GET)
+	public String updateForm(HttpSession session) {
+		
+		UserVO uvo = new UserVO();
+		uvo.setId("yolowa");
+		uvo.setPassword("yolowa");
+		
+		UserVO userVO = uService.login(uvo);
+		session.setAttribute("userVO", userVO);
+		
+		return "user/mypageupdate";
+	}
+	
+	@RequestMapping(value="/mypageupdate.do", method=RequestMethod.POST)
+	public String update(UserVO uvo, HttpSession session) {
+
+		
+		uService.updateUser(uvo);
+		
+		
+		// 수정된 사용자의 정보 조회
+		UserVO userVO = uService.selectById(uvo.getId());
+
+		session.setAttribute("userVO", userVO);
+
+		return "redirect:/user/mypageupdate.do";
+
+	}
 	
 	@RequestMapping("/mypage.do")
 	public String mypage(Model model, HttpSession session){
@@ -129,11 +160,6 @@ public class UserController {
 		return "user/mypage";
 	}
 	
-	@RequestMapping(value="/mypageupdate.do", method=RequestMethod.GET)
-	public String updateForm(HttpSession session) {
-		
-		return "user/mypageupdate";
-	}
 	
 	@RequestMapping(value="/mypageupdate.do", method=RequestMethod.POST)
 	public String update(UserVO uvo, HttpSession session, Model model) {

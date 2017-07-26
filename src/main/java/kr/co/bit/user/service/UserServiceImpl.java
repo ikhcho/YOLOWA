@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import kr.co.bit.busi.vo.HouseVO;
 import kr.co.bit.reservation.vo.MyResVO;
 import kr.co.bit.user.dao.UserDAO;
@@ -27,6 +28,12 @@ public class UserServiceImpl implements UserService{
 	public Boolean idCheck(String id) {
 		return udao.idCheck(id) != null?true:false;
 	}
+	
+
+	@Override
+	public UserVO selectById(String id) {
+		return udao.idCheck(id);
+	}
 
 	@Override
 	public void register(UserVO uvo) {
@@ -40,10 +47,6 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public List<HomeListVO> houseList() {
 		return udao.houseList();
-	}
-	@Override
-	public UserVO selectById(String id) {
-		return udao.idCheck(id);
 	}
 	@Override
 	public void updateUser(UserVO uvo) {
