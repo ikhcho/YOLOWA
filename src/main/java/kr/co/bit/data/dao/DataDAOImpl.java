@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.bit.data.vo.CkReservationVO;
+import kr.co.bit.data.vo.CountOfMonthVO;
 import kr.co.bit.data.vo.DataVO;
 import kr.co.bit.data.vo.ScoreVO;
 
@@ -44,6 +45,12 @@ public class DataDAOImpl implements DataDAO {
 	@Override
 	public List<ScoreVO> avgScoreOfHouse(int userNo) {
 		List<ScoreVO> list = template.selectList("data.avgScoreOfHouse", userNo);
+		return list;
+	}
+
+	@Override
+	public List<CountOfMonthVO> countOfMonth(int userNo) {
+		List<CountOfMonthVO> list = template.selectList("data.countOfMonth", userNo);
 		return list;
 	}
 

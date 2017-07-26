@@ -18,6 +18,7 @@ import kr.co.bit.busi.vo.HouseVO;
 import kr.co.bit.data.dao.DataDAO;
 import kr.co.bit.data.service.DataService;
 import kr.co.bit.data.vo.CkReservationVO;
+import kr.co.bit.data.vo.CountOfMonthVO;
 import kr.co.bit.data.vo.DataVO;
 import kr.co.bit.data.vo.ScoreVO;
 import kr.co.bit.detail.dao.DetailDAO;
@@ -72,8 +73,8 @@ public class JUnitTestMain {
 		//aservice.addCommentBlind(new CommentBlindVO(1, 2));
 		
 		//List<ApproveVO> list = aservice.getApproveList("보류");
-		List<ScoreVO> list = SqlSessionTemplate.selectList("data.avgScoreOfHouse", 1);
-		System.out.println(list);
+//		List<ScoreVO> list = SqlSessionTemplate.selectList("data.avgScoreOfHouse", 1);
+//		System.out.println(list);
 		
 		
 		/*UserVO user = new UserVO();
@@ -86,16 +87,19 @@ public class JUnitTestMain {
 		List<HouseBlindVO> hbList = sqlSessionTemplate.selectList("countHouseBlind", hbVO);
 		*/
 		
-		ApproveVO aVO = new ApproveVO();
-		aVO.setApproveState("승인");
-		//aVO.setUserNo(11);
-		System.out.println(aVO.getUserNo());
-		List<ApproveVO> aList = sqlSessionTemplate.selectList("getApprove", aVO);
+//		ApproveVO aVO = new ApproveVO();
+//		aVO.setApproveState("승인");
+//		//aVO.setUserNo(11);
+//		System.out.println(aVO.getUserNo());
+//		List<ApproveVO> aList = sqlSessionTemplate.selectList("getApprove", aVO);
+//		
+//		
+//		//System.out.println(hbVO.getUserNo());
+//		//System.out.println(hbList);
+//		
+//		System.out.println(aList);
 		
-		
-		//System.out.println(hbVO.getUserNo());
-		//System.out.println(hbList);
-		
-		System.out.println(aList);
+		List<CountOfMonthVO> list = sqlSessionTemplate.selectList("data.countOfMonth", 1);
+		System.out.println(list);
 	}
 }

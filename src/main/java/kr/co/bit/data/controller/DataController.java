@@ -10,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.bit.data.service.DataService;
 import kr.co.bit.data.vo.CkReservationVO;
+import kr.co.bit.data.vo.CountOfMonthVO;
 import kr.co.bit.data.vo.DataVO;
 import kr.co.bit.data.vo.ScoreVO;
 
@@ -28,12 +29,14 @@ public class DataController {
 		List<DataVO> rankTotalProfit = dService.rankTotalProfit(userNo);
 		List<CkReservationVO> ckReservationList = dService.ckReservationHouse(userNo);
 		List<ScoreVO> avgScoreList = dService.avgScoreOfHouse(userNo);
+		List<CountOfMonthVO> countOfMonthList = dService.countOfMonth(userNo);
 		
 		mav.addObject("listP", rankPersonCnt);
 		mav.addObject("listR", rankReservationCnt);
 		mav.addObject("listT", rankTotalProfit);
 		mav.addObject("ckList", ckReservationList);
 		mav.addObject("listS", avgScoreList);
+		mav.addObject("listMonth", countOfMonthList);
 		
 		return mav;
 	}

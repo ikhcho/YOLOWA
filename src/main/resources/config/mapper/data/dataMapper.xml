@@ -58,5 +58,16 @@
 		order by 3
 	</select>
 	
+	<select id="countOfMonth" parameterType="int" resultType="countOfMonthVO">
+		select to_char(res.res_start, 'YYYY-MM') as resStart, count(res.house_no) as count
+		from reservation res left join house
+		on res.house_no = house.no
+		<!-- <if test="countOfMonthVO.no != null">
+			where res.house_no in (select no from house where user_no = #{no})
+		</if> -->
+		where res.house_no in (select no from house where user_no = #{no})
+		group by to_char(res.res_start, 'YYYY-MM')
+	</select>
+	
 	
 </mapper>
