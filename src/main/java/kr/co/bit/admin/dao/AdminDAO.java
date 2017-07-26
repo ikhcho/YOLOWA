@@ -8,9 +8,20 @@ import kr.co.bit.admin.vo.HouseBlindVO;
 import kr.co.bit.board.vo.BoardVO;
 import kr.co.bit.board.vo.QBoardVO;
 import kr.co.bit.busi.vo.HouseVO;
+import kr.co.bit.data.vo.CkReservationVO;
 import kr.co.bit.user.vo.UserVO;
 
 public interface AdminDAO {
+	
+	List<String> countHouseByRegion();	
+
+	int countReservation();
+
+	int calculateTotalProfit();
+
+	List<CkReservationVO> checkReservation();
+
+	List<HouseVO> classifyByPrice();
 	
 	int joinPartner(ApproveVO approveVO);
 	
@@ -53,4 +64,5 @@ public interface AdminDAO {
 	QBoardVO selectByNoBoard(int no);
 	
 	List<QBoardVO> selectAllBoard();
+
 }

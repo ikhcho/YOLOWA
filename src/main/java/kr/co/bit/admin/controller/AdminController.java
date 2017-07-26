@@ -1,7 +1,7 @@
 package kr.co.bit.admin.controller;
 
 import java.util.List;
-
+import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kr.co.bit.admin.service.AdminService;
 import kr.co.bit.admin.vo.ApproveVO;
@@ -27,8 +31,31 @@ public class AdminController {
 	private AdminService aService;
 	
 	@RequestMapping(value="/home.do", method=RequestMethod.GET)
-	public String home(){		
-		return "admin/home";
+	public ModelAndView home() throws JsonProcessingException {
+		ModelAndView mav = new ModelAndView("admin/home");
+		//지역별 숙소 개수		
+		mav.addObject("locationMap", new ObjectMapper().writeValueAsString(aService.countHouseByRegion()));
+		mav.addObject("locationMap", aService.countHouseByRegion());
+		//총 수익
+		mav.addObject("totalProfit", aService.calculateTotalProfit());
+		//예약 건수
+		mav.addObject("reservationCount", aService.countReservation());
+		//예약 현황
+		mav.addObject("reservationState", aService.checkReservation());
+		//가격별 조회
+		mav.addObject("houseByPrice", aService.classifyByPrice());
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/locationMap.do", method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Integer> locationMap() {
+		//지역별 숙소 개수		
+		//mav.addObject("locationMap", new ObjectMapper().writeValueAsString(aService.countHouseByRegion()));
+		Map<String, Integer> map = aService.countHouseByRegion();
+		
+		return map;
 	}
 	
 	@RequestMapping(value="/home.do", method=RequestMethod.POST)

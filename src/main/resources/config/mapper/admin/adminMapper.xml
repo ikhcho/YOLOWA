@@ -26,6 +26,45 @@
 	</resultMap>	
 <!-- resultMap 설정 끝 -->
 
+<!-- 통계 시작 -->
+	<select id="countHouseByRegion" resultType="java.lang.String">
+		select addr from house
+	</select>
+	
+	<select id="calculateTotalProfit" resultType="int">
+		select sum(total_price)*0.1 from reservation 
+	</select>
+	
+	<select id="countReservation" resultType="int">
+		select count(*) from reservation 
+	</select>
+	
+	<select id="checkReservation" resultType="ckReservationVO">
+		select res.no as no, 
+			house.house_name as houseName, 
+			room.room_name as roomName, 
+			users.name as userName, 
+			users.tel as userTel,
+			res.res_start as resStart, 
+			res.res_end as resEnd, 
+			res.person_cnt as personCnt, 
+			res.total_price as totalPrice, 
+			res.content as content, 
+			res.reg_date as regDate
+		from reservation res left join room
+				on res.room_no = room.no
+		    left join house
+		    	on house.no = res.house_no
+		    left join users
+		        on res.user_no = users.no
+		order by regDate desc
+	</select>
+	
+	<select id="classifyByPrice" resultType="houseVO">
+		select * from house
+	</select>
+<!-- 통계 끝 -->
+
 <!-- 가맹 관련 시작 -->
 	<!-- 가맹 신청 -->
 	<insert id="joinPartner">

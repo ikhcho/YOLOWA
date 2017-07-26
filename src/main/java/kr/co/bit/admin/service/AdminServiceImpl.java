@@ -1,6 +1,8 @@
 package kr.co.bit.admin.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +14,7 @@ import kr.co.bit.admin.vo.HouseBlindVO;
 import kr.co.bit.board.vo.BoardVO;
 import kr.co.bit.board.vo.QBoardVO;
 import kr.co.bit.busi.vo.HouseVO;
-import kr.co.bit.detail.dao.DetailDAO;
+import kr.co.bit.data.vo.CkReservationVO;
 import kr.co.bit.user.vo.UserVO;
 
 @Service
@@ -20,6 +22,53 @@ public class AdminServiceImpl implements AdminService{
 
 	@Autowired
 	private AdminDAO adao;
+	
+	@Override
+	public Map<String, Integer> countHouseByRegion() {
+		List<String> regionList = adao.countHouseByRegion();
+		System.out.println(regionList);
+		
+		Map<String, Integer> regionCount = new HashMap<>();
+		
+		for(int i = 0; i < regionList.size(); i++)
+		{
+			String province = regionList.get(i).split(" ")[0].substring(0,2);
+			
+			if(regionCount.containsKey(province))
+			{
+				regionCount.replace(province, regionCount.get(province) + 1);
+			}
+			else
+			{
+				regionCount.put(province, 1);
+			}
+		}
+		
+		System.out.println(regionCount);
+		
+		return regionCount;
+	}	
+
+	@Override
+	public int countReservation() {
+		return adao.countReservation();
+	}	
+
+	@Override
+	public int calculateTotalProfit() {
+		return adao.calculateTotalProfit();
+	}
+
+	@Override
+	public List<CkReservationVO> checkReservation() {
+		return adao.checkReservation();
+	}
+
+	@Override
+	public Map<HouseVO, Integer> classifyByPrice() {
+		List<HouseVO> houseList = adao.classifyByPrice();
+		return null;
+	}
 	
 	@Override
 	public ApproveVO joinPartner(ApproveVO approveVO) {		
