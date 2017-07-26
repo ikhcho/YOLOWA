@@ -74,45 +74,43 @@
 	});
 	
 	function doReservation(method){
-		if(roomNo.length == 0){
+		var houseNo;
+		var roomNo = new Array();
+		var day = new Array();
+		var personCnt = new Array();
+		var totalPrice = new Array();
+		var contentList = new Array();
+
+		$('.selectRoom').each(function(index) {
+
+			if ($('.selectRoom').eq(index).is(":checked")) {
+				houseNo = $('#houseNo').val();
+				roomNo.push($('.selectRoom').eq(index).val());
+				day.push($('.day').eq(index).val());
+				personCnt.push($('.peopleNumber').eq(index).val());
+				totalPrice.push($('.price').eq(index).val());
+				contentList.push($('.content').eq(index).val());
+			}
+		});
+
+		var form = document.reservationForm;
+		var room = document.getElementById('roomNo');
+		var dayNum = document.getElementById('day');
+		var people = document.getElementById('personCnt');
+		var price = document.getElementById('price');
+		var content = document.getElementById('content');
+
+		room.setAttribute("value", roomNo);
+		dayNum.setAttribute("value", day);
+		people.setAttribute("value", personCnt);
+		price.setAttribute("value", totalPrice);
+		content.setAttribute("value", contentList);
+		if (roomNo.length == 0) {
 			alert("객실을 선택해 주세요.");
-		}else{
-			var houseNo;
-			var roomNo = new Array();
-			var day = new Array();
-			var personCnt = new Array();
-			var totalPrice = new Array();
-			var contentList = new Array();
-			
-			$('.selectRoom').each(function(index){
-				
-				if($('.selectRoom').eq(index).is(":checked")){
-					houseNo = $('#houseNo').val();
-					roomNo.push($('.selectRoom').eq(index).val());
-					day.push($('.day').eq(index).val());
-					personCnt.push($('.peopleNumber').eq(index).val());
-					totalPrice.push($('.price').eq(index).val());
-					contentList.push($('.content').eq(index).val());
-				}
-			});
-			
-			var form = document.reservationForm;
-			var room = document.getElementById('roomNo');
-			var dayNum = document.getElementById('day');
-			var people = document.getElementById('personCnt');
-			var price = document.getElementById('price');
-			var content = document.getElementById('content');
-			
-			room.setAttribute("value", roomNo);
-			dayNum.setAttribute("value", day);
-			people.setAttribute("value", personCnt);
-			price.setAttribute("value", totalPrice);
-			content.setAttribute("value", contentList);
-			
+		} else {
 			form.submit();
 		}
 	}
-	
 </script>
 </head>
 <body>

@@ -50,7 +50,7 @@
 					<ul class="nav">
 						<li><a href="${pageContext.request.contextPath}/admin/home.do">대시보드</a></li>
 						<li><a href="${pageContext.request.contextPath}/admin/getApprove.do">가맹 신청 현황</a></li>
-						<li><a href="${pageContext.request.contextPath}/admin/getCommentBlind.do">댓글 신고 현황</a></li>
+						<li><a href="${pageContext.request.contextPath}/admin/getCommentBlind.do">후기 신고 현황</a></li>
 						<li><a href="${pageContext.request.contextPath}/admin/getHouseBlind.do">업체 신고 현황</a></li>
 						<li class="active"><a href="${pageContext.request.contextPath}/admin/clist.do">문의 현황</a></li>
 						<li><a href="${pageContext.request.contextPath}/user/home.do">예약사이트</a></li>

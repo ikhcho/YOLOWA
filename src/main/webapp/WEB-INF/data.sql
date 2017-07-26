@@ -280,5 +280,6 @@ select res.no, res.house_no as houseNo, house_name as houseName, addr, tel, phot
 	where res.house_no = house.no and res.room_no = room.no
 order by res_start desc
 select * from reservation where no =25
-select * from comment_blind
+select * from users where no =41
+update approve set approve_state ="거부" where no = 11
 delete comment_blind

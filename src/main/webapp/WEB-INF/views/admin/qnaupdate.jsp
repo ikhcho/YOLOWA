@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -12,9 +11,15 @@
     <link href="${pageContext.request.contextPath}/resources/bootstrap/vendors/easypiechart/jquery.easy-pie-chart.css" rel="stylesheet" media="screen">
     <link href="${pageContext.request.contextPath}/resources/bootstrap/assets/styles.css" rel="stylesheet" media="screen">
     <script src="${pageContext.request.contextPath}/resources/bootstrap/vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    
+<script>
+	function doList(){
+		location.href = "${pageContext.request.contextPath}/admin/clist.do"
+	}
+</script>
 </head>
 <body>
-<div class="navbar navbar-fixed-top">
+	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container-fluid">
 				<a class="btn btn-navbar" data-toggle="collapse"
@@ -36,10 +41,10 @@
 					</ul>
 					<ul class="nav">
 						<li><a href="${pageContext.request.contextPath}/admin/home.do">대시보드</a></li>
-						<li ><a href="${pageContext.request.contextPath}/admin/getApprove.do">가맹 신청 현황</a></li>
-						<li class="active"><a href="${pageContext.request.contextPath}/admin/getCommentBlind.do">후기 신고 현황</a></li>
+						<li><a href="${pageContext.request.contextPath}/admin/getApprove.do">가맹 신청 현황</a></li>
+						<li><a href="${pageContext.request.contextPath}/admin/getCommentBlind.do">후기 신고 현황</a></li>
 						<li><a href="${pageContext.request.contextPath}/admin/getHouseBlind.do">업체 신고 현황</a></li>
-						<li><a href="${pageContext.request.contextPath}/admin/clist.do">문의 현황</a></li>
+						<li class="active"><a href="${pageContext.request.contextPath}/admin/clist.do">문의 현황</a></li>
 						<li><a href="${pageContext.request.contextPath}/user/home.do">예약사이트</a></li>
 					</ul>
 				</div>
@@ -49,41 +54,55 @@
 	</div>
 	<div class="page-wrapper">
 		<div class="container">
+			<!--/span-->
 			<div class="col-sm-12" id="content">
 				<div class="row-fluid">
 					<!-- block -->
 					<div class="block">
 						<div class="navbar navbar-inner block-header">
-							<div class="muted pull-left">후기 신고 현황</div>
+							<div class="muted pull-left">문의 답변</div>
 						</div>
 						<div class="block-content collapse in">
 							<div class="span12">
 							<!-- block -->
-									<table class="table table-striped">
-										<thead>
-											<tr>
-												<th>no</th>
-												<th>게시글번호</th>
-												<th>신고자 번호</th>
-												<th><span class="badge badge-warning pull-right">${ approve.size() }</span></th>
-											</tr>
-										</thead>
-										<tbody>
-											<c:forEach items="${ commentBlind }" var="commentBlindVO">
-													<tr>
-														<td>${ commentBlindVO.no }</td>
-														<td><a href="${pageContext.request.contextPath }/board/detail.do?no=${ commentBlindVO.commentNo }">${ commentBlindVO.commentNo }</a></td>
-														<td>${ commentBlindVO.userNo }</td>
-													</tr>
-												</c:forEach>
-										</tbody>
-									</table>
-							<!-- /block -->
+						 	<form action="qupdate.do" method="post">
+								<input type="hidden" name="no" value="${ param.no }" />	 	
+						 		<table width="100%">
+							 		<tr>
+							 			<th width="25%">no</th>
+							 			<td>${ board.no }</td>
+							 		</tr>
+							 		<tr>
+							 			<th>house_no</th>
+							 			<td>${ board.house_no }</td>
+							 		</tr>
+							 		<tr>
+							 			<th>user_no</th>
+							 			<td>${ board.user_no }</td>
+							 		</tr>
+							 		<tr>
+							 			<th>question</th>
+							 			<td>${ board.question }</td>
+							 		</tr>
+							 		<tr>
+							 			<th width="25%">answer</th>
+							 			<td>
+							 				<textarea rows="7" cols="50" name="question">${ board.answer }</textarea>
+							 			</td>
+							 		</tr>
+							 		
+							</table>
+							<br/><br/>
+							<input type="submit" value=" 답변  " />&nbsp;&nbsp; 
+							<input type="button" value=" 목록  " onclick="doList()"/> 
+							</form>
+						</div>
 					</div>
-					<!-- /block -->
 				</div>
-			</div>			
+			</div>
 		</div>
 	</div>
+</div>
+
 </body>
 </html>

@@ -118,7 +118,7 @@ public class AdminDAOImpl implements AdminDAO{
 //업체 신고 관련 끝	
 
 	public void updateBoard(QBoardVO board) {
-		template.update("qboard.updateBoard", board);
+		template.update("admin.updateBoard", board);
 	}
 	
 	public QBoardVO selectByNoBoard(int no) {

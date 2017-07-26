@@ -45,7 +45,7 @@ public class AdminController {
 	//가맹 신청 완료로
 	@RequestMapping(value="/joinPartner.do", method=RequestMethod.POST)
 	public ModelAndView joinPartner(ApproveVO approveVO) {
-		ModelAndView mav = new ModelAndView("admin/joinPartner");
+		ModelAndView mav = new ModelAndView("redirect:/user/home.do");
 		mav.addObject("approveVO", aService.joinPartner(approveVO));
 		return mav;
 	}
@@ -94,8 +94,13 @@ public class AdminController {
 	//승인 상태 변경
 	@RequestMapping("/updateApproveState.do")
 	public String updateApproveState(ApproveVO approveVO) {
+		if(approveVO.getApproveState().equals("A")){
+			approveVO.setApproveState("승인");
+		}else{
+			approveVO.setApproveState("거부");
+		}
 		aService.updateApproveState(approveVO);
-		return "redirect:/admin/approve.do";
+		return "redirect:/admin/getApprove.do";
 	}
 
 	//유저가 댓글 신고
@@ -167,7 +172,7 @@ public class AdminController {
 	public String updateForm(@RequestParam("no") int no, Model model) {
 		QBoardVO board = aService.selectByNoBoard(no);
 		model.addAttribute("board", board);
-		return "admin/commentupdate";
+		return "admin/qnapdate";
 	}
 
 	
@@ -184,7 +189,7 @@ public class AdminController {
 
 	public ModelAndView list() {
 		List<QBoardVO> list = aService.selectAllBoard();
-		ModelAndView mav = new ModelAndView("admin/commentList");
+		ModelAndView mav = new ModelAndView("admin/qnaList");
 		mav.addObject("list", list);
 		return mav;
 	}

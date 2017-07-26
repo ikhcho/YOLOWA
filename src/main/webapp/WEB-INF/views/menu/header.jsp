@@ -163,12 +163,13 @@
 								<h3 class="panel-title">가맹신청</h3>
 							</div>
 							<div class="panel-body">
-								<form action="/Yolowa/busi/contact.do" method="post">
+								<form action="/Yolowa/admin/joinPartner.do" method="post">
 									<div class="col-xs-12">
 											<div class="row">
 												<div class="form-group col-xs-9">
 													<input class="form-control" placeholder="사업자 등록 번호" style="height:45px"
-														name="approvekey" type="text" autofocus>
+														name="approveKey" type="text" autofocus>
+													<input type="hidden" name="userNo" value="${userVO.no }">
 												</div>
 												<div class="col-xs-3">
 													<input type="submit" value="신청하기" class="btn btn-lg btn-success btn-block">

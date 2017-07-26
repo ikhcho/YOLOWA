@@ -15,19 +15,49 @@
     
     <script src="jquery-3.2.1.min.js"></script>
     <script type="text/javascript">
-    	$(".approveState").click(function() {
-			$.post("${pageContext.request.contextPath}/admin/getApprove.do",
-			{
-				
-			},
-			function() {
-				
-			}
-			});
-		});
+    function doApprove(no, approveState,userNo){
+    	var msg = approveState=='A'?'승인':'거부';
+    	if(confirm(msg+' 하시겠습니까?')){
+    		
+		location.href = '${pageContext.request.contextPath}/admin/updateApproveState.do?no='+no+'&approveState='+approveState+'&userNo='+userNo;
+    	}
+    }
     </script>
 </head>
 <body>
+<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<a class="btn btn-navbar" data-toggle="collapse"
+					data-target=".nav-collapse"> <span class="icon-bar"></span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span>
+				</a> <a class="brand"><strong>${userVO.name}</strong></a>
+				<div class="nav-collapse collapse">
+					<ul class="nav pull-right">
+						<li class="dropdown"><a href="#" role="button"
+							class="dropdown-toggle" data-toggle="dropdown"> <i
+								class="icon-user"></i> Vincent Gabriel <i class="caret"></i>
+
+						</a>
+							<ul class="dropdown-menu">
+								<li><a tabindex="-1" href="#">Profile</a></li>
+								<li class="divider"></li>
+								<li><a tabindex="-1" href="login.html">Logout</a></li>
+							</ul></li>
+					</ul>
+					<ul class="nav">
+						<li><a href="${pageContext.request.contextPath}/admin/home.do">대시보드</a></li>
+						<li class="active"><a href="${pageContext.request.contextPath}/admin/getApprove.do">가맹 신청 현황</a></li>
+						<li><a href="${pageContext.request.contextPath}/admin/getCommentBlind.do">후기 신고 현황</a></li>
+						<li><a href="${pageContext.request.contextPath}/admin/getHouseBlind.do">업체 신고 현황</a></li>
+						<li><a href="${pageContext.request.contextPath}/admin/clist.do">문의 현황</a></li>
+						<li><a href="${pageContext.request.contextPath}/user/home.do">예약사이트</a></li>
+					</ul>
+				</div>
+				<!--/.nav-collapse -->
+			</div>
+		</div>
+	</div>
 	<div class="page-wrapper">
 		<div class="container">
 			<div class="col-sm-12" id="content">
@@ -67,8 +97,8 @@
 														<td>${ approveVO.approveState }</td>
 														<td>${ approveVO.approveKey }</td>
 														<td><c:if test="${ approveVO.approveState == '신청' }">
-															<button name="approveState" onclick="doApprove()">승인</button>
-															<button name="approveState" onclick="doApprove()">거부</button>
+															<button name="approveState" onclick="doApprove(${approveVO.no},'A', ${ approveVO.userNo })">승인</button>
+															<button name="approveState" onclick="doApprove(${approveVO.no},'D', ${ approveVO.userNo })">거부</button>
 														</c:if></td>
 													</tr>
 												</c:forEach>
@@ -76,14 +106,11 @@
 									</table>
 							<!-- /block -->
 						<div class="navbar navbar-inner block-header">
-							<div class="muted pull-left">userNo로 검색</div>
-							<div>
-								<form action="${pageContext.request.contextPath}/admin/getApprove.do" method="post">
-									<input type="text" name="userNo">
-									<input type="text" name="approveKey">
-									<input type="submit" value="검색">
-								</form>
-							</div>
+							<form action="${pageContext.request.contextPath}/admin/getApprove.do" method="post">
+							<div class="muted pull-left">userNo로 검색<input type="text" name="userNo"></div>
+							<div>approveKey로 검색<input type="text" name="approveKey"></div>
+							<div><input type="submit" value="검색"></div>
+							</form>
 						</div>
 					</div>
 					<!-- /block -->

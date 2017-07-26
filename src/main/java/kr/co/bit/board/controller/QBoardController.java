@@ -118,7 +118,7 @@ public class QBoardController {
 			
 			Qservice.deleteBoard(board);
 			
-			return "redirect:/board/qlist.do";
+			return "redirect:/admin/clist.do";
 
 		}
 
