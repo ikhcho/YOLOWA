@@ -10,6 +10,7 @@ import kr.co.bit.admin.vo.ApproveVO;
 import kr.co.bit.admin.vo.CommentBlindVO;
 import kr.co.bit.admin.vo.HouseBlindVO;
 import kr.co.bit.board.vo.BoardVO;
+import kr.co.bit.board.vo.QBoardVO;
 import kr.co.bit.busi.vo.HouseVO;
 import kr.co.bit.user.vo.UserVO;
 
@@ -116,4 +117,17 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 //업체 신고 관련 끝	
 
+	public void updateBoard(QBoardVO board) {
+		template.update("qboard.updateBoard", board);
+	}
+	
+	public QBoardVO selectByNoBoard(int no) {
+		QBoardVO board = template.selectOne("qboard.selectOneByNo", no);
+		return board;
+	}
+	
+	public List<QBoardVO> selectAllBoard() {
+		List<QBoardVO> list = template.selectList("qboard.selectAllBoard");
+		return list;
+	}
 }

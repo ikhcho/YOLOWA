@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.bit.busi.vo.HouseVO;
+import kr.co.bit.reservation.vo.MyResVO;
 import kr.co.bit.user.vo.HomeListVO;
 import kr.co.bit.user.vo.UserVO;
 
@@ -19,4 +20,5 @@ public interface UserDAO {
 	public HouseVO selectZzim(Map<String,Integer> map);
 	public void insertZzim(Map<String,Integer> map);
 	public void deleteZzim(Map<String,Integer> map);
+	public List<MyResVO> myResList(int no);
 }

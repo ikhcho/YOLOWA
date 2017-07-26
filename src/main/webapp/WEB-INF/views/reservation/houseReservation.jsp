@@ -31,15 +31,18 @@
 		$('.datepicker').val('${param.selectDate}');
 		
 		$( ".datepicker" ).datepicker({
+			showOn : 'both',
 			dateFormat: "yy-mm-dd",
 			minDate : d,
+			buttonImage : "/Yolowa/resources/images/calendar.png",
+			buttonImageOnly: true,
 			onSelect: function(){
 				var uri = "${pageContext.request.contextPath}/reservation/houseReservation.do?houseNo=${param.houseNo}&selectDate="+$(this).val();
 				//console.log(uri);
 				$(location).attr('href', uri);
 			}
 		});
-		
+		$('img.ui-datepicker-trigger').css({'cursor':'pointer'});
 		var houseNo = '${param.houseNo}';
 		var resDate = '${param.selectDate}';
 		$.ajax({
@@ -71,38 +74,41 @@
 	});
 	
 	function doReservation(method){
-		
-		var houseNo;
-		var roomNo = new Array();
-		var day = new Array();
-		var personCnt = new Array();
-		var totalPrice = new Array();
-
-		$('.selectRoom').each(function(index){
-			
-			if($('.selectRoom').eq(index).is(":checked")){
-				houseNo = $('#houseNo').val();
-				roomNo.push($('.selectRoom').eq(index).val());
-				day.push($('.day').eq(index).val());
-				personCnt.push($('.peopleNumber').eq(index).val());
-				totalPrice.push($('.price').eq(index).val());
-				
-			}
-		});
-		
-		var form = document.reservationForm;
-		var room = document.getElementById('roomNo');
-		var dayNum = document.getElementById('day');
-		var people = document.getElementById('personCnt');
-		var price = document.getElementById('price');
-		
-		room.setAttribute("value", roomNo);
-		dayNum.setAttribute("value", day);
-		people.setAttribute("value", personCnt);
-		price.setAttribute("value", totalPrice);
 		if(roomNo.length == 0){
 			alert("객실을 선택해 주세요.");
 		}else{
+			var houseNo;
+			var roomNo = new Array();
+			var day = new Array();
+			var personCnt = new Array();
+			var totalPrice = new Array();
+			var contentList = new Array();
+			
+			$('.selectRoom').each(function(index){
+				
+				if($('.selectRoom').eq(index).is(":checked")){
+					houseNo = $('#houseNo').val();
+					roomNo.push($('.selectRoom').eq(index).val());
+					day.push($('.day').eq(index).val());
+					personCnt.push($('.peopleNumber').eq(index).val());
+					totalPrice.push($('.price').eq(index).val());
+					contentList.push($('.content').eq(index).val());
+				}
+			});
+			
+			var form = document.reservationForm;
+			var room = document.getElementById('roomNo');
+			var dayNum = document.getElementById('day');
+			var people = document.getElementById('personCnt');
+			var price = document.getElementById('price');
+			var content = document.getElementById('content');
+			
+			room.setAttribute("value", roomNo);
+			dayNum.setAttribute("value", day);
+			people.setAttribute("value", personCnt);
+			price.setAttribute("value", totalPrice);
+			content.setAttribute("value", contentList);
+			
 			form.submit();
 		}
 	}
@@ -128,12 +134,12 @@
 						<div class="panel-heading">
 							<div class="row">
 								<div class="col-sm-12">
-									<div class="col-sm-10">
+									<div class="col-sm-9">
 										<h4>객실선택</h4>
 									</div>
-									<div class="col-sm-2">
-											<input type="text" size="20" class="form-control datepicker" />
-										</div>
+									<div class="col-sm-3">
+										<input type="text" class="form-control datepicker col-sm-10" style="height:40px;width:150px"/>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -181,12 +187,12 @@
 								<div>
 									<input type="hidden" id="houseNo" name="houseNo" value="${param.houseNo }">
 									<input type="hidden" id="startDate" value="${param.selectDate}" name="resStart">
-									<input type="hidden" id="resEnd" value="${param.selectDate}" name="resEnd">
 									<input type="hidden" id="userNo" name="userNo" value="${ userVO.no }">
 									<input type="hidden" id="roomNo" name="roomNo">
 									<input type="hidden" id="day" name="day">
 									<input type="hidden" id="personCnt" name="personCnt">
 									<input type="hidden" id="price" name="totalPrice">
+									<input type="hidden" id="content" name="content">
 								</div>
 							</table>
 							</form>

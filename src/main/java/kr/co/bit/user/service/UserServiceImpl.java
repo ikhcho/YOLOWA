@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.bit.busi.vo.HouseVO;
+import kr.co.bit.reservation.vo.MyResVO;
 import kr.co.bit.user.dao.UserDAO;
 import kr.co.bit.user.vo.HomeListVO;
 import kr.co.bit.user.vo.UserVO;
@@ -71,6 +72,12 @@ public class UserServiceImpl implements UserService{
 	public void deleteZzim(Map<String, Integer> map) {
 		// TODO Auto-generated method stub
 		udao.deleteZzim(map);
+	}
+
+	@Override
+	public List<MyResVO> myResList(int no) {
+		// TODO Auto-generated method stub
+		return udao.myResList(no);
 	}
 	
 	

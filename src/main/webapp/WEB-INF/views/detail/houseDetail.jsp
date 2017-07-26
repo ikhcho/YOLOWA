@@ -102,6 +102,13 @@
 				}
 			}
 		});
+		
+		 var href = window.location.href;
+		 var index = href.indexOf("#");
+		 console.log(href.substring(index+1));
+		 if(href.substring(index+1) == 'detail'){
+			 $("a[href='#board']").click();
+		 }
 	});
 	
 	//찜하기
@@ -139,6 +146,12 @@
 			});
 		}
 	}
+	function blind(){
+		if(confirm('해당 펜션을 신고하시겠습니까?')){
+			location.href='${pageContext.request.contextPath}/admin/addHouseBlind.do?no=${param.no}';
+			alert('신고처리 되었습니다.');
+		}
+	}
 </script>
 </head>
 <body>
@@ -153,7 +166,12 @@
 				<div class="row">
 					<hr />
 						<div>
-							<button class="btn btn-danger pull-right" onclick="zzim()">찜하기&nbsp;<i class="glyphicon glyphicon-heart-empty" aria-hidden="true" id="zzim"></i></button>
+							<div class="col-sm-1 pull-right">
+								<button class="btn btn-success pull-right" onclick="zzim()">찜하기&nbsp;<i class="glyphicon glyphicon-heart-empty" aria-hidden="true" id="zzim"></i></button>
+								<c:if test="${userVO != null }">
+								<button class="btn btn-danger pull-right" onclick="blind()">신고&nbsp;<i class="glyphicon glyphicon-ban-circle" aria-hidden="true" id="blind"></i></button>
+								</c:if>
+							</div>
 							<h2>${ houseVO.houseName }</h2>
 						</div>
 						<hr />
@@ -180,8 +198,7 @@
 			</div>
 		</section>
 	</header>
-	<section class="products">
-			<div class="container">
+	<div class="container">
 		<section class="works" id="detail">
 				<div class="row-fluid">
 					<div class="panel panel-warning">
@@ -223,8 +240,7 @@
 					</div>
 				</div>
 		</section>
-			</div>
-			</section>
+	</div>
 		<footer>
 			<div class="container">
 				

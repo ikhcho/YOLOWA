@@ -61,7 +61,7 @@ public class ReservationController {
 
 	@RequestMapping(value = "/reservation.do", method = RequestMethod.POST)
 	public String insertReservation(@RequestParam int houseNo, @RequestParam int[] roomNo, @RequestParam int[] day, int userNo,
-			@RequestParam int[] personCnt, @RequestParam int[] totalPrice, @RequestParam Date resStart, Date resEnd, Model model) {
+			@RequestParam int[] personCnt, @RequestParam int[] totalPrice, @RequestParam Date resStart, String[] content, Model model) {
 		//reservationService.insertReservation(reservationVO);
 		// TODO 2. insert 할 때 datatype을 무엇으로 할 지 정해야함
 		// return "redirect:/reservation/houseReservation.do";
@@ -72,6 +72,7 @@ public class ReservationController {
 		List<RoomVO> roomList = detailService.roomNameList(houseNo);
 		for(int i =0; i<roomNo.length; i++){
 			ReservationVO resVO = new ReservationVO();
+			Date resEnd = new Date(resStart.getYear(), resStart.getMonth(), resStart.getDate());
 			resEnd.setDate(resStart.getDate()+day[i]);
 			System.out.print("houseNo : " + houseNo + " ");
 			System.out.print("userNo : " + userNo + " ");
@@ -89,9 +90,9 @@ public class ReservationController {
 			resVO.setResEnd(resEnd);
 			resVO.setPersonCnt(personCnt[i]);
 			resVO.setTotalPrice(totalPrice[i]);
-			resVO.setContent("예약 테스트");
+			resVO.setContent(content[i]);
 			
-			reservationService.insertReservation(resVO);
+			//reservationService.insertReservation(resVO);
 			resList.add(resVO);
 			for(int j=0; j<roomList.size(); j++){
 				if(roomList.get(j).getNo() == roomNo[i])
@@ -104,4 +105,10 @@ public class ReservationController {
 		return "reservation/resConfirm";
 	}
 	
+	@RequestMapping(value = "/resDelete.do", method = RequestMethod.GET)
+	public String resDelete(int no, Model model){
+		reservationService.resDelete(no);
+		model.addAttribute("msg", "예약이 취소되었습니다.");
+		return "redirect:user/mypage.do";
+	}
 }

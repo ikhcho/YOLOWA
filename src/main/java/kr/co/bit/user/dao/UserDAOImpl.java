@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.bit.busi.vo.HouseVO;
+import kr.co.bit.reservation.vo.MyResVO;
 import kr.co.bit.user.vo.HomeListVO;
 import kr.co.bit.user.vo.UserVO;
 
@@ -70,6 +71,12 @@ public class UserDAOImpl implements UserDAO{
 	public void deleteZzim(Map<String, Integer> map) {
 		// TODO Auto-generated method stub
 		template.delete("user.deleteZzim", map);
+	}
+
+	@Override
+	public List<MyResVO> myResList(int no) {
+		// TODO Auto-generated method stub
+		return template.selectList("user.myResList", no);
 	}
 	
 	

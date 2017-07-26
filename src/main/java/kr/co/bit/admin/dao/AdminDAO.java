@@ -6,6 +6,7 @@ import kr.co.bit.admin.vo.ApproveVO;
 import kr.co.bit.admin.vo.CommentBlindVO;
 import kr.co.bit.admin.vo.HouseBlindVO;
 import kr.co.bit.board.vo.BoardVO;
+import kr.co.bit.board.vo.QBoardVO;
 import kr.co.bit.busi.vo.HouseVO;
 import kr.co.bit.user.vo.UserVO;
 
@@ -47,4 +48,9 @@ public interface AdminDAO {
 	
 	int countHouseBlind(HouseBlindVO houseBlindVO);
 
+	void updateBoard(QBoardVO board);
+	
+	QBoardVO selectByNoBoard(int no);
+	
+	List<QBoardVO> selectAllBoard();
 }

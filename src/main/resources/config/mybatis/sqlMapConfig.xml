@@ -23,6 +23,7 @@
 		<typeAlias alias="reservationVO" type="kr.co.bit.reservation.vo.ReservationVO"/>
 		<typeAlias alias="ckReservationVO" type="kr.co.bit.data.vo.CkReservationVO"/>
 		<typeAlias alias="scoreVO" type="kr.co.bit.data.vo.ScoreVO"/>
-	
+		<typeAlias alias="myResVO" type="kr.co.bit.reservation.vo.MyResVO"/>
+		
 	</typeAliases>
 </configuration>

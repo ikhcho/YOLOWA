@@ -33,9 +33,12 @@
 		
 		$( ".datepicker" ).datepicker({
 			dateFormat: "yy-mm-dd",
-			minDate : d
+			minDate : d,
+			buttonImage : "/Yolowa/resources/images/calendar.png",
+			buttonImageOnly: true,
+			showOn:'both'
 		});
-		
+		$('img.ui-datepicker-trigger').css({'cursor':'pointer','height':'46px'});
 		$(document).on('click','#searchHouseBtn',function(){
 			var form = document.searchHouseForm;
 			if(form.houseName.value == ""){
@@ -244,7 +247,7 @@
 									<td><div class="col-sm-1"></div></td>
 									<td>
 										<div class="input-group input-group-lg">
-											<input type="text" size="10" class="form-control datepicker" name="resDate">
+											<input type="text" size="10" class="form-control datepicker" name="resDate" style="width:150px">
 										</div>
 									</td>
 									<td><div class="col-sm-1"></div></td>

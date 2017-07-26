@@ -11,4 +11,5 @@ public interface ReservationService {
 	void insertReservation(ReservationVO reservationVO);
 	public boolean ckHot(HouseVO houseVO, Date selectDate);
 	public boolean ckWeekend(HouseVO houseVO, Date selectDate);
+	public void resDelete(int no);
 }

@@ -1,9 +1,12 @@
 package kr.co.bit.admin.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,6 +16,7 @@ import kr.co.bit.admin.service.AdminService;
 import kr.co.bit.admin.vo.ApproveVO;
 import kr.co.bit.admin.vo.CommentBlindVO;
 import kr.co.bit.admin.vo.HouseBlindVO;
+import kr.co.bit.board.vo.QBoardVO;
 import kr.co.bit.user.vo.UserVO;
 
 @Controller
@@ -96,10 +100,10 @@ public class AdminController {
 
 	//유저가 댓글 신고
 	@RequestMapping("/addCommentBlind.do")
-	public void addCommentBlind(int no, HttpSession session) {
+	public String addCommentBlind(int no, HttpSession session) {
 		aService.addCommentBlind(new CommentBlindVO(no, 
 				((UserVO)session.getAttribute("userVO")).getNo()));
-		//return "";
+		return "redirect:/board/list.do?no="+no;
 	}
 
 	/*//댓글 신고 전체 리스트 확인
@@ -128,10 +132,10 @@ public class AdminController {
 
 	//유저가 업체 신고
 	@RequestMapping("/addHouseBlind.do")
-	public void addHouseBlind(int no, HttpSession session) {
+	public String addHouseBlind(int no, HttpSession session) {
 		aService.addHouseBlind(new HouseBlindVO(no, 
 				((UserVO)session.getAttribute("userVO")).getNo()));
-		//return "";
+		return "redirect:/user/home.do";
 	}
 
 	/*//업체 신고 전체 리스트 확인
@@ -155,6 +159,33 @@ public class AdminController {
 	public ModelAndView countHouseBlind(HouseBlindVO houseBlindVO) {
 		ModelAndView mav = new ModelAndView("admin/houseBlind");
 		mav.addObject("houseBlindCount", aService.countHouseBlind(houseBlindVO));
+		return mav;
+	}
+	
+	@RequestMapping(value="/cupdate.do", method=RequestMethod.GET)
+
+	public String updateForm(@RequestParam("no") int no, Model model) {
+		QBoardVO board = aService.selectByNoBoard(no);
+		model.addAttribute("board", board);
+		return "admin/commentupdate";
+	}
+
+	
+
+	@RequestMapping(value="/cupdate.do", method=RequestMethod.POST)
+
+	public String update(QBoardVO board, Model model) {
+		aService.updateBoard(board);
+		model.addAttribute("no", board.getNo());
+		return "redirect:/admin/clist.do";
+	}
+	
+	@RequestMapping("/clist.do")
+
+	public ModelAndView list() {
+		List<QBoardVO> list = aService.selectAllBoard();
+		ModelAndView mav = new ModelAndView("admin/commentList");
+		mav.addObject("list", list);
 		return mav;
 	}
 }

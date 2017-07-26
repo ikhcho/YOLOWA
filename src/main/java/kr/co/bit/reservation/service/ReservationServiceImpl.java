@@ -85,5 +85,12 @@ public class ReservationServiceImpl implements ReservationService {
 		
 		return hot;
 	}
+
+	@Override
+	public void resDelete(int no) {
+		// TODO Auto-generated method stub
+		reservationDAO.resDelete(no);
+	}
+	
 	
 }

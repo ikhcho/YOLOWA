@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +23,6 @@
 		location.href = "${ pageContext.request.contextPath }/board/" + boardNo + "/detail.do";
 		
 	}
-	
 </script>
 </head>
 <body style="padding-top:0px;">
@@ -61,7 +61,9 @@
 								<tr>
 									<td>${loop.index+1 }</td>
 									<td>${board.userName}</td>
-									<td><a href="javascript:doAction('${board.no}')"> ${ board.content }"
+									<td><a href="javascript:doAction('${board.no}')"> ${ board.content }
+									<c:set var = "content" value = "${ board.content }" />
+									<c:out value = "${fn:substring(content, 0, 30)}+..." />
 									</a></td>
 									<td>${ board.score }</td>
 									<td>${ board.reg_date }</td>

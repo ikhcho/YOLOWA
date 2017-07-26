@@ -7,4 +7,5 @@ import kr.co.bit.reservation.vo.ReservationVO;
 
 public interface ReservationDAO {
 	void insertReservation(ReservationVO reservationVO);
+	public void resDelete(int no);
 }

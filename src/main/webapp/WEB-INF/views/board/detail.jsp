@@ -28,6 +28,11 @@
 		case 'L' :
 			location.href = "${pageContext.request.contextPath}/board/list.do?no=${board.house_no}";
 			break;
+		case 'B' :
+			if(confirm("게시물을 신고하시겠습니까?")){
+				location.href =  "${pageContext.request.contextPath}/admin/addCommentBlind.do?no=${board.no}";
+			}
+			break;
 		}
 	}
 </script>
@@ -37,7 +42,13 @@
 		<!-- block -->
 		<div class="block">
 			<div class="navbar navbar-inner block-header">
-				<div class="muted">${ board.userName }</div>
+				<div class="muted">${ board.userName }
+				<c:if test="${userVO !=null }">
+					<button class="btn btn-warning pull-right" onclick="doAction('B')">
+						신고<i class="icon-remove icon-white"></i>
+					</button>
+				</c:if>
+				</div>
 			</div>
 			<div class="block-content collapse in">
 					<table cellpadding="0" cellspacing="0" border="0" class="table table-striped">

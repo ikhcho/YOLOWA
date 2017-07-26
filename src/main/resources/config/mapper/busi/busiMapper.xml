@@ -104,4 +104,8 @@
 		values(RESERVATION_SEQ.nextval, #{houseNo}, #{roomNo}, #{userNo}, #{resStart}, #{resEnd}, #{personCnt}, #{totalPrice}, #{content}, sysdate)
 	</insert>
 	
+	<delete id="resDelete" parameterType="int">
+		delete reservation
+		where no = #{no}
+	</delete>
 </mapper>

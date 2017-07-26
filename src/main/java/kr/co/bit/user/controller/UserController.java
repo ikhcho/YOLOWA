@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.bit.busi.vo.HouseVO;
+import kr.co.bit.reservation.vo.MyResVO;
 import kr.co.bit.user.service.UserService;
 import kr.co.bit.user.vo.HomeListVO;
 import kr.co.bit.user.vo.UserVO;
@@ -121,8 +122,10 @@ public class UserController {
 		
 		List<HouseVO> zzimList = uService.getZzimHouseList(userVO.getNo());
 		List<HomeListVO> houseList = uService.houseList();
+		List<MyResVO> resList = uService.myResList(userVO.getNo());
 		model.addAttribute("zzimList", zzimList);
 		model.addAttribute("houseList", houseList);
+		model.addAttribute("resList", resList);
 		return "user/mypage";
 	}
 	

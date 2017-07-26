@@ -10,6 +10,7 @@ import kr.co.bit.admin.vo.ApproveVO;
 import kr.co.bit.admin.vo.CommentBlindVO;
 import kr.co.bit.admin.vo.HouseBlindVO;
 import kr.co.bit.board.vo.BoardVO;
+import kr.co.bit.board.vo.QBoardVO;
 import kr.co.bit.busi.vo.HouseVO;
 import kr.co.bit.detail.dao.DetailDAO;
 import kr.co.bit.user.vo.UserVO;
@@ -155,5 +156,28 @@ public class AdminServiceImpl implements AdminService{
 		return adao.countHouseBlind(houseBlindVO);
 	}	
 //업체 신고 관련 끝		
+	
+	public void updateBoard(QBoardVO board) {
+
+
+
+		adao.updateBoard(board);
+
+	}
+	
+	public QBoardVO selectByNoBoard(int no) {
+
+		QBoardVO board = adao.selectByNoBoard(no);
+
+		return board;
+
+	}
+	public List<QBoardVO> selectAllBoard() {
+
+		List<QBoardVO> list = adao.selectAllBoard();
+
+		return list;
+
+	}
 
 }

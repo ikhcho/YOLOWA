@@ -54,11 +54,11 @@
 		</tr>
 		<tr>
 			<th>question</th>
-			<td><c:out value="${ board.question }" /> </td> 
+			<td>${ board.question } </td> 
 		</tr>
 		<tr>
 			<th>answer</th>
-			<td>${ board.answer }</td>
+			<td><c:out value="${ board.answer }" /></td>
 		</tr>
 		<tr>
 			<th>open_state</th>
@@ -81,7 +81,7 @@
 		</tr> --%>
 	</table>
 	<br/><br/>
-	<input type="button" value="수정" onclick="doAction('U')" />&nbsp;&nbsp;
+	<input type="button" value="답변 달기" onclick="doAction('U')" />&nbsp;&nbsp;
 	<input type="button" value="삭제" onclick="doAction('D')" />&nbsp;&nbsp;
 	<input type="button" value="목록" onclick="doAction('L')" />
 	</div>

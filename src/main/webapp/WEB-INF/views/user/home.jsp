@@ -24,6 +24,7 @@
 <!-- filter -->
 <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
 <script>
 $(function(){
 	var option = [];
@@ -161,10 +162,10 @@ $(function(){
 										</c:if>
 										<div class="project-info">
 											<div class="project-details">
-												<h5 class="white-text red-border-bottom">
+												<h5 class="white-text red-border-bottom" style="height:45px">
 													<strong>${houseVO.houseName}</strong>
 												</h5>
-												<div class="details white-text">최저가 ${houseVO.price}</div>
+												<div class="details white-text"style="margin-top:-15px">최저가 ${houseVO.price}</div>
 											</div>
 										</div>
 								</a></li>

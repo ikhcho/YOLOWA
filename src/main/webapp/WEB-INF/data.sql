@@ -274,3 +274,11 @@ select * from room where house_no = 2
 select * from HOUSE_QNA
 insert into room_photo values(room_photo_seq.nextval, 7, 'mlec-d3670582-34e7-4d16-8c87-3778f6d3350b.jpg')
 update house set photo = 'mlec-c44ccf60-f2c1-413a-b9af-d9c0ec894b76.jpg' where no = 61
+select res.no, res.house_no as houseNo, house_name as houseName, addr, tel, photo, res.room_no as roomNo, room_name as roomName,
+			res.user_no as userNo, res_start as resStart, res_end as resEnd, person_cnt as personCnt, total_price as totalPrice
+	from (select * from reservation where user_no = 101) res, house, room
+	where res.house_no = house.no and res.room_no = room.no
+order by res_start desc
+select * from reservation where no =25
+select * from comment_blind
+delete comment_blind

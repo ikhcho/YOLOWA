@@ -1131,7 +1131,7 @@ width: -webkit-calc(100% / 2);
 -----------------------------------------*/
 
 .products {
-	background: url(../images/product-bg.png) 50% 0 repeat;
+	/* background: url(../images/product-bg.png) 50% 0 repeat; */
 }
 .products .color-overlay {
 	background: rgba(39,144,176, 0.96);
@@ -1141,7 +1141,7 @@ width: -webkit-calc(100% / 2);
 }
 
 /*--ITEMS IMAGES--*/
-.item-1 {
+/* .item-1 {
 	background-image: url(../images/products/1.png);
 }
 .item-2 {
@@ -1164,7 +1164,7 @@ width: -webkit-calc(100% / 2);
 }
 .item-8 {
 	background-image: url(../images/products/8.png);
-}
+} */
 
 /*---ITEM STYLE ---*/
 .item {

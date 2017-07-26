@@ -74,4 +74,12 @@
 		delete zzim
 		where house_no = #{houseNo} and user_no = #{userNo}
 	</insert>
+	
+	<select id="myResList" parameterType="int" resultType="myResVO">
+		select res.no, res.house_no as houseNo, house_name as houseName, addr, tel, photo, res.room_no as roomNo, room_name as roomName,
+				res.user_no as userNo, res_start as resStart, res_end as resEnd, person_cnt as personCnt, total_price as totalPrice
+		from (select * from reservation where user_no = #{no}) res, house, room
+		where res.house_no = house.no and res.room_no = room.no
+		order by res_start desc
+	</select>
 </mapper>

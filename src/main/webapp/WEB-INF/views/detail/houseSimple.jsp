@@ -39,7 +39,7 @@
 			<br/>
 			<div class="col-sm-6">
 				<a href="${pageContext.request.contextPath }/detail/houseDetail.do?no=${houseVO.no}"><img style="width : 100%" src="/Yolowa/upload/${houseVO.photo }"></a>
-				<span class="dark-text">${houseVO.addr } (tel)${houseVO.tel } <a href="${houseVO.homepage }">${houseVO.homepage}</a></span>
+				<span class="dark-text"> &nbsp;${houseVO.addr } (tel)${houseVO.tel } <a href="${houseVO.homepage }">${houseVO.homepage}</a></span>
 			</div>
 			<div class="col-sm-6 project-information">
 				<ul>

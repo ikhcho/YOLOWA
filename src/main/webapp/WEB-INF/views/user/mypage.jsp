@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +22,15 @@
 	}
 	function update(){
 		$('#updateModal').modal();
+	}
+	function contact(houseNo){
+		$('#comment').val(houseNo);
+	}
+	function resDelete(resNo){
+		if(confirm('예약취소시 되돌릴 수 없습니다.\n취소 하시겠습니까?')){
+			location.href('/Yolowa/reservation/resDelete.do?no='+resNo);
+		}
+		
 	}
 </script>
 </head>
@@ -83,46 +93,95 @@
 				<div class="section-header">
 					<!-- SECTION TITLE -->
 					<h2 class="white-text">예약확인</h2>
+					<jsp:useBean id="toDay" class="java.util.Date"/>
+				<fmt:formatDate value="${toDay}" pattern="yyyy-MM-dd" var="today"/>
+
 				</div>
 				<!-- / END SECTION HEADER -->
 
 				<!-- PRODUCTS -->
 				<div class="row wow fadeInLeft animated" data-wow-offset="30"
 					data-wow-duration="1.5s" data-wow-delay="0.15s">
-					<!-- SINGLE PRODUCT -->
-					<div class="col-md-12">
-						<div class="item item-2">
-							<div class="item-overlay"></div>
-							<div class="item-content">
-								<div class="item-top-content">
-									<div class="item-top-content-inner">
-										<div class="item-product">
-											<div class="item-top-title">
-												<h5>Telfez</h5>
-												<p class="subdescription">WordPress Theme</p>
+				
+				<c:forEach items="${resList }" var="resVO">
+					<c:if test="${resVO.resStart >= today}">
+						<!-- SINGLE PRODUCT -->
+						<div class="col-md-4">
+							<div class="item item-2" style="background:url('${pageContext.request.contextPath}/upload/${resVO.photo }')">
+								<div class="item-overlay"></div>
+								<div class="item-content">
+									<div class="item-top-content">
+										<div class="item-top-content-inner">
+											<div class="item-product">
+												<div class="item-top-title">
+													<h5>${resVO.houseName }</h5>
+													<p class="subdescription">${resVO.roomName }</p>
+												</div>
+											</div>
+											<div class="item-product-price">
+												<span class="price-num green-text">${resVO.resStart }</span>
+												<p class="subdescription">${resVO.resEnd }</p>
 											</div>
 										</div>
-										<div class="item-product-price">
-											<span class="price-num green-text">$17</span>
-											<p class="subdescription">$36</p>
-											<div class="old-price"></div>
-										</div>
 									</div>
-								</div>
-								<div class="item-add-content">
-									<div class="item-add-content-inner">
-										<div class="section">
-											<p>Creative WordPress Theme</p>
-										</div>
-										<div class="section">
-											<a href="#" class="btn btn-primary custom-button red-btn">Demo</a><br />
-											<a href="#" class="btn btn-primary custom-button green-btn">Buy</a>
+									<div class="item-add-content">
+										<div class="item-add-content-inner">
+											<div class="section">
+												<p>${resVO.addr }</p>
+												<p>(tel)${resVO.tel }</p>
+												<p>예약인원 : ${resVO.personCnt }명 / 결제금액 : ${resVO.totalPrice }원</p>
+											</div>
+											<div class="section">
+												<div class="col-sm-6"><a href="#contact" class="btn btn-primary custom-button blue-btn" onclick="contact(${resVO.houseNo})">예약문의</a></div>
+												<div class="col-sm-6"><button class="btn btn-primary custom-button red-btn" onclick="resDelete(${resVO.no})">예약취소</button></div>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					</c:if>
+				</c:forEach>
+				<c:forEach items="${resList }" var="resVO">
+					<c:if test="${resVO.resStart < today}">
+						<!-- SINGLE PRODUCT -->
+						<div class="col-md-4">
+							<div class="item item-2" style="background:url('${pageContext.request.contextPath}/upload/${resVO.photo }')">
+								<div class="item-overlay" style="background-color:rgba(0,0,0,0.6)"></div>
+								<div class="old-price"></div> 
+								<div class="item-content">
+									<div class="item-top-content">
+										<div class="item-top-content-inner" style="background-color:rgba(0,0,0,0.2)">
+											<div class="item-product">
+												<div class="item-top-title" style="text-decoration: line-through;">
+													<h5 >${resVO.houseName }</h5>
+													<p class="subdescription">${resVO.roomName }</p>
+												</div>
+											</div>
+											<div class="item-product-price" style="text-decoration: line-through;">
+												<span class="price-num green-text">${resVO.resStart }</span>
+												<p class="subdescription">${resVO.resEnd }</p>
+											</div>
+										</div>
+									</div>
+									<div class="item-add-content">
+										<div class="item-add-content-inner" style="text-decoration: line-through;">
+											<div class="section">
+												<p>${resVO.addr }</p>
+												<p>(tel)${resVO.tel }</p>
+												<p>예약인원 : ${resVO.personCnt }명 / 결제금액 : ${resVO.totalPrice }원</p>
+											</div>
+											<div class="section">
+												<div class="col-sm-12"><a href="${pageContext.request.contextPath }/detail/houseDetail.do?no=${resVO.houseNo}#detail" class="btn btn-primary custom-button yellow-btn">후기등록</a></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</c:if>
+				</c:forEach>
 				</div>
 				<!-- / END PRODUCTS LIST -->
 			</div>
@@ -204,7 +263,7 @@
 		<form role="form" action="${pageContext.request.contextPath}/board/qwrite.do" method="POST">
 			<div class="wow fadeInLeft animated" data-wow-offset="30" data-wow-duration="1.5s" data-wow-delay="0.15s">
 			<div class="col-lg-4 col-sm-4">
-				<select name="house_no" class="form-control input-box" id="name">
+				<select name="house_no" class="form-control input-box" id="comment">
 					<option value="99999">관리자</option>
 					<c:forEach items="${houseList}" var="houseVO">
 						<option value="${houseVO.no }">${houseVO.houseName }</option>

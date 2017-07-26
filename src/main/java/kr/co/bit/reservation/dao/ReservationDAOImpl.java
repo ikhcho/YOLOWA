@@ -19,5 +19,11 @@ public class ReservationDAOImpl implements ReservationDAO{
 	public void insertReservation(ReservationVO reservationVO) {
 		sqlSessionTemplate.insert("busi.insertReservation", reservationVO);
 	}
+
+	@Override
+	public void resDelete(int no) {
+		// TODO Auto-generated method stub
+		sqlSessionTemplate.delete("busi.resDelete", no);
+	}
 	
 }
