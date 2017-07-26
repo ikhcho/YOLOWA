@@ -44,10 +44,8 @@ $(function(){
 					);
 					
 					setTotalPrice();
-					$($(this)).parent().parent().after('<tr><td colspan="9"><input type="text" class="content col-sm-12" placeholder="문의사항을 남기세요."></td></tr>');
 				} else {
 					$('.price').eq(index).val(0);
-					$($(this)).parent().parent().next().remove();
 					setTotalPrice();
 				}
 			});

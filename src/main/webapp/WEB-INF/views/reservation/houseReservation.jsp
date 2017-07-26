@@ -79,7 +79,6 @@
 		var day = new Array();
 		var personCnt = new Array();
 		var totalPrice = new Array();
-		var contentList = new Array();
 
 		$('.selectRoom').each(function(index) {
 
@@ -89,7 +88,6 @@
 				day.push($('.day').eq(index).val());
 				personCnt.push($('.peopleNumber').eq(index).val());
 				totalPrice.push($('.price').eq(index).val());
-				contentList.push($('.content').eq(index).val());
 			}
 		});
 
@@ -98,13 +96,11 @@
 		var dayNum = document.getElementById('day');
 		var people = document.getElementById('personCnt');
 		var price = document.getElementById('price');
-		var content = document.getElementById('content');
 
 		room.setAttribute("value", roomNo);
 		dayNum.setAttribute("value", day);
 		people.setAttribute("value", personCnt);
 		price.setAttribute("value", totalPrice);
-		content.setAttribute("value", contentList);
 		if (roomNo.length == 0) {
 			alert("객실을 선택해 주세요.");
 		} else {
@@ -190,7 +186,6 @@
 									<input type="hidden" id="day" name="day">
 									<input type="hidden" id="personCnt" name="personCnt">
 									<input type="hidden" id="price" name="totalPrice">
-									<input type="hidden" id="content" name="content">
 								</div>
 							</table>
 							</form>

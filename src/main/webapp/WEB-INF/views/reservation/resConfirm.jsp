@@ -43,7 +43,6 @@
 						<th class="text-center">체크아웃 날짜</th>
 						<th class="text-center">인원</th>
 						<th class="text-center">요금</th>
-						<th class="text-center">문의사항</th>
 					</tr>
 					<c:forEach items="${ resList }" var="resVO" varStatus="index">
 						<tr>
@@ -52,7 +51,6 @@
 							<td>${resVO.resEnd}</td>
 							<td>${resVO.personCnt}</td>
 							<td>${resVO.totalPrice}</td>
-							<td>${resVO.content}</td>
 						</tr>
 					</c:forEach>
 				</table>

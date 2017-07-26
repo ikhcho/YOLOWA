@@ -61,7 +61,7 @@ public class ReservationController {
 
 	@RequestMapping(value = "/reservation.do", method = RequestMethod.POST)
 	public String insertReservation(@RequestParam int houseNo, @RequestParam int[] roomNo, @RequestParam int[] day, int userNo,
-			@RequestParam int[] personCnt, @RequestParam int[] totalPrice, @RequestParam Date resStart, String[] content, Model model) {
+			@RequestParam int[] personCnt, @RequestParam int[] totalPrice, @RequestParam Date resStart, Model model) {
 		//reservationService.insertReservation(reservationVO);
 		// TODO 2. insert 할 때 datatype을 무엇으로 할 지 정해야함
 		// return "redirect:/reservation/houseReservation.do";
@@ -90,9 +90,8 @@ public class ReservationController {
 			resVO.setResEnd(resEnd);
 			resVO.setPersonCnt(personCnt[i]);
 			resVO.setTotalPrice(totalPrice[i]);
-			resVO.setContent(content[i]);
-			
-			//reservationService.insertReservation(resVO);
+			resVO.setContent("예약완료");
+			reservationService.insertReservation(resVO);
 			resList.add(resVO);
 			for(int j=0; j<roomList.size(); j++){
 				if(roomList.get(j).getNo() == roomNo[i])

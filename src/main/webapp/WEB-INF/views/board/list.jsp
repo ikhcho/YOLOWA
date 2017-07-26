@@ -61,7 +61,7 @@
 								<tr>
 									<td>${loop.index+1 }</td>
 									<td>${board.userName}</td>
-									<td><a href="javascript:doAction('${board.no}')"> ${ board.content }
+									<td><a href="javascript:doAction('${board.no}')">
 									<c:set var = "content" value = "${ board.content }" />
 									<c:out value = "${fn:substring(content, 0, 30)}+..." />
 									</a></td>
