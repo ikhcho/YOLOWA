@@ -11,6 +11,7 @@ import kr.co.bit.admin.vo.CommentBlindVO;
 import kr.co.bit.admin.vo.HouseBlindVO;
 import kr.co.bit.board.vo.BoardVO;
 import kr.co.bit.busi.vo.HouseVO;
+import kr.co.bit.data.vo.CkReservationVO;
 import kr.co.bit.user.vo.UserVO;
 
 @Repository
@@ -22,6 +23,26 @@ public class AdminDAOImpl implements AdminDAO{
 	@Override
 	public List<String> countHouseByRegion() {
 		return template.selectList("admin.countHouseByRegion");
+	}	
+
+	@Override
+	public int countReservation() {
+		return template.selectOne("admin.countReservation");
+	}
+
+	@Override
+	public int calculateTotalProfit() {
+		return template.selectOne("admin.calculateTotalProfit");
+	}
+
+	@Override
+	public List<CkReservationVO> checkReservation() {
+		return template.selectList("admin.checkReservation");
+	}
+
+	@Override
+	public List<HouseVO> classifyByPrice() {
+		return template.selectList("admin.classifyByPrice");
 	}
 	
 	@Override

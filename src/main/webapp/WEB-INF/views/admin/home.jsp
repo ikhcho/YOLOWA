@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -10,6 +11,36 @@
     <link href="${pageContext.request.contextPath}/resources/bootstrap/vendors/easypiechart/jquery.easy-pie-chart.css" rel="stylesheet" media="screen">
     <link href="${pageContext.request.contextPath}/resources/bootstrap/assets/styles.css" rel="stylesheet" media="screen">
     <script src="${pageContext.request.contextPath}/resources/bootstrap/vendors/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    
+    <script src="${pageContext.request.contextPath}/resources/bootstrap/vendors/jquery-1.9.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/vendors/easypiechart/jquery.easy-pie-chart.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/assets/scripts.js"></script>
+	
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/vendors/datatables/js/jquery.dataTables.min.js"></script>
+	
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/assets/DT_bootstrap.js"></script>
+	
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/vendors/raphael-min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/bootstrap/vendors/morris/morris.js"></script>
+	
+	<script>
+        $(function() {
+            // Easy pie charts
+            $('.chart').easyPieChart({animate: 1000});
+            var jsonData = ['${ locationMap }'];
+            
+         // Morris Line Chart
+            Morris.Bar({
+            	  element: 'hero-graph',
+            	  data: jsonData,
+            	  xkey: 'x',
+            	  ykeys: ['y'],
+            	  labels: ['s']
+            	});
+            
+        });
+        </script>    
 </head>
 <body>
 	<div class="navbar navbar-fixed-top">
@@ -71,45 +102,16 @@
 						</div>
 					</div>
 				</div>
-				<div class="row-fluid">
+<!-- 지역별 수 -->	<div class="row-fluid">
 					<!-- block -->
 					<div class="block">
 						<div class="navbar navbar-inner block-header">
-							<div class="muted pull-left">Statistics</div>
-							<div class="pull-right">
-								<span class="badge badge-warning">View More</span>
-
-							</div>
+							<div class="muted pull-left">지역별 업체 수</div>
 						</div>
 						<div class="block-content collapse in">
-							<div class="span3">
-								<div class="chart" data-percent="73">73%</div>
-								<div class="chart-bottom-heading">
-									<span class="label label-info">Visitors</span>
-
-								</div>
-							</div>
-							<div class="span3">
-								<div class="chart" data-percent="53">53%</div>
-								<div class="chart-bottom-heading">
-									<span class="label label-info">Page Views</span>
-
-								</div>
-							</div>
-							<div class="span3">
-								<div class="chart" data-percent="83">83%</div>
-								<div class="chart-bottom-heading">
-									<span class="label label-info">Users</span>
-
-								</div>
-							</div>
-							<div class="span3">
-								<div class="chart" data-percent="13">13%</div>
-								<div class="chart-bottom-heading">
-									<span class="label label-info">Orders</span>
-
-								</div>
-							</div>
+							<div class="span12">
+                                <div id="hero-graph" style="height: 230px;"></div>
+                            </div>
 						</div>
 					</div>
 					<!-- /block -->
@@ -206,87 +208,47 @@
 						<!-- /block -->
 					</div>
 				</div>
-				<div class="row-fluid">
-					<div class="span6">
+<!-- 예약 현황 -->	<div class="row-fluid">
+					<div class="span12">
 						<!-- block -->
 						<div class="block">
 							<div class="navbar navbar-inner block-header">
-								<div class="muted pull-left">Clients</div>
+								<div class="muted pull-left">예약 현황</div>
 								<div class="pull-right">
-									<span class="badge badge-info">17</span>
-
+									<span class="badge badge-info">${ reservationState.size() }</span>
 								</div>
 							</div>
 							<div class="block-content collapse in">
 								<table class="table table-striped">
 									<thead>
-										<tr>
-											<th>#</th>
-											<th>First Name</th>
-											<th>Last Name</th>
-											<th>Username</th>
+										<tr>											
+											<th>번호</th>
+											<th>펜션</th>
+											<th>방이름</th>
+											<th>예약자</th>
+											<th>예약자연락처</th>
+											<th>입실일</th>
+											<th>퇴실일</th>
+											<th>인원</th>
+											<th>가격</th>
+											<th>예약일</th>
 										</tr>
 									</thead>
 									<tbody>
+										<c:forEach items="${ reservationState }" var="reservation">
 										<tr>
-											<td>1</td>
-											<td>Mark</td>
-											<td>Otto</td>
-											<td>@mdo</td>
+											<td>${ reservation.no }</td>
+											<td>${ reservation.houseName }</td>
+											<td>${ reservation.roomName }</td>
+											<td class="center">${ reservation.userName }</td>
+											<td class="center">${ reservation.userTel }</td>
+											<td>${ reservation.resStart }</td>
+											<td>${ reservation.resEnd }</td>
+											<td class="center">${ reservation.personCnt }</td>
+											<td>${ reservation.totalPrice }</td>
+											<td>${ reservation.regDate }</td>
 										</tr>
-										<tr>
-											<td>2</td>
-											<td>Jacob</td>
-											<td>Thornton</td>
-											<td>@fat</td>
-										</tr>
-										<tr>
-											<td>3</td>
-											<td>Vincent</td>
-											<td>Gabriel</td>
-											<td>@gabrielva</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-						<!-- /block -->
-					</div>
-					<div class="span6">
-						<!-- block -->
-						<div class="block">
-							<div class="navbar navbar-inner block-header">
-								<div class="muted pull-left">Invoices</div>
-								<div class="pull-right">
-									<span class="badge badge-info">812</span>
-
-								</div>
-							</div>
-							<div class="block-content collapse in">
-								<table class="table table-striped">
-									<thead>
-										<tr>
-											<th>#</th>
-											<th>Date</th>
-											<th>Amount</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>1</td>
-											<td>02/02/2013</td>
-											<td>$25.12</td>
-										</tr>
-										<tr>
-											<td>2</td>
-											<td>01/02/2013</td>
-											<td>$335.00</td>
-										</tr>
-										<tr>
-											<td>3</td>
-											<td>01/02/2013</td>
-											<td>$29.99</td>
-										</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>
@@ -401,6 +363,50 @@
 					</div>
 					<!-- /block -->
 				</div>
+				<div class="row-fluid">
+					<!-- block -->
+					<div class="block">
+						<div class="navbar navbar-inner block-header">
+							<div class="muted pull-left">Statistics</div>
+							<div class="pull-right">
+								<span class="badge badge-warning">View More</span>
+
+							</div>
+						</div>
+						<div class="block-content collapse in">
+							<div class="span3">
+								<div class="chart" data-percent="73">73%</div>
+								<div class="chart-bottom-heading">
+									<span class="label label-info">Visitors</span>
+
+								</div>
+							</div>
+							<div class="span3">
+								<div class="chart" data-percent="53">53%</div>
+								<div class="chart-bottom-heading">
+									<span class="label label-info">Page Views</span>
+
+								</div>
+							</div>
+							<div class="span3">
+								<div class="chart" data-percent="83">83%</div>
+								<div class="chart-bottom-heading">
+									<span class="label label-info">Users</span>
+
+								</div>
+							</div>
+							<div class="span3">
+								<div class="chart" data-percent="13">13%</div>
+								<div class="chart-bottom-heading">
+									<span class="label label-info">Orders</span>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /block -->
+				</div>
+				
 			</div>
 		</div>
 		<hr>
@@ -408,17 +414,6 @@
 			<p>&copy; Vincent Gabriel 2013</p>
 		</footer>
 	</div>
-	<!--/.fluid-container-->
-	<script src="${pageContext.request.contextPath}/resources/bootstrap/vendors/jquery-1.9.1.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/bootstrap/bootstrap/js/bootstrap.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/bootstrap/vendors/easypiechart/jquery.easy-pie-chart.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/bootstrap/assets/scripts.js"></script>
-	<script>
-        $(function() {
-            // Easy pie charts
-            $('.chart').easyPieChart({animate: 1000});
-        });
-        </script>
+	<!--/.fluid-container-->	
 </body>
-
 </html>

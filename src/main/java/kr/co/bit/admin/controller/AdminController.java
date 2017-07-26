@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import kr.co.bit.admin.service.AdminService;
 import kr.co.bit.admin.vo.ApproveVO;
 import kr.co.bit.admin.vo.CommentBlindVO;
@@ -23,12 +26,19 @@ public class AdminController {
 	private AdminService aService;
 	
 	@RequestMapping(value="/home.do", method=RequestMethod.GET)
-	public ModelAndView home() {
+	public ModelAndView home() throws JsonProcessingException {
 		ModelAndView mav = new ModelAndView("admin/home");
-		mav.addObject("locationMap", aService.countHouseByRegion());
-		//지역별 숙소 개수
-		mav.addObject("ReservationCount", aService.countReservation());
+		//지역별 숙소 개수		
+		mav.addObject("locationMap", new ObjectMapper().writeValueAsString(aService.countHouseByRegion()));
+		//총 수익
+		mav.addObject("totalProfit", aService.calculateTotalProfit());
 		//예약 건수
+		mav.addObject("reservationCount", aService.countReservation());
+		//예약 현황
+		mav.addObject("reservationState", aService.checkReservation());
+		//가격별 조회
+		mav.addObject("houseByPrice", aService.classifyByPrice());
+		
 		return mav;
 	}
 	

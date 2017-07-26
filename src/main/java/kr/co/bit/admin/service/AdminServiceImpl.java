@@ -13,6 +13,7 @@ import kr.co.bit.admin.vo.CommentBlindVO;
 import kr.co.bit.admin.vo.HouseBlindVO;
 import kr.co.bit.board.vo.BoardVO;
 import kr.co.bit.busi.vo.HouseVO;
+import kr.co.bit.data.vo.CkReservationVO;
 import kr.co.bit.user.vo.UserVO;
 
 @Service
@@ -30,7 +31,6 @@ public class AdminServiceImpl implements AdminService{
 		for(int i = 0; i < regionList.size(); i++)
 		{
 			String province = regionList.get(i).split(" ")[0];
-			System.out.println(province);
 			
 			if(regionCount.containsKey(province))
 			{
@@ -42,7 +42,30 @@ public class AdminServiceImpl implements AdminService{
 			}
 		}
 		
+		System.out.println(regionCount);
+		
 		return regionCount;
+	}	
+
+	@Override
+	public int countReservation() {
+		return adao.countReservation();
+	}	
+
+	@Override
+	public int calculateTotalProfit() {
+		return adao.calculateTotalProfit();
+	}
+
+	@Override
+	public List<CkReservationVO> checkReservation() {
+		return adao.checkReservation();
+	}
+
+	@Override
+	public Map<HouseVO, Integer> classifyByPrice() {
+		List<HouseVO> houseList = adao.classifyByPrice();
+		return null;
 	}
 	
 	@Override
