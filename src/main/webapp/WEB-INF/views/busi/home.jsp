@@ -277,17 +277,14 @@
             $('.chart').easyPieChart({animate: 1000});
             
          // Morris Line Chart
-            var tax_data = [
-            	{"period": "2017-07", "가평 용추사랑" : 3, "양평 풍경속 선물" : 1},
-                {"period": "2017-08", "양평 풍경속 선물" : 1, "가평 용추사랑" : 4}
-            ];
+            var tax_data = ${listMonth};
             Morris.Bar({
                 element: 'hero-graph',
                 data: tax_data,
-                xkey: 'period',
+                xkey: 'resStart',
                 xLabels: "month",
-                ykeys: ["양평 풍경속 선물", "가평 용추사랑"],
-                labels: ["양평 풍경속 선물", "가평 용추사랑"]
+                ykeys: ["count"],
+                labels: ["count"]
             });
             
         });

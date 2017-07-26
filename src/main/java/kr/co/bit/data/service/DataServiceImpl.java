@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.bit.data.dao.DataDAO;
 import kr.co.bit.data.vo.CkReservationVO;
+import kr.co.bit.data.vo.CountOfMonthVO;
 import kr.co.bit.data.vo.DataVO;
 import kr.co.bit.data.vo.ScoreVO;
 
@@ -44,6 +45,12 @@ public class DataServiceImpl implements DataService{
 	@Override
 	public List<ScoreVO> avgScoreOfHouse(int userNo) {
 		List<ScoreVO> list = dDao.avgScoreOfHouse(userNo);
+		return list;
+	}
+
+	@Override
+	public List<CountOfMonthVO> countOfMonth(int userNo) {
+		List<CountOfMonthVO> list = dDao.countOfMonth(userNo);
 		return list;
 	}
 

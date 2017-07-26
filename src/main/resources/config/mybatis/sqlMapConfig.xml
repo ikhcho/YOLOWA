@@ -24,6 +24,7 @@
 		<typeAlias alias="ckReservationVO" type="kr.co.bit.data.vo.CkReservationVO"/>
 		<typeAlias alias="scoreVO" type="kr.co.bit.data.vo.ScoreVO"/>
 		<typeAlias alias="myResVO" type="kr.co.bit.reservation.vo.MyResVO"/>
-		
+		<typeAlias alias="countOfMonthVO" type="kr.co.bit.data.vo.CountOfMonthVO"/>
+	
 	</typeAliases>
 </configuration>
