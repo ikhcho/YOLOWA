@@ -1,5 +1,7 @@
 package kr.co.bit.admin.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -30,6 +33,7 @@ public class AdminController {
 		ModelAndView mav = new ModelAndView("admin/home");
 		//지역별 숙소 개수		
 		mav.addObject("locationMap", new ObjectMapper().writeValueAsString(aService.countHouseByRegion()));
+		mav.addObject("locationMap", aService.countHouseByRegion());
 		//총 수익
 		mav.addObject("totalProfit", aService.calculateTotalProfit());
 		//예약 건수
@@ -40,6 +44,16 @@ public class AdminController {
 		mav.addObject("houseByPrice", aService.classifyByPrice());
 		
 		return mav;
+	}
+	
+	@RequestMapping(value="/locationMap.do", method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Integer> locationMap() {
+		//지역별 숙소 개수		
+		//mav.addObject("locationMap", new ObjectMapper().writeValueAsString(aService.countHouseByRegion()));
+		Map<String, Integer> map = aService.countHouseByRegion();
+		
+		return map;
 	}
 	
 	@RequestMapping(value="/home.do", method=RequestMethod.POST)

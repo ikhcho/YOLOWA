@@ -25,12 +25,13 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public Map<String, Integer> countHouseByRegion() {
 		List<String> regionList = adao.countHouseByRegion();
+		System.out.println(regionList);
 		
 		Map<String, Integer> regionCount = new HashMap<>();
 		
 		for(int i = 0; i < regionList.size(); i++)
 		{
-			String province = regionList.get(i).split(" ")[0];
+			String province = regionList.get(i).split(" ")[0].substring(0,2);
 			
 			if(regionCount.containsKey(province))
 			{
